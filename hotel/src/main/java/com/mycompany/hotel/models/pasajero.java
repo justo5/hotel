@@ -13,6 +13,8 @@ public class pasajero {
     private String nombre;
     private String apellido;
     private int DNI;
+    private int telefono;
+    private String email;
 
     public int getId() {
         return id;
@@ -61,7 +63,9 @@ public class pasajero {
     public String getEmail() {
         return email;
     }
-    private int telefono;
-    private String email;
-    
+   
+    @Override
+    public String toString() {
+        return "pasajero{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", DNI=" + DNI + ", telefono=" + telefono + ", email=" + email + '}';
+    }
 }

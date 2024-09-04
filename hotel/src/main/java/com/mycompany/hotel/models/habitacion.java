@@ -45,4 +45,9 @@ public class habitacion {
     public float getPrecioPorNoche() {
         return precioPorNoche;
     }
+    
+    @Override
+    public String toString() {
+        return "habitacion{" + "numero=" + numero + ", camasSimples=" + camasSimples + ", camasDobles=" + camasDobles + ", precioPorNoche=" + precioPorNoche + '}';
+    }
 }   

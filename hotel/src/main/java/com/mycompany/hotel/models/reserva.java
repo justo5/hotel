@@ -13,6 +13,7 @@ public class reserva {
     private String checkout; 
     private pasajero oPasajero;
     private habitacion oHabitacion;
+    private float seña;
 
     public String getChekin() {
         return chekin;
@@ -53,5 +54,10 @@ public class reserva {
     public float getSeña() {
         return seña;
     }
-    private float seña;
+
+    @Override
+    public String toString() {
+        return "reserva{" + "chekin=" + chekin + ", checkout=" + checkout + ", oPasajero=" + oPasajero + ", oHabitacion=" + oHabitacion + ", se\u00f1a=" + seña + '}';
+    }
+    
 }
