@@ -9,5 +9,40 @@ package com.mycompany.hotel.models;
  * @author justcode
  */
 public class habitacion {
-    
-}
+    private int numero;
+    private int camasSimples;
+    private int camasDobles;
+    private float precioPorNoche;
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public void setCamasSimples(int camasSimples) {
+        this.camasSimples = camasSimples;
+    }
+
+    public void setCamasDobles(int camasDobles) {
+        this.camasDobles = camasDobles;
+    }
+
+    public void setPrecioPorNoche(float precioPorNoche) {
+        this.precioPorNoche = precioPorNoche;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public int getCamasSimples() {
+        return camasSimples;
+    }
+
+    public int getCamasDobles() {
+        return camasDobles;
+    }
+
+    public float getPrecioPorNoche() {
+        return precioPorNoche;
+    }
+}   
