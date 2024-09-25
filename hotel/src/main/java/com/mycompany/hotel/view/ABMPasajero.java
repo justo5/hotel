@@ -42,11 +42,11 @@ public class ABMPasajero extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         PanelListadoPasajeros = new javax.swing.JPanel();
         lblTituloListadoDePasajeros = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaPasajeros = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaPasajeros = new javax.swing.JTable();
 
         FormListener formListener = new FormListener();
 
@@ -145,6 +145,13 @@ public class ABMPasajero extends javax.swing.JFrame {
 
         lblTituloListadoDePasajeros.setText("Listado de pasajeros");
 
+        btnNuevo.setText("Nuevo");
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(formListener);
+
+        btnBorrar.setText("Borrar");
+
         tablaPasajeros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -156,35 +163,27 @@ public class ABMPasajero extends javax.swing.JFrame {
                 "Nombre", "Apellido", "Dni", "Telefono", "Correo electronico"
             }
         ));
-        jScrollPane1.setViewportView(tablaPasajeros);
-
-        btnNuevo.setText("Nuevo");
-
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(formListener);
-
-        btnBorrar.setText("Borrar");
+        jScrollPane2.setViewportView(tablaPasajeros);
 
         javax.swing.GroupLayout PanelListadoPasajerosLayout = new javax.swing.GroupLayout(PanelListadoPasajeros);
         PanelListadoPasajeros.setLayout(PanelListadoPasajerosLayout);
         PanelListadoPasajerosLayout.setHorizontalGroup(
             PanelListadoPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelListadoPasajerosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTituloListadoDePasajeros, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(215, 215, 215))
+            .addGroup(PanelListadoPasajerosLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 192, Short.MAX_VALUE))
             .addGroup(PanelListadoPasajerosLayout.createSequentialGroup()
                 .addGroup(PanelListadoPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelListadoPasajerosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelListadoPasajerosLayout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addComponent(btnNuevo)
                         .addGap(80, 80, 80)
                         .addComponent(btnEditar)
                         .addGap(83, 83, 83)
-                        .addComponent(btnBorrar)))
+                        .addComponent(btnBorrar))
+                    .addGroup(PanelListadoPasajerosLayout.createSequentialGroup()
+                        .addGap(237, 237, 237)
+                        .addComponent(lblTituloListadoDePasajeros, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelListadoPasajerosLayout.setVerticalGroup(
@@ -193,8 +192,8 @@ public class ABMPasajero extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTituloListadoDePasajeros, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelListadoPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnEditar)
@@ -304,6 +303,7 @@ public class ABMPasajero extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblDni;
