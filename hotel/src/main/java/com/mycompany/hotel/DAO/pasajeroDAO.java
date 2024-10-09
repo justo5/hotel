@@ -192,7 +192,7 @@ public class pasajeroDAO implements DAO<pasajero> {
                     stat.close();
                     stat = null;
                 } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(pasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
                 }
             }
