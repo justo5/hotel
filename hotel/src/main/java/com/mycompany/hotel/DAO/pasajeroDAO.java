@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class pasajeroDAO implements DAO<Pasajero> {
+public class PasajeroDAO implements DAO<Pasajero> {
 
     @Override
     public void crear(Pasajero dato) throws SQLException {

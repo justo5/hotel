@@ -1,5 +1,6 @@
 package com.mycompany.hotel.DAO;
 
+import com.mycompany.hotel.interfaces.Icrud;
 import com.mycompany.hotel.models.Reserva;
 import com.mycompany.hotel.models.Pasajero;
 import com.mycompany.hotel.models.Habitacion;
@@ -13,7 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class reservaDAO implements DAO<Reserva> {
+public class ReservaDAO implements Icrud<Reserva> {
 
     @Override
     public void crear(Reserva dato) throws SQLException {
@@ -24,8 +25,8 @@ public class reservaDAO implements DAO<Reserva> {
 
             stat.setDate(1, Date.valueOf(dato.getChekin()));
             stat.setDate(2, Date.valueOf(dato.getCheckout()));
-            stat.setInt(3, dato.getoPasajero().getId());  // Usar el id del pasajero
-            stat.setInt(4, dato.getoHabitacion().getId()); // Usar el id de la habitación
+           // stat.setInt(3, dato.getoPasajero().getId());  // Usar el id del pasajero
+            //stat.setInt(4, dato.getoHabitacion().getId()); // Usar el id de la habitación
             stat.setFloat(5, dato.getSeña());
 
             if (stat.executeUpdate() == 0) {
@@ -34,7 +35,7 @@ public class reservaDAO implements DAO<Reserva> {
 
             try (ResultSet rs = stat.getGeneratedKeys()) {
                 if (rs.next()) {
-                    dato.setId(rs.getInt(1));
+                    //dato.setId(rs.getInt(1));
                 }
             }
         }
@@ -50,7 +51,7 @@ public class reservaDAO implements DAO<Reserva> {
             stat.setDate(1, Date.valueOf(dato.getChekin()));
             stat.setDate(2, Date.valueOf(dato.getCheckout()));
             stat.setInt(3, dato.getoPasajero().getId());  // Usar el id del pasajero
-            stat.setInt(4, dato.getoHabitacion().getId()); // Usar el id de la habitación
+           // stat.setInt(4, dato.getoHabitacion().getId()); // Usar el id de la habitación
             stat.setFloat(5, dato.getSeña());
             stat.setInt(6, id);
 
@@ -67,7 +68,7 @@ public class reservaDAO implements DAO<Reserva> {
         try (Connection cnn = Conexion.getConnection();
              PreparedStatement stat = cnn.prepareStatement(DELETE)) {
 
-            stat.setInt(1, dato.getId());
+           // stat.setInt(1, dato.getId());
 
             if (stat.executeUpdate() == 0) {
                 throw new SQLException("No se pudo borrar la reserva.");
@@ -92,11 +93,11 @@ public class reservaDAO implements DAO<Reserva> {
                     res.setCheckout(rs.getString("checkout"));
 
                     // Aquí recuperaríamos los objetos `pasajero` y `habitacion` usando sus respectivos DAOs
-                    pasajeroDAO pasajeroDao = pasajeroDAO.getInstance();
-                    habitacionDAO habitacionDao = habitacionDAO.getInstance();
+                    //PasajeroDAO pasajeroDao = PasajeroDAO.getInstance();
+                    //HabitacionDAO habitacionDao = HabitacionDAO.getInstance();
 
-                    res.setoPasajero(pasajeroDao.recuperarPorId(rs.getInt("idPasajero")));
-                    res.setoHabitacion(habitacionDao.recuperarPorId(rs.getInt("idHabitacion")));
+                    //res.setoPasajero(pasajeroDao.recuperarPorId(rs.getInt("idPasajero")));
+                    //res.setoHabitacion(habitacionDao.recuperarPorId(rs.getInt("idHabitacion")));
                     res.setSeña(rs.getFloat("senia"));
                 }
             }
@@ -120,11 +121,11 @@ public class reservaDAO implements DAO<Reserva> {
                 res.setCheckout(rs.getString("checkout"));
 
                 // Usar los DAOs de pasajero y habitacion para obtener los objetos correspondientes
-                pasajeroDAO pasajeroDao = pasajeroDAO.getInstance();
-                habitacionDAO habitacionDao = habitacionDAO.getInstance();
+               // PasajeroDAO pasajeroDao = PasajeroDAO.getInstance();
+                //HabitacionDAO habitacionDao = HabitacionDAO.getInstance();
 
-                res.setoPasajero(pasajeroDao.recuperarPorId(rs.getInt("idPasajero")));
-                res.setoHabitacion(habitacionDao.recuperarPorId(rs.getInt("idHabitacion")));
+                //res.setoPasajero(pasajeroDao.recuperarPorId(rs.getInt("idPasajero")));
+                //res.setoHabitacion(habitacionDao.recuperarPorId(rs.getInt("idHabitacion")));
                 res.setSeña(rs.getFloat("senia"));
 
                 reservas.add(res);
@@ -132,5 +133,10 @@ public class reservaDAO implements DAO<Reserva> {
         }
 
         return reservas;
+    }
+
+    @Override
+    public void borrar(int id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
