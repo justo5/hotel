@@ -1,4 +1,5 @@
 package com.mycompany.hotel.DAO;
+import com.mycompany.hotel.interfaces.Icrud;
 import com.mycompany.hotel.utils.Conexion;
 
 import com.mycompany.hotel.models.Pasajero;
@@ -10,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PasajeroDAO implements DAO<Pasajero> {
+public class PasajeroDAO implements Icrud<Pasajero> {
 
     @Override
     public void crear(Pasajero dato) throws SQLException {
@@ -121,5 +122,10 @@ public class PasajeroDAO implements DAO<Pasajero> {
         }
 
         return pasajeros;
+    }
+
+    @Override
+    public void borrar(int id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
