@@ -8,6 +8,6 @@ package com.mycompany.hotel.controlles;
  *
  * @author justcode
  */
-public class pasajeroController {
+public class PasajeroController {
     
 }

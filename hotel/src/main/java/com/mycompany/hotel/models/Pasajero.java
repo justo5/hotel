@@ -8,7 +8,7 @@ package com.mycompany.hotel.models;
  *
  * @author justcode
  */
-public class pasajero {
+public class Pasajero {
     private int id;
     private String nombre;
     private String apellido;

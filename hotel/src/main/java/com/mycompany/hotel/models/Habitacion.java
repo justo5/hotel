@@ -8,7 +8,7 @@ package com.mycompany.hotel.models;
  *
  * @author justcode
  */
-public class habitacion {
+public class Habitacion {
     private int numero;
     private int camasSimples;
     private int camasDobles;
