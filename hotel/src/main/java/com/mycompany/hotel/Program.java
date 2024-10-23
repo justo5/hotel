@@ -8,7 +8,7 @@ package com.mycompany.hotel;
  *
  * @author justcode
  */
-public class Hotel {
+public class Program {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");

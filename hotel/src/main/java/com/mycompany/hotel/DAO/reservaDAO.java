@@ -1,8 +1,9 @@
 package com.mycompany.hotel.DAO;
 
-import com.mycompany.hotel.models.reserva;
-import com.mycompany.hotel.models.pasajero;
-import com.mycompany.hotel.models.habitacion;
+import com.mycompany.hotel.models.Reserva;
+import com.mycompany.hotel.models.Pasajero;
+import com.mycompany.hotel.models.Habitacion;
+import com.mycompany.hotel.utils.Conexion;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -12,10 +13,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class reservaDAO implements DAO<reserva> {
+public class reservaDAO implements DAO<Reserva> {
 
     @Override
-    public void crear(reserva dato) throws SQLException {
+    public void crear(Reserva dato) throws SQLException {
         String INSERT = "INSERT INTO reservas(chekin, checkout, idPasajero, idHabitacion, senia) VALUES(?,?,?,?,?);";
 
         try (Connection cnn = Conexion.getConnection();
@@ -40,7 +41,7 @@ public class reservaDAO implements DAO<reserva> {
     }
 
     @Override
-    public void actualizar(reserva dato, int id) throws SQLException {
+    public void actualizar(Reserva dato, int id) throws SQLException {
         String UPDATE = "UPDATE reservas SET chekin = ?, checkout = ?, idPasajero = ?, idHabitacion = ?, senia = ? WHERE id = ?;";
 
         try (Connection cnn = Conexion.getConnection();
@@ -60,7 +61,7 @@ public class reservaDAO implements DAO<reserva> {
     }
 
     @Override
-    public void borrar(reserva dato) throws SQLException {
+    public void borrar(Reserva dato) throws SQLException {
         String DELETE = "DELETE FROM reservas WHERE id = ?;";
 
         try (Connection cnn = Conexion.getConnection();
@@ -75,9 +76,9 @@ public class reservaDAO implements DAO<reserva> {
     }
 
     @Override
-    public reserva recuperarPorId(int id) throws SQLException {
+    public Reserva recuperarPorId(int id) throws SQLException {
         String SELECTONE = "SELECT id, chekin, checkout, idPasajero, idHabitacion, senia FROM reservas WHERE id = ?;";
-        reserva res = null;
+        Reserva res = null;
 
         try (Connection cnn = Conexion.getConnection();
              PreparedStatement stat = cnn.prepareStatement(SELECTONE)) {
@@ -86,7 +87,7 @@ public class reservaDAO implements DAO<reserva> {
 
             try (ResultSet rs = stat.executeQuery()) {
                 if (rs.next()) {
-                    res = new reserva();
+                    res = new Reserva();
                     res.setChekin(rs.getString("chekin"));
                     res.setCheckout(rs.getString("checkout"));
 
@@ -105,16 +106,16 @@ public class reservaDAO implements DAO<reserva> {
     }
 
     @Override
-    public List<reserva> recuperarTodos() throws SQLException {
+    public List<Reserva> recuperarTodos() throws SQLException {
         String SELECTALL = "SELECT id, chekin, checkout, idPasajero, idHabitacion, senia FROM reservas;";
-        List<reserva> reservas = new ArrayList<>();
+        List<Reserva> reservas = new ArrayList<>();
 
         try (Connection cnn = Conexion.getConnection();
              Statement stat = cnn.createStatement();
              ResultSet rs = stat.executeQuery(SELECTALL)) {
 
             while (rs.next()) {
-                reserva res = new reserva();
+                Reserva res = new Reserva();
                 res.setChekin(rs.getString("chekin"));
                 res.setCheckout(rs.getString("checkout"));
 

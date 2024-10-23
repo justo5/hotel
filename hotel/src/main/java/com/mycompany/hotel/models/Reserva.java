@@ -8,11 +8,11 @@ package com.mycompany.hotel.models;
  *
  * @author justcode
  */
-public class reserva {
+public class Reserva {
     private String chekin;
     private String checkout; 
-    private pasajero oPasajero;
-    private habitacion oHabitacion;
+    private Pasajero oPasajero;
+    private Habitacion oHabitacion;
     private float seña;
 
     public String getChekin() {
@@ -27,11 +27,11 @@ public class reserva {
         this.checkout = checkout;
     }
 
-    public void setoPasajero(pasajero oPasajero) {
+    public void setoPasajero(Pasajero oPasajero) {
         this.oPasajero = oPasajero;
     }
 
-    public void setoHabitacion(habitacion oHabitacion) {
+    public void setoHabitacion(Habitacion oHabitacion) {
         this.oHabitacion = oHabitacion;
     }
 
@@ -43,11 +43,11 @@ public class reserva {
         return checkout;
     }
 
-    public pasajero getoPasajero() {
+    public Pasajero getoPasajero() {
         return oPasajero;
     }
 
-    public habitacion getoHabitacion() {
+    public Habitacion getoHabitacion() {
         return oHabitacion;
     }
 

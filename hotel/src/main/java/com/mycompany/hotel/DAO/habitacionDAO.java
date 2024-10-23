@@ -1,6 +1,6 @@
 package com.mycompany.hotel.DAO;
-
-import com.mycompany.hotel.models.habitacion;
+import com.mycompany.hotel.utils.Conexion;
+import com.mycompany.hotel.models.Habitacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,10 +9,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class habitacionDAO implements DAO<habitacion> {
+public class habitacionDAO implements DAO<Habitacion> {
 
     @Override
-    public void crear(habitacion dato) throws SQLException {
+    public void crear(Habitacion dato) throws SQLException {
         String INSERT = "INSERT INTO habitaciones(numero, camasSimples, camasDobles, precioPorNoche) VALUES(?,?,?,?);";
 
         try (Connection cnn = Conexion.getConnection();
@@ -36,7 +36,7 @@ public class habitacionDAO implements DAO<habitacion> {
     }
 
     @Override
-    public void actualizar(habitacion dato, int id) throws SQLException {
+    public void actualizar(Habitacion dato, int id) throws SQLException {
         String UPDATE = "UPDATE habitaciones SET camasSimples = ?, camasDobles = ?, precioPorNoche = ? WHERE numero = ?;";
 
         try (Connection cnn = Conexion.getConnection();
@@ -54,7 +54,7 @@ public class habitacionDAO implements DAO<habitacion> {
     }
 
     @Override
-    public void borrar(habitacion dato) throws SQLException {
+    public void borrar(Habitacion dato) throws SQLException {
         String DELETE = "DELETE FROM habitaciones WHERE numero = ?;";
 
         try (Connection cnn = Conexion.getConnection();
@@ -69,9 +69,9 @@ public class habitacionDAO implements DAO<habitacion> {
     }
 
     @Override
-    public habitacion recuperarPorId(int id) throws SQLException {
+    public Habitacion recuperarPorId(int id) throws SQLException {
         String SELECTONE = "SELECT numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones WHERE numero = ?;";
-        habitacion hab = null;
+        Habitacion hab = null;
 
         try (Connection cnn = Conexion.getConnection();
              PreparedStatement stat = cnn.prepareStatement(SELECTONE)) {
@@ -80,7 +80,7 @@ public class habitacionDAO implements DAO<habitacion> {
 
             try (ResultSet rs = stat.executeQuery()) {
                 if (rs.next()) {
-                    hab = new habitacion();
+                    hab = new Habitacion();
                     hab.setNumero(rs.getInt("numero"));
                     hab.setCamasSimples(rs.getInt("camasSimples"));
                     hab.setCamasDobles(rs.getInt("camasDobles"));
@@ -93,16 +93,16 @@ public class habitacionDAO implements DAO<habitacion> {
     }
 
     @Override
-    public List<habitacion> recuperarTodos() throws SQLException {
+    public List<Habitacion> recuperarTodos() throws SQLException {
         String SELECTALL = "SELECT numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones;";
-        List<habitacion> habitaciones = new ArrayList<>();
+        List<Habitacion> habitaciones = new ArrayList<>();
 
         try (Connection cnn = Conexion.getConnection();
              Statement stat = cnn.createStatement();
              ResultSet rs = stat.executeQuery(SELECTALL)) {
 
             while (rs.next()) {
-                habitacion hab = new habitacion();
+                Habitacion hab = new Habitacion();
                 hab.setNumero(rs.getInt("numero"));
                 hab.setCamasSimples(rs.getInt("camasSimples"));
                 hab.setCamasDobles(rs.getInt("camasDobles"));

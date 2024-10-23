@@ -1,6 +1,7 @@
 package com.mycompany.hotel.DAO;
+import com.mycompany.hotel.utils.Conexion;
 
-import com.mycompany.hotel.models.pasajero;
+import com.mycompany.hotel.models.Pasajero;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,10 +10,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class pasajeroDAO implements DAO<pasajero> {
+public class pasajeroDAO implements DAO<Pasajero> {
 
     @Override
-    public void crear(pasajero dato) throws SQLException {
+    public void crear(Pasajero dato) throws SQLException {
         String INSERT = "INSERT INTO pasajeros(nombre, apellido, dni, telefono, email) VALUES(?,?,?,?,?);";
 
         try (Connection cnn = Conexion.getConnection();
@@ -37,7 +38,7 @@ public class pasajeroDAO implements DAO<pasajero> {
     }
 
     @Override
-    public void actualizar(pasajero dato, int id) throws SQLException {
+    public void actualizar(Pasajero dato, int id) throws SQLException {
         String UPDATE = "UPDATE pasajeros SET nombre = ?, apellido = ?, dni = ?, telefono = ?, email = ? WHERE id = ?;";
 
         try (Connection cnn = Conexion.getConnection();
@@ -57,7 +58,7 @@ public class pasajeroDAO implements DAO<pasajero> {
     }
 
     @Override
-    public void borrar(pasajero dato) throws SQLException {
+    public void borrar(Pasajero dato) throws SQLException {
         String DELETE = "DELETE FROM pasajeros WHERE id = ?;";
 
         try (Connection cnn = Conexion.getConnection();
@@ -72,9 +73,9 @@ public class pasajeroDAO implements DAO<pasajero> {
     }
 
     @Override
-    public pasajero recuperarPorId(int id) throws SQLException {
+    public Pasajero recuperarPorId(int id) throws SQLException {
         String SELECTONE = "SELECT id, nombre, apellido, dni, telefono, email FROM pasajeros WHERE id = ?;";
-        pasajero pas = null;
+        Pasajero pas = null;
 
         try (Connection cnn = Conexion.getConnection();
              PreparedStatement stat = cnn.prepareStatement(SELECTONE)) {
@@ -83,7 +84,7 @@ public class pasajeroDAO implements DAO<pasajero> {
 
             try (ResultSet rs = stat.executeQuery()) {
                 if (rs.next()) {
-                    pas = new pasajero();
+                    pas = new Pasajero();
                     pas.setId(rs.getInt("id"));
                     pas.setNombre(rs.getString("nombre"));
                     pas.setApellido(rs.getString("apellido"));
@@ -98,16 +99,16 @@ public class pasajeroDAO implements DAO<pasajero> {
     }
 
     @Override
-    public List<pasajero> recuperarTodos() throws SQLException {
+    public List<Pasajero> recuperarTodos() throws SQLException {
         String SELECTALL = "SELECT id, nombre, apellido, dni, telefono, email FROM pasajeros;";
-        List<pasajero> pasajeros = new ArrayList<>();
+        List<Pasajero> pasajeros = new ArrayList<>();
 
         try (Connection cnn = Conexion.getConnection();
              Statement stat = cnn.createStatement();
              ResultSet rs = stat.executeQuery(SELECTALL)) {
 
             while (rs.next()) {
-                pasajero pas = new pasajero();
+                Pasajero pas = new Pasajero();
                 pas.setId(rs.getInt("id"));
                 pas.setNombre(rs.getString("nombre"));
                 pas.setApellido(rs.getString("apellido"));
