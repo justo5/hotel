@@ -4,34 +4,42 @@ package com.mycompany.hotel.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Conexion {
+    private Connection cnn;
+    private static Conexion instancia  = null;
+  
 
-    private static Connection connection = null;
-    private static final String URL = "jdbc:mysql://localhost:3306/hotel_db"; // Cambia el nombre de tu base de datos
-    private static final String USER = "root"; // Usuario de tu base de datos
-    private static final String PASSWORD = "password"; // Contraseña de tu base de datos
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver"; // Driver MySQL
+    private Conexion() throws ClassNotFoundException{
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "root", "root");
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-    private Conexion() {
     }
 
-    public static Connection getConnection() throws SQLException {
-        if (connection == null || connection.isClosed()) {
+    public static Conexion iniciarConnection()  {
+
+        if (instancia == null) {
             try {
-                Class.forName(DRIVER); // Cargar el driver de la base de datos
-                connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-                throw new SQLException("Error al conectar con la base de datos", e);
+                instancia = new Conexion();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return connection;
+        return instancia;
     }
 
-    public static void closeConnection() throws SQLException {
-        if (connection != null && !connection.isClosed()) {
-            connection.close();
-        }
+    public Connection getCo() {
+        return cnn;
     }
+
+    public void cerrarConexion() {
+        this.instancia = null;
+    }
+
 }

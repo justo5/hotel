@@ -4,17 +4,29 @@
  */
 package com.mycompany.hotel.view;
 
+import com.mycompany.hotel.controlles.PasajeroController;
+import com.mycompany.hotel.models.Pasajero;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author mi pc
  */
 public class ABMPasajero extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ABM
-     */
+    private PasajeroController pasajeroController;
+    private Pasajero pasajeroObj;
+    private List<Pasajero> pasajeros;
+
     public ABMPasajero() {
+        pasajeroController = new PasajeroController();
         initComponents();
+        this.refrescar();
     }
 
     /**
@@ -40,6 +52,7 @@ public class ABMPasajero extends javax.swing.JFrame {
         txtCorreoelectronico = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        lblId = new javax.swing.JLabel();
         PanelListadoPasajeros = new javax.swing.JPanel();
         lblTituloListadoDePasajeros = new javax.swing.JLabel();
         btnNuevo = new javax.swing.JButton();
@@ -81,42 +94,52 @@ public class ABMPasajero extends javax.swing.JFrame {
                 .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelRegistroClienteLayout.createSequentialGroup()
                         .addGap(102, 102, 102)
-                        .addComponent(lblTituloRegistroCliente))
+                        .addComponent(lblTituloRegistroCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblId))
                     .addGroup(PanelRegistroClienteLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
                         .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTelefono)
                             .addGroup(PanelRegistroClienteLayout.createSequentialGroup()
-                                .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnGuardar)
-                                    .addComponent(lblCorreo))
+                                .addGap(12, 12, 12)
                                 .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblTelefono)
                                     .addGroup(PanelRegistroClienteLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCorreoelectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(PanelRegistroClienteLayout.createSequentialGroup()
-                                        .addGap(53, 53, 53)
-                                        .addComponent(btnCancelar))))))
-                    .addGroup(PanelRegistroClienteLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDni)
-                            .addComponent(lblApellido)
-                            .addComponent(lblNombre))
-                        .addGap(42, 42, 42)
-                        .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(btnGuardar)
+                                            .addComponent(lblCorreo))
+                                        .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(PanelRegistroClienteLayout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtCorreoelectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(PanelRegistroClienteLayout.createSequentialGroup()
+                                                .addGap(53, 53, 53)
+                                                .addComponent(btnCancelar))))))
+                            .addGroup(PanelRegistroClienteLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblDni)
+                                    .addComponent(lblApellido)
+                                    .addComponent(lblNombre))
+                                .addGap(42, 42, 42)
+                                .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelRegistroClienteLayout.setVerticalGroup(
             PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelRegistroClienteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTituloRegistroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelRegistroClienteLayout.createSequentialGroup()
+                        .addComponent(lblTituloRegistroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistroClienteLayout.createSequentialGroup()
+                        .addComponent(lblId)
+                        .addGap(18, 18, 18)))
                 .addGroup(PanelRegistroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNombre))
@@ -151,6 +174,7 @@ public class ABMPasajero extends javax.swing.JFrame {
         btnEditar.addActionListener(formListener);
 
         btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(formListener);
 
         tablaPasajeros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -239,6 +263,9 @@ public class ABMPasajero extends javax.swing.JFrame {
             else if (evt.getSource() == btnEditar) {
                 ABMPasajero.this.btnEditarActionPerformed(evt);
             }
+            else if (evt.getSource() == btnBorrar) {
+                ABMPasajero.this.btnBorrarActionPerformed(evt);
+            }
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -251,12 +278,54 @@ public class ABMPasajero extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDniActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        int filanum = tablaPasajeros.getSelectedRow();
+        if (filanum < 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
+        } else {
+            try {
+                DefaultTableModel modelo = (DefaultTableModel) tablaPasajeros.getModel();
+                int id = (int) modelo.getValueAt(filanum, 0);
+                pasajeroObj = pasajeroController.recuperarPorId(id);
+                lblId.setText(String.valueOf(pasajeroObj.getId()));
+                txtNombre.setText(pasajeroObj.getNombre());
+                txtApellido.setText(pasajeroObj.getApellido());
+                txtDni.setText(String.valueOf(pasajeroObj.getDNI()));
+                txtTelefono.setText(String.valueOf(pasajeroObj.getTelefono()));
+                txtCorreoelectronico.setText(pasajeroObj.getEmail());
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ABMPasajero.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       
+        this.Agregar();
+        this.LimpiarCampos();
+        this.refrescar();
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        int fila = tablaPasajeros.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
+
+        } else {
+            DefaultTableModel model = (DefaultTableModel) tablaPasajeros.getModel();
+            int id = (int) model.getValueAt(fila, 0);
+            int opc = JOptionPane.showConfirmDialog(null, "Estas Seguro?");
+            if (opc == 0) {
+                try {
+                    pasajeroController.borrar(id);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(ABMPasajero.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                this.refrescar();
+            }
+        }
+    }//GEN-LAST:event_btnBorrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,11 +371,11 @@ public class ABMPasajero extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblDni;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblTituloListadoDePasajeros;
@@ -318,4 +387,69 @@ public class ABMPasajero extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    private void refrescar() {
+        try {
+            DefaultTableModel dtm = new DefaultTableModel();
+            dtm.addColumn("ID");
+            dtm.addColumn("Nombre");
+            dtm.addColumn("Apellido");
+            dtm.addColumn("DNI");
+            dtm.addColumn("Telefono");
+            dtm.addColumn("Correo");
+            pasajeros = pasajeroController.recuperarTodos();
+            Object[] fila = new Object[6];
+            for (int i = 0; i < pasajeros.size(); i++) {
+                pasajeroObj = pasajeros.get(i);
+                fila[0] = pasajeroObj.getId();
+                fila[1] = pasajeroObj.getNombre();
+                fila[2] = pasajeroObj.getApellido();
+                fila[3] = pasajeroObj.getDNI();
+                fila[4] = pasajeroObj.getTelefono();
+                fila[5] = pasajeroObj.getEmail();
+                dtm.addRow(fila);
+            }
+            tablaPasajeros.setModel(dtm);
+        } catch (SQLException ex) {
+            Logger.getLogger(ABMPasajero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void Agregar() {
+        try {
+            Integer id;
+            id = null;
+            if (lblId.getText() != null && lblId.getText() != "") {
+                id = Integer.parseInt(lblId.getText());
+            }
+            String nombre = txtNombre.getText();
+            String apellido = txtApellido.getText();
+            int dni = Integer.parseInt(txtDni.getText());
+            int telefono = Integer.parseInt(txtTelefono.getText());
+            String correo = txtCorreoelectronico.getText();
+        
+            if (id == null) {
+                try {
+                    pasajeroController.crear(nombre,apellido,dni,telefono,correo);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ABMPasajero.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JOptionPane.showMessageDialog(null, "El pasajero se guardo con exito");
+            } else {
+                pasajeroController.actualizar(id,nombre,apellido,dni,telefono,correo);
+                JOptionPane.showMessageDialog(null, "El pasajero se actualizo correctamente");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "El dni y telefono deben ser numericos");
+        }
+    }
+
+    public void LimpiarCampos() {
+        lblId.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtDni.setText("");
+        txtTelefono.setText("");
+        txtCorreoelectronico.setText("");
+    }
 }

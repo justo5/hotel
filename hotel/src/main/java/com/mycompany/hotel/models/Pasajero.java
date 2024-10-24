@@ -16,6 +16,23 @@ public class Pasajero {
     private int telefono;
     private String email;
 
+    public Pasajero(String nombre, String apellido, int DNI, int telefono, String email) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.DNI = DNI;
+        this.telefono = telefono;
+        this.email = email;
+    }
+
+    public Pasajero(int id, String nombre, String apellido, int DNI, int telefono, String email) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.DNI = DNI;
+        this.telefono = telefono;
+        this.email = email;
+    }
+
     public int getId() {
         return id;
     }
