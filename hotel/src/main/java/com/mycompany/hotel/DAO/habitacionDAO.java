@@ -10,8 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HabitacionDAO implements Icrud<Habitacion> {
-
+public abstract class HabitacionDAO implements Icrud<Habitacion> {
+/*
     @Override
     public void crear(Habitacion dato) throws SQLException {
         String INSERT = "INSERT INTO habitaciones(numero, camasSimples, camasDobles, precioPorNoche) VALUES(?,?,?,?);";
@@ -120,4 +120,5 @@ public class HabitacionDAO implements Icrud<Habitacion> {
     public void borrar(int id) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+*/
 }

@@ -14,11 +14,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservaDAO implements Icrud<Reserva> {
-
+public abstract class ReservaDAO implements Icrud<Reserva> {
+ /* 
     @Override
     public void crear(Reserva dato) throws SQLException {
-        String INSERT = "INSERT INTO reservas(chekin, checkout, idPasajero, idHabitacion, senia) VALUES(?,?,?,?,?);";
+      String INSERT = "INSERT INTO reservas(chekin, checkout, idPasajero, idHabitacion, senia) VALUES(?,?,?,?,?);";
 
         try (Connection cnn = Conexion.getConnection();
              PreparedStatement stat = cnn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
@@ -138,5 +138,5 @@ public class ReservaDAO implements Icrud<Reserva> {
     @Override
     public void borrar(int id) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    }*/
 }

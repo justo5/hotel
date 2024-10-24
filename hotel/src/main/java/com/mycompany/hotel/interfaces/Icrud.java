@@ -13,6 +13,7 @@ import java.util.List;
  */
 public interface Icrud<T> {
     public abstract void crear(T dato) throws SQLException;
+    
 
     public abstract void actualizar(T dato, int id)throws SQLException;
 
