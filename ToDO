@@ -2,4 +2,5 @@
   --> Pasajero: por nombre, por DNI.
   --> Habitacion: por numero(string), por capacidad, estado, por precio.
   --> Reserva:  por fecha, por capacidad(habitacion), por nombre(pasajero), por DNI(pasajero), estado(habitacion).
-
+ 
+ -Dividir en diferentes JPanel las view y conectarlas con la principal.
