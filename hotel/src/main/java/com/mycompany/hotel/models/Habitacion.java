@@ -9,12 +9,17 @@ package com.mycompany.hotel.models;
  * @author justcode
  */
 public class Habitacion {
-    private int numero;
+    private int id;
+    private String numero;
     private int camasSimples;
     private int camasDobles;
     private float precioPorNoche;
+     
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -29,8 +34,12 @@ public class Habitacion {
     public void setPrecioPorNoche(float precioPorNoche) {
         this.precioPorNoche = precioPorNoche;
     }
+    
+    public int getId(){
+     return id;
+    }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 

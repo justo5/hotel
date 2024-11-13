@@ -80,5 +80,14 @@ public class PasajeroController implements Icrud<Pasajero> {
     }
     
     
+    public Pasajero buscarPorNombre(String nombre) throws SQLException {
+       return pasajeroDAO.buscarPorNombre(nombre);
+    }
+    
+    public Pasajero buscarPorDni(int dni) throws SQLException {
+        return pasajeroDAO.buscarPorDni(dni);
+    }
+
+    
 }
 
