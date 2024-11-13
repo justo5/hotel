@@ -9,12 +9,25 @@ package com.mycompany.hotel.models;
  * @author justcode
  */
 public class Habitacion {
-    private int numero;
+    private int id;
+    private String numero;
     private int camasSimples;
     private int camasDobles;
     private float precioPorNoche;
 
-    public void setNumero(int numero) {
+    public Habitacion(String numero, int camasSimples, int camasDobles, float precioPorNoche) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Habitacion() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+     
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -29,8 +42,12 @@ public class Habitacion {
     public void setPrecioPorNoche(float precioPorNoche) {
         this.precioPorNoche = precioPorNoche;
     }
+    
+    public int getId(){
+     return id;
+    }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
