@@ -14,6 +14,14 @@ public class Habitacion {
     private int camasSimples;
     private int camasDobles;
     private float precioPorNoche;
+
+    public Habitacion(String numero, int camasSimples, int camasDobles, float precioPorNoche) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Habitacion() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
      
     public void setId(int id) {
         this.id = id;

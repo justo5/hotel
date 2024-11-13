@@ -28,7 +28,7 @@ public class HabitacionController implements Icrud<Habitacion> {
         
     }
     public void crear(String numero, int camasSimples, int camasDobles, float precioPorNoche)throws SQLException {
-        this.habitacion = new Habitacion(numero,camasSimples,camasDobles,precioPorNoche);
+        this.habitacion = new Habitacion();
         habitacionDAO.crear(habitacion);
     }
 
