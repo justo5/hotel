@@ -1,4 +1,3 @@
-
 package com.mycompany.hotel.utils;
 
 import java.sql.Connection;
@@ -11,19 +10,19 @@ public class Conexion {
     private Connection cnn;
     private static Conexion instancia  = null;
   
-
-    private Conexion() throws ClassNotFoundException{
+    private Conexion() throws ClassNotFoundException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel1", "root", "Root2024");
+
+            // Usamos la conexión que está en la rama main, ya que es la que usa el equipo
+            cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "root", "596469");
+
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
-    public static Conexion iniciarConnection()  {
-
+    public static Conexion iniciarConnection() {
         if (instancia == null) {
             try {
                 instancia = new Conexion();
@@ -41,5 +40,5 @@ public class Conexion {
     public void cerrarConexion() {
         this.instancia = null;
     }
-
 }
+
