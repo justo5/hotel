@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 public class PasajeroController implements Icrud<Pasajero> {
     private static final PasajeroDAO pasajeroDAO = PasajeroDAO.getInstancia();
     private Pasajero pasajero;
+    
     public PasajeroController(){
     }
     
