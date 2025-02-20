@@ -1,18 +1,14 @@
-<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/controller/ReservaController.java
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.hotel.controller;
-=======
-package com.mycompany.hotel.controlles;
->>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/controlles/ReservaController.java
 
-import com.mycompany.hotel.DAO.ReservaDAO;
-import com.mycompany.hotel.interfaces.Icrud;
-import com.mycompany.hotel.models.Reserva;
-import com.mycompany.hotel.models.Pasajero;
-import com.mycompany.hotel.models.Habitacion;
+import com.mycompany.hotel.interfaz.Icrud;
+import com.mycompany.hotel.model.Reserva;
+import com.mycompany.hotel.model.Pasajero;
+import com.mycompany.hotel.model.Habitacion;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,6 +16,36 @@ import java.util.logging.Logger;
 
 public class ReservaController implements Icrud<Reserva> {
 
+    @Override
+    public void crear(Reserva dato) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void actualizar(Reserva dato, int id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void borrar(Reserva dato) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void borrar(int id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Reserva recuperarPorId(int id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Reserva> recuperarTodos() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+/*
     private static final ReservaDAO reservaDAO = ReservaDAO.getInstancia();
     private Reserva reserva;
 
@@ -110,6 +136,6 @@ public class ReservaController implements Icrud<Reserva> {
    
     public List<Reserva> buscarPorFecha(String fecha) throws SQLException {
         return reservaDAO.buscarPorFecha(fecha);
-    }
+    }*/
 }
 
