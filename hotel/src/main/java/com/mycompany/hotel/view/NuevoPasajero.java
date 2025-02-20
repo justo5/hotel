@@ -4,17 +4,56 @@
  */
 package com.mycompany.hotel.view;
 
+import com.mycompany.hotel.controller.PasajeroController;
+import com.mycompany.hotel.dto.PasajeroDTO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mi pc
  */
 public class NuevoPasajero extends javax.swing.JPanel {
 
-    /**
-     * Creates new form NuevoPasajero
-     */
+    private PasajeroController pasajeroController;
+    private PasajeroDTO pasajeroDto;
+
     public NuevoPasajero() {
+        this.pasajeroController = new PasajeroController();
         initComponents();
+
+    }
+
+    public void Agregar() {
+       try {
+            String nombre = txtNombre.getText().trim();
+            String apellido = txtApellido.getText().trim();
+            int dni = Integer.parseInt(txtDni.getText().trim());
+            int telefono = Integer.parseInt(txtTelefono.getText().trim());
+            String correo = txtCorreo.getText().trim();
+
+            PasajeroDTO pasajeroDTO = new PasajeroDTO(nombre, apellido, dni, telefono, correo);
+            pasajeroController.crear(pasajeroDTO);
+
+            JOptionPane.showMessageDialog(this, "El pasajero se guardó con éxito");
+            LimpiarCampos();  // Limpiar después de guardar
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error: DNI y Teléfono deben ser números.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoPasajero.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al guardar el pasajero: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void LimpiarCampos() {
+
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtDni.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
     }
 
     /**
@@ -89,10 +128,12 @@ public class NuevoPasajero extends javax.swing.JPanel {
         BtnCancelar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         BtnCancelar.setText("Cancelar");
         BtnCancelar.setPreferredSize(new java.awt.Dimension(123, 43));
+        BtnCancelar.addActionListener(formListener);
         add(BtnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 455, 312, 52));
 
         BtnGuardar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         BtnGuardar.setText("Guardar");
+        BtnGuardar.addActionListener(formListener);
         add(BtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 455, 312, 52));
     }
 
@@ -110,6 +151,12 @@ public class NuevoPasajero extends javax.swing.JPanel {
             else if (evt.getSource() == txtDni) {
                 NuevoPasajero.this.txtDniActionPerformed(evt);
             }
+            else if (evt.getSource() == BtnGuardar) {
+                NuevoPasajero.this.BtnGuardarActionPerformed(evt);
+            }
+            else if (evt.getSource() == BtnCancelar) {
+                NuevoPasajero.this.BtnCancelarActionPerformed(evt);
+            }
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -124,6 +171,15 @@ public class NuevoPasajero extends javax.swing.JPanel {
     private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDniActionPerformed
+
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+        this.Agregar();
+        this.LimpiarCampos();
+    }//GEN-LAST:event_BtnGuardarActionPerformed
+
+    private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
+        
+    }//GEN-LAST:event_BtnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

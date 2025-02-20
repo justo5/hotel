@@ -27,7 +27,7 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanelPrincipal = new javax.swing.JPanel();
         LblTituloApp = new javax.swing.JLabel();
         jMenuPrincipal = new javax.swing.JMenuBar();
         jMenuOpReservas = new javax.swing.JMenu();
@@ -47,14 +47,14 @@ public class Principal extends javax.swing.JFrame {
         setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
-        jPanel1.setMinimumSize(new java.awt.Dimension(1200, 600));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 600));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelPrincipal.setBackground(new java.awt.Color(0, 102, 102));
+        jPanelPrincipal.setMinimumSize(new java.awt.Dimension(1200, 600));
+        jPanelPrincipal.setPreferredSize(new java.awt.Dimension(1200, 600));
+        jPanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         LblTituloApp.setFont(new java.awt.Font("MS UI Gothic", 0, 48)); // NOI18N
         LblTituloApp.setText("Gestion Hotelera");
-        jPanel1.add(LblTituloApp, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 247, -1, 78));
+        jPanelPrincipal.add(LblTituloApp, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 247, -1, 78));
 
         jMenuOpReservas.setText("Reserva");
 
@@ -98,11 +98,11 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+            .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
         );
 
         pack();
@@ -113,7 +113,16 @@ public class Principal extends javax.swing.JFrame {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == OpCargarHabitacion) {
+            if (evt.getSource() == OpListaReserva) {
+                Principal.this.OpListaReservaActionPerformed(evt);
+            }
+            else if (evt.getSource() == OpRealizarReserva) {
+                Principal.this.OpRealizarReservaActionPerformed(evt);
+            }
+            else if (evt.getSource() == OpListaHabitacion) {
+                Principal.this.OpListaHabitacionActionPerformed(evt);
+            }
+            else if (evt.getSource() == OpCargarHabitacion) {
                 Principal.this.OpCargarHabitacionActionPerformed(evt);
             }
             else if (evt.getSource() == OpListaPasajero) {
@@ -121,15 +130,6 @@ public class Principal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == OpCargarPasajero) {
                 Principal.this.OpCargarPasajeroActionPerformed(evt);
-            }
-            else if (evt.getSource() == OpListaHabitacion) {
-                Principal.this.OpListaHabitacionActionPerformed(evt);
-            }
-            else if (evt.getSource() == OpRealizarReserva) {
-                Principal.this.OpRealizarReservaActionPerformed(evt);
-            }
-            else if (evt.getSource() == OpListaReserva) {
-                Principal.this.OpListaReservaActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -213,7 +213,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuOpPasajero;
     private javax.swing.JMenu jMenuOpReservas;
     private javax.swing.JMenuBar jMenuPrincipal;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelPrincipal;
     // End of variables declaration//GEN-END:variables
    
 

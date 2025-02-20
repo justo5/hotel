@@ -1,3 +1,45 @@
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/ReservaDAO.java
+package com.mycompany.hotel.repository;
+
+import com.mycompany.hotel.interfaz.Icrud;
+import com.mycompany.hotel.model.Reserva;
+import com.mycompany.hotel.model.Pasajero;
+import com.mycompany.hotel.model.Habitacion;
+import com.mycompany.hotel.utils.Conexion;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class ReservaDAO implements Icrud<Reserva> {
+ /* 
+    @Override
+    public void crear(Reserva dato) throws SQLException {
+      String INSERT = "INSERT INTO reservas(chekin, checkout, idPasajero, idHabitacion, senia) VALUES(?,?,?,?,?);";
+
+        try (Connection cnn = Conexion.getConnection();
+             PreparedStatement stat = cnn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
+
+            stat.setDate(1, Date.valueOf(dato.getChekin()));
+            stat.setDate(2, Date.valueOf(dato.getCheckout()));
+           // stat.setInt(3, dato.getoPasajero().getId());  // Usar el id del pasajero
+            //stat.setInt(4, dato.getoHabitacion().getId()); // Usar el id de la habitación
+            stat.setFloat(5, dato.getSeña());
+
+            if (stat.executeUpdate() == 0) {
+                throw new SQLException("No se pudo crear la reserva.");
+            }
+
+            try (ResultSet rs = stat.getGeneratedKeys()) {
+                if (rs.next()) {
+                    //dato.setId(rs.getInt(1));
+                }
+            }
+=======
 package com.mycompany.hotel.DAO;
 
 import com.mycompany.hotel.interfaces.Icrud;
@@ -47,11 +89,29 @@ public class ReservaDAO implements Icrud<Reserva> {
             throw new SQLException("Error al crear la reserva", ex);
         } finally {
             cnn.cerrarConexion();
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/ReservaDAO.java
         }
     }
 
     @Override
     public void actualizar(Reserva dato, int id) throws SQLException {
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/ReservaDAO.java
+        String UPDATE = "UPDATE reservas SET chekin = ?, checkout = ?, idPasajero = ?, idHabitacion = ?, senia = ? WHERE id = ?;";
+
+        try (Connection cnn = Conexion.getConnection();
+             PreparedStatement stat = cnn.prepareStatement(UPDATE)) {
+
+            stat.setDate(1, Date.valueOf(dato.getChekin()));
+            stat.setDate(2, Date.valueOf(dato.getCheckout()));
+            stat.setInt(3, dato.getoPasajero().getId());  // Usar el id del pasajero
+           // stat.setInt(4, dato.getoHabitacion().getId()); // Usar el id de la habitación
+            stat.setFloat(5, dato.getSeña());
+            stat.setInt(6, id);
+
+            if (stat.executeUpdate() == 0) {
+                throw new SQLException("La actualización falló, no se afectó ningún registro.");
+            }
+=======
         PreparedStatement stat;
         String UPDATE = "UPDATE reservas SET chekin = ?, checkout = ?, pasajero_id = ?, habitacion_id = ?, senia = ? WHERE id = ?";
         try {
@@ -78,11 +138,24 @@ public class ReservaDAO implements Icrud<Reserva> {
             throw new SQLException("Error al actualizar la reserva", ex);
         } finally {
             cnn.cerrarConexion();
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/ReservaDAO.java
         }
     }
 
     @Override
     public void borrar(Reserva dato) throws SQLException {
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/ReservaDAO.java
+        String DELETE = "DELETE FROM reservas WHERE id = ?;";
+
+        try (Connection cnn = Conexion.getConnection();
+             PreparedStatement stat = cnn.prepareStatement(DELETE)) {
+
+           // stat.setInt(1, dato.getId());
+
+            if (stat.executeUpdate() == 0) {
+                throw new SQLException("No se pudo borrar la reserva.");
+            }
+=======
         PreparedStatement stat;
         String DELETE = "DELETE FROM reservas WHERE id = ?";
         try {
@@ -122,11 +195,40 @@ public class ReservaDAO implements Icrud<Reserva> {
             throw new SQLException("Error al borrar la reserva", ex);
         } finally {
             cnn.cerrarConexion();
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/ReservaDAO.java
         }
     }
 
     @Override
     public Reserva recuperarPorId(int id) throws SQLException {
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/ReservaDAO.java
+        String SELECTONE = "SELECT id, chekin, checkout, idPasajero, idHabitacion, senia FROM reservas WHERE id = ?;";
+        Reserva res = null;
+
+        try (Connection cnn = Conexion.getConnection();
+             PreparedStatement stat = cnn.prepareStatement(SELECTONE)) {
+
+            stat.setInt(1, id);
+
+            try (ResultSet rs = stat.executeQuery()) {
+                if (rs.next()) {
+                    res = new Reserva();
+                    res.setChekin(rs.getString("chekin"));
+                    res.setCheckout(rs.getString("checkout"));
+
+                    // Aquí recuperaríamos los objetos `pasajero` y `habitacion` usando sus respectivos DAOs
+                    //PasajeroDAO pasajeroDao = PasajeroDAO.getInstance();
+                    //HabitacionDAO habitacionDao = HabitacionDAO.getInstance();
+
+                    //res.setoPasajero(pasajeroDao.recuperarPorId(rs.getInt("idPasajero")));
+                    //res.setoHabitacion(habitacionDao.recuperarPorId(rs.getInt("idHabitacion")));
+                    res.setSeña(rs.getFloat("senia"));
+                }
+            }
+        }
+
+        return res;
+=======
         PreparedStatement stat;
         ResultSet rs;
         String SELECT = "SELECT * FROM reservas WHERE id = ?";
@@ -151,10 +253,44 @@ public class ReservaDAO implements Icrud<Reserva> {
             cnn.cerrarConexion();
         }
         return reserva;
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/ReservaDAO.java
     }
 
     @Override
     public List<Reserva> recuperarTodos() throws SQLException {
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/ReservaDAO.java
+        String SELECTALL = "SELECT id, chekin, checkout, idPasajero, idHabitacion, senia FROM reservas;";
+        List<Reserva> reservas = new ArrayList<>();
+
+        try (Connection cnn = Conexion.getConnection();
+             Statement stat = cnn.createStatement();
+             ResultSet rs = stat.executeQuery(SELECTALL)) {
+
+            while (rs.next()) {
+                Reserva res = new Reserva();
+                res.setChekin(rs.getString("chekin"));
+                res.setCheckout(rs.getString("checkout"));
+
+                // Usar los DAOs de pasajero y habitacion para obtener los objetos correspondientes
+               // PasajeroDAO pasajeroDao = PasajeroDAO.getInstance();
+                //HabitacionDAO habitacionDao = HabitacionDAO.getInstance();
+
+                //res.setoPasajero(pasajeroDao.recuperarPorId(rs.getInt("idPasajero")));
+                //res.setoHabitacion(habitacionDao.recuperarPorId(rs.getInt("idHabitacion")));
+                res.setSeña(rs.getFloat("senia"));
+
+                reservas.add(res);
+            }
+        }
+
+        return reservas;
+    }
+
+    @Override
+    public void borrar(int id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }*/
+=======
         Statement stat;
         ResultSet rs;
         List<Reserva> listaReservas = new ArrayList<>();
@@ -236,4 +372,5 @@ public class ReservaDAO implements Icrud<Reserva> {
         }
         return reservasPorFecha;
     }
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/ReservaDAO.java
 }

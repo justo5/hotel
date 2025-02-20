@@ -1,4 +1,12 @@
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/controller/ReservaController.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.hotel.controller;
+=======
 package com.mycompany.hotel.controlles;
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/controlles/ReservaController.java
 
 import com.mycompany.hotel.DAO.ReservaDAO;
 import com.mycompany.hotel.interfaces.Icrud;
