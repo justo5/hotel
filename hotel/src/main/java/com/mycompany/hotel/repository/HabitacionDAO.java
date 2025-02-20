@@ -1,7 +1,7 @@
-package com.mycompany.hotel.DAO;
-import com.mycompany.hotel.interfaces.Icrud;
+package com.mycompany.hotel.repository;
+import com.mycompany.hotel.interfaz.Icrud;
 import com.mycompany.hotel.utils.Conexion;
-import com.mycompany.hotel.models.Habitacion;
+import com.mycompany.hotel.model.Habitacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

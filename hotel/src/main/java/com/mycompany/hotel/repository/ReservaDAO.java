@@ -1,9 +1,9 @@
-package com.mycompany.hotel.DAO;
+package com.mycompany.hotel.repository;
 
-import com.mycompany.hotel.interfaces.Icrud;
-import com.mycompany.hotel.models.Reserva;
-import com.mycompany.hotel.models.Pasajero;
-import com.mycompany.hotel.models.Habitacion;
+import com.mycompany.hotel.interfaz.Icrud;
+import com.mycompany.hotel.model.Reserva;
+import com.mycompany.hotel.model.Pasajero;
+import com.mycompany.hotel.model.Habitacion;
 import com.mycompany.hotel.utils.Conexion;
 import java.sql.Connection;
 import java.sql.Date;

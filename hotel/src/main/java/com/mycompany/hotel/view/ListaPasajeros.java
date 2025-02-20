@@ -4,6 +4,14 @@
  */
 package com.mycompany.hotel.view;
 
+import com.mycompany.hotel.controller.PasajeroController;
+import com.mycompany.hotel.dto.PasajeroDTO;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author mi pc
@@ -13,10 +21,43 @@ public class ListaPasajeros extends javax.swing.JPanel {
     /**
      * Creates new form ListaPasajeros
      */
+    private PasajeroController pasajeroController;
+    private PasajeroDTO pasajeroDto;
+    
     public ListaPasajeros() {
+         this.pasajeroController = new PasajeroController();
         initComponents();
+        this.refrescar();
     }
 
+      public void refrescar() {
+        try {
+            DefaultTableModel dtm = new DefaultTableModel();
+            dtm.addColumn("ID");
+            dtm.addColumn("Nombre");
+            dtm.addColumn("Apellido");
+            dtm.addColumn("DNI");
+            dtm.addColumn("Telefono");
+            dtm.addColumn("Correo");
+
+            List<PasajeroDTO> pasajeros = pasajeroController.recuperarTodos();
+
+            for (PasajeroDTO p : pasajeros) {
+                dtm.addRow(new Object[]{
+                    p.getId(),
+                    p.getNombre(),
+                    p.getApellido(),
+                    p.getDNI(),
+                    p.getTelefono(),
+                    p.getEmail()
+                });
+            }
+
+            TablaPasajeros.setModel(dtm);
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaPasajeros.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
