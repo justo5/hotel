@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class HabitacionDTO {
     private int id;
-    private int numero;
+    private String numero;
     private int camasSimples;
     private int camasDobles;
     private BigDecimal precioPorNoche;
@@ -12,7 +12,7 @@ public class HabitacionDTO {
     public HabitacionDTO() {
     }
 
-    public HabitacionDTO(int id, int numero, int camasSimples, int camasDobles, BigDecimal precioPorNoche) {
+    public HabitacionDTO(int id, String numero, int camasSimples, int camasDobles, BigDecimal precioPorNoche) {
         this.id = id;
         this.numero = numero;
         this.camasSimples = camasSimples;
@@ -28,11 +28,11 @@ public class HabitacionDTO {
         this.id = id;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 

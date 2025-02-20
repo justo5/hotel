@@ -12,12 +12,12 @@ import java.util.Objects;
  */
 public class Habitacion {
     private int id;
-    private String numero;
+    private int numero;
     private int camasSimples;
     private int camasDobles;
     private float precioPorNoche;
 
-    public Habitacion(String numero, int camasSimples, int camasDobles, float precioPorNoche) {
+    public Habitacion(int numero, int camasSimples, int camasDobles, float precioPorNoche) {
      this.numero = numero;
      this.camasSimples = camasSimples;
      this.camasDobles = camasDobles;
@@ -36,7 +36,7 @@ public class Habitacion {
         this.id = id;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
@@ -56,7 +56,7 @@ public class Habitacion {
      return id;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
