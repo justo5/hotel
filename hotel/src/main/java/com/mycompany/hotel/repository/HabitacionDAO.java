@@ -1,8 +1,16 @@
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/HabitacionDAO.java
+package com.mycompany.hotel.repository;
+import com.mycompany.hotel.interfaz.Icrud;
+import com.mycompany.hotel.utils.Conexion;
+import com.mycompany.hotel.model.Habitacion;
+import java.sql.Connection;
+=======
 package com.mycompany.hotel.DAO;
 
 import com.mycompany.hotel.interfaces.Icrud;
 import com.mycompany.hotel.utils.Conexion;
 import com.mycompany.hotel.models.Habitacion;
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/HabitacionDAO.java
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class HabitacionDAO implements Icrud<Habitacion> {
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/HabitacionDAO.java
+/*
+    @Override
+    public void crear(Habitacion dato) throws SQLException {
+        String INSERT = "INSERT INTO habitaciones(numero, camasSimples, camasDobles, precioPorNoche) VALUES(?,?,?,?);";
+
+        try (Connection cnn = Conexion.getConnection();
+             PreparedStatement stat = cnn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
+
+            stat.setInt(1, dato.getNumero());
+=======
 
     private static HabitacionDAO instancia;
     public static List<Habitacion> habitacion = new ArrayList();
@@ -57,10 +76,55 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
 
             List<Habitacion> habitacion = new ArrayList();
             stat.setString(1, dato.getNumero());
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/HabitacionDAO.java
             stat.setInt(2, dato.getCamasSimples());
             stat.setInt(3, dato.getCamasDobles());
             stat.setFloat(4, dato.getPrecioPorNoche());
 
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/HabitacionDAO.java
+            if (stat.executeUpdate() == 0) {
+                throw new SQLException("No se pudo crear la habitación.");
+            }
+
+            try (ResultSet rs = stat.getGeneratedKeys()) {
+                if (rs.next()) {
+                    dato.setNumero(rs.getInt(1));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void actualizar(Habitacion dato, int id) throws SQLException {
+        String UPDATE = "UPDATE habitaciones SET camasSimples = ?, camasDobles = ?, precioPorNoche = ? WHERE numero = ?;";
+
+        try (Connection cnn = Conexion.getConnection();
+             PreparedStatement stat = cnn.prepareStatement(UPDATE)) {
+
+            stat.setInt(1, dato.getCamasSimples());
+            stat.setInt(2, dato.getCamasDobles());
+            stat.setFloat(3, dato.getPrecioPorNoche());
+            stat.setInt(4, id);
+
+            if (stat.executeUpdate() == 0) {
+                throw new SQLException("La actualización falló, no se afectó ningún registro.");
+            }
+        }
+    }
+
+    @Override
+    public void borrar(Habitacion dato) throws SQLException {
+        String DELETE = "DELETE FROM habitaciones WHERE numero = ?;";
+
+        try (Connection cnn = Conexion.getConnection();
+             PreparedStatement stat = cnn.prepareStatement(DELETE)) {
+
+            stat.setInt(1, dato.getNumero());
+
+            if (stat.executeUpdate() == 0) {
+                throw new SQLException("No se pudo borrar la habitación.");
+            }
+=======
             int rowsAffected = stat.executeUpdate(); //actualizacon de BD
 
             if (rowsAffected == 0) {
@@ -77,21 +141,39 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
             java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
             cnn.cerrarConexion();
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/HabitacionDAO.java
         }
     }
 
     @Override
     public Habitacion recuperarPorId(int id) throws SQLException {
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/HabitacionDAO.java
+        String SELECTONE = "SELECT numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones WHERE numero = ?;";
+        Habitacion hab = null;
+
+        try (Connection cnn = Conexion.getConnection();
+             PreparedStatement stat = cnn.prepareStatement(SELECTONE)) {
+
+=======
         String SELECTONE = "SELECT numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones WHERE id = ?;";
         Habitacion hab = null;
         Conexion cnn = Conexion.iniciarConnection();
 
         try (PreparedStatement stat = cnn.getCo().prepareStatement(SELECTONE)) {
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/HabitacionDAO.java
             stat.setInt(1, id);
 
             try (ResultSet rs = stat.executeQuery()) {
                 if (rs.next()) {
                     hab = new Habitacion();
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/HabitacionDAO.java
+                    hab.setNumero(rs.getInt("numero"));
+                    hab.setCamasSimples(rs.getInt("camasSimples"));
+                    hab.setCamasDobles(rs.getInt("camasDobles"));
+                    hab.setPrecioPorNoche(rs.getFloat("precioPorNoche"));
+                }
+            }
+=======
                     hab.setId(id);
                     hab.setNumero(rs.getString("numero"));  // Cambié de "Numero" a "numero" según la consulta
                     hab.setCamasSimples(rs.getInt("camasSimples")); // Cambié el nombre de la columna a "camasSimples"
@@ -104,6 +186,7 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
             throw ex;  // Lanzamos la excepción para manejo superior
         } finally {
             cnn.cerrarConexion();
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/HabitacionDAO.java
         }
 
         return hab;
@@ -111,6 +194,24 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
 
     @Override
     public List<Habitacion> recuperarTodos() throws SQLException {
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/HabitacionDAO.java
+        String SELECTALL = "SELECT numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones;";
+        List<Habitacion> habitaciones = new ArrayList<>();
+
+        try (Connection cnn = Conexion.getConnection();
+             Statement stat = cnn.createStatement();
+             ResultSet rs = stat.executeQuery(SELECTALL)) {
+
+            while (rs.next()) {
+                Habitacion hab = new Habitacion();
+                hab.setNumero(rs.getInt("numero"));
+                hab.setCamasSimples(rs.getInt("camasSimples"));
+                hab.setCamasDobles(rs.getInt("camasDobles"));
+                hab.setPrecioPorNoche(rs.getFloat("precioPorNoche"));
+
+                habitaciones.add(hab);
+            }
+=======
         String SELECTALL = "SELECT id, numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones;";
         List<Habitacion> habitaciones = new ArrayList<>();
         Conexion cnn = Conexion.iniciarConnection();
@@ -245,12 +346,19 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
             throw ex;  // Lanzamos la excepción para manejo superior
         } finally {
             cnn.cerrarConexion();
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/HabitacionDAO.java
         }
 
         return habitaciones;
     }
 
     @Override
+<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/repository/HabitacionDAO.java
+    public void borrar(int id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+*/
+=======
     public void actualizar(Habitacion dato, int id) throws SQLException {
         String UPDATE = "UPDATE habitaciones SET numero = ?, camasSimples = ?, camasDobles = ?, precioPorNoche = ? WHERE id = ?;";
 
@@ -298,4 +406,5 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
 
     }
 
+>>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/DAO/HabitacionDAO.java
 }
