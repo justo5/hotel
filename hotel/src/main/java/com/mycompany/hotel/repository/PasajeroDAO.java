@@ -74,11 +74,11 @@ public class PasajeroDAO implements Icrud<Pasajero> {
             if (stat.executeUpdate() == 0) {
                 throw new SQLException("Puede que no se haya actualizado");
             }
-           for (int i = 0; i < pasajeros.size(); i++) {
-                if(dato == pasajeros.get(i)){
-                   pasajeros.set(i, dato);
-                 }
-        }
+            for (int i = 0; i < pasajeros.size(); i++) {
+                if (dato == pasajeros.get(i)) {
+                    pasajeros.set(i, dato);
+                }
+            }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -179,5 +179,56 @@ public class PasajeroDAO implements Icrud<Pasajero> {
         }
         return pasajeros;
 
+    }
+
+    public Pasajero buscarPorNombre(String nombre) throws SQLException {
+        String SELECTBYNOMBRE = "SELECT id,Nombre,Apellido,Dni,Telefono,CorreoElectronico FROM pasajeros WHERE Nombre LIKE ?";
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        Pasajero pasajero = null;
+        if (cnn == null) {
+            throw new IllegalStateException("Database connection not initialized");
+        }
+
+        try {
+            stat = cnn.getCo().prepareStatement(SELECTBYNOMBRE);
+            stat.setString(1, "%" + nombre + "%");
+            rs = stat.executeQuery();
+
+            while (rs.next()) {
+                pasajero = new Pasajero(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } finally {
+            cnn.cerrarConexion();
+        }
+
+        return pasajero;
+    }
+
+    public Pasajero buscarPorDni(int dni) throws SQLException {
+        String SELECTBYDNI = "SELECT id, Nombre, Apellido, Dni, Telefono, CorreoElectronico FROM pasajeros WHERE Dni = ?";
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        Pasajero pasajero = null;
+        if (cnn == null) {
+            throw new IllegalStateException("Database connection not initialized");
+        }
+
+        try {
+            stat.setInt(1, dni);
+            rs = stat.executeQuery();
+
+            while (rs.next()) {
+                pasajero = new Pasajero(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } finally {
+            cnn.cerrarConexion();
+        }
+
+        return pasajero;
     }
 }
