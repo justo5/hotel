@@ -6,7 +6,7 @@ package com.mycompany.hotel.service;
 
 import com.mycompany.hotel.dto.PasajeroDTO;
 import com.mycompany.hotel.mapper.PasajeroMapper;
-import com.mycompany.hotel.model.Pasajero;
+import com.mycompany.hotel.models.Pasajero;
 import com.mycompany.hotel.repository.PasajeroDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;

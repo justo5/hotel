@@ -7,7 +7,7 @@ package com.mycompany.hotel.controller;
 import com.mycompany.hotel.dto.PasajeroDTO;
 import com.mycompany.hotel.repository.PasajeroDAO;
 import com.mycompany.hotel.interfaz.Icrud;
-import com.mycompany.hotel.model.Pasajero;
+import com.mycompany.hotel.models.Pasajero;
 import com.mycompany.hotel.service.PasajeroService;
 import java.sql.SQLException;
 import java.util.List;

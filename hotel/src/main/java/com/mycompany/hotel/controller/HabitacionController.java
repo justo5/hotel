@@ -6,13 +6,12 @@
 package com.mycompany.hotel.controller;
 
 import com.mycompany.hotel.interfaz.Icrud;
-import com.mycompany.hotel.interfaz.Icrud;
-import com.mycompany.hotel.model.Habitacion;
-import com.mycompany.hotel.model.Habitacion;
-import com.mycompany.hotel.model.Pasajero;
-import com.mycompany.hotel.repository.HabitacionDAO;
 import java.sql.SQLException;
 import java.util.List;
+import com.mycompany.hotel.dto.HabitacionDTO;
+import com.mycompany.hotel.mapper.HabitacionMapper;
+import com.mycompany.hotel.models.Habitacion;
+import com.mycompany.hotel.repository.HabitacionDAO;
 
 /**
  *
@@ -20,6 +19,20 @@ import java.util.List;
  */
 public class HabitacionController implements Icrud<Habitacion> {
 
+    private HabitacionDAO habitacionDAO;
+
+    // Método para obtener una habitación por su ID y devolverla como DTO
+    public HabitacionDTO obtenerHabitacion(int id) {
+        Habitacion habitacion = habitacionDAO.obtenerPorId(id);
+        return HabitacionMapper.toDTO(habitacion);
+    }
+
+    // Método para guardar una habitación a partir de un DTO
+    public void guardarHabitacion(HabitacionDTO dto) {
+        Habitacion habitacion = HabitacionMapper.toEntity(dto);
+        habitacionDAO.guardar(habitacion);
+    }
+    
     @Override
     public void crear(Habitacion dato) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

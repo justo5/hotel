@@ -6,9 +6,9 @@
 package com.mycompany.hotel.controller;
 
 import com.mycompany.hotel.interfaz.Icrud;
-import com.mycompany.hotel.model.Reserva;
-import com.mycompany.hotel.model.Pasajero;
-import com.mycompany.hotel.model.Habitacion;
+import com.mycompany.hotel.models.Reserva;
+import com.mycompany.hotel.models.Pasajero;
+import com.mycompany.hotel.models.Habitacion;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;

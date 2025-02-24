@@ -3,7 +3,7 @@ package com.mycompany.hotel.repository;
 import com.mycompany.hotel.interfaz.Icrud;
 import com.mycompany.hotel.utils.Conexion;
 
-import com.mycompany.hotel.model.Pasajero;
+import com.mycompany.hotel.models.Pasajero;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
