@@ -3,6 +3,7 @@ package com.mycompany.hotel.repository;
 import com.mycompany.hotel.interfaz.Icrud;
 import com.mycompany.hotel.models.Habitacion;
 import com.mycompany.hotel.utils.Conexion;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,72 +11,69 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HabitacionDAO implements Icrud<Habitacion> {
 
     private static HabitacionDAO instancia;
-    public static List<Habitacion> habitaciones = new ArrayList<>();
     private static Conexion cnn = Conexion.iniciarConnection();
 
     private HabitacionDAO() {
     }
 
     public static HabitacionDAO getInstancia() {
-        if (HabitacionDAO.instancia == null) {
-            HabitacionDAO.instancia = new HabitacionDAO();
+        if (instancia == null) {
+            instancia = new HabitacionDAO();
         }
-        return HabitacionDAO.instancia;
+        return instancia;
     }
 
     @Override
     public void crear(Habitacion dato) throws SQLException {
-        PreparedStatement stat;
+        PreparedStatement stat = null;
         ResultSet rs = null;
-        cnn = Conexion.iniciarConnection();
-        String INSERT = "INSERT INTO habitaciones(numero, camasSimples, camasDobles, precioPorNoche) VALUES(?, ?, ?, ?);";
+        String INSERT = "INSERT INTO habitaciones(numero, camas_simples, camas_dobles, precio_por_noche) VALUES(?, ?, ?, ?);";
         try {
             stat = cnn.getCo().prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             stat.setInt(1, dato.getNumero());
             stat.setInt(2, dato.getCamasSimples());
             stat.setInt(3, dato.getCamasDobles());
-            stat.setFloat(4, dato.getPrecioPorNoche());
+            stat.setBigDecimal(4, dato.getPrecioPorNoche());
             stat.executeUpdate();
             rs = stat.getGeneratedKeys();
             if (rs.next()) {
-                dato.setId(rs.getInt(1));
-                habitaciones.add(dato);
+                dato.setId(rs.getInt(1)); // Asigna el ID generado automáticamente
             }
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(HabitacionDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(HabitacionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex; // Propaga la excepción para que el servicio la maneje
         } finally {
-            cnn.cerrarConexion();
+            if (rs != null) rs.close();
+            if (stat != null) stat.close();
         }
     }
 
     @Override
     public void actualizar(Habitacion dato, int id) throws SQLException {
-        PreparedStatement stat;
-        final String UPDATE = "UPDATE habitaciones SET numero = ?, camasSimples = ?, camasDobles = ?, precioPorNoche = ? WHERE id = ?;";
+        PreparedStatement stat = null;
+        final String UPDATE = "UPDATE habitaciones SET numero = ?, camas_simples = ?, camas_dobles = ?, precio_por_noche = ? WHERE id = ?;";
         try {
             stat = cnn.getCo().prepareStatement(UPDATE);
             stat.setInt(1, dato.getNumero());
             stat.setInt(2, dato.getCamasSimples());
             stat.setInt(3, dato.getCamasDobles());
-            stat.setFloat(4, dato.getPrecioPorNoche());
+            stat.setBigDecimal(4, dato.getPrecioPorNoche());
             stat.setInt(5, id);
 
             if (stat.executeUpdate() == 0) {
                 throw new SQLException("Puede que no se haya actualizado");
             }
-            for (int i = 0; i < habitaciones.size(); i++) {
-                if (dato.getId() == habitaciones.get(i).getId()) {
-                    habitaciones.set(i, dato);
-                }
-            }
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(HabitacionDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(HabitacionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex; // Propaga la excepción para que el servicio la maneje
         } finally {
-            cnn.cerrarConexion();
+            if (stat != null) stat.close();
         }
     }
 
@@ -89,11 +87,11 @@ public class HabitacionDAO implements Icrud<Habitacion> {
             if (stat.executeUpdate() == 0) {
                 throw new SQLException("Puede que no se haya borrado");
             }
-            habitaciones.remove(dato);
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(HabitacionDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(HabitacionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex; // Propaga la excepción para que el servicio la maneje
         } finally {
-            cnn.cerrarConexion();
+            if (stat != null) stat.close();
         }
     }
 
@@ -108,18 +106,18 @@ public class HabitacionDAO implements Icrud<Habitacion> {
                 throw new SQLException("Puede que no se haya borrado");
             }
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(HabitacionDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(HabitacionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex; // Propaga la excepción para que el servicio la maneje
         } finally {
-            cnn.cerrarConexion();
+            if (stat != null) stat.close();
         }
     }
 
     @Override
     public Habitacion recuperarPorId(int id) throws SQLException {
-        cnn = Conexion.iniciarConnection();
-        String SELECTONE = "SELECT id, numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones WHERE id = ?;";
-        PreparedStatement stat;
-        ResultSet rs;
+        String SELECTONE = "SELECT id, numero, camas_simples, camas_dobles, precio_por_noche FROM habitaciones WHERE id = ?;";
+        PreparedStatement stat = null;
+        ResultSet rs = null;
         Habitacion habitacion = null;
         try {
             stat = cnn.getCo().prepareStatement(SELECTONE);
@@ -129,22 +127,24 @@ public class HabitacionDAO implements Icrud<Habitacion> {
                 habitacion = new Habitacion(
                     rs.getInt("id"),
                     rs.getInt("numero"),
-                    rs.getInt("camasSimples"),
-                    rs.getInt("camasDobles"),
-                    rs.getFloat("precioPorNoche")
+                    rs.getInt("camas_simples"),
+                    rs.getInt("camas_dobles"),
+                    rs.getBigDecimal("precio_por_noche")
                 );
             }
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(HabitacionDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(HabitacionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex; // Propaga la excepción para que el servicio la maneje
         } finally {
-            cnn.cerrarConexion();
+            if (rs != null) rs.close();
+            if (stat != null) stat.close();
         }
         return habitacion;
     }
 
     @Override
     public List<Habitacion> recuperarTodos() throws SQLException {
-        String SELECTALL = "SELECT id, numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones;";
+        String SELECTALL = "SELECT id, numero, camas_simples, camas_dobles, precio_por_noche FROM habitaciones;";
         Statement stat = null;
         ResultSet rs = null;
         List<Habitacion> habitaciones = new ArrayList<>();
@@ -155,15 +155,17 @@ public class HabitacionDAO implements Icrud<Habitacion> {
                 habitaciones.add(new Habitacion(
                     rs.getInt("id"),
                     rs.getInt("numero"),
-                    rs.getInt("camasSimples"),
-                    rs.getInt("camasDobles"),
-                    rs.getFloat("precioPorNoche")
+                    rs.getInt("camas_simples"),
+                    rs.getInt("camas_dobles"),
+                    rs.getBigDecimal("precio_por_noche")
                 ));
             }
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(HabitacionDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(HabitacionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex; // Propaga la excepción para que el servicio la maneje
         } finally {
-            cnn.cerrarConexion();
+            if (rs != null) rs.close();
+            if (stat != null) stat.close();
         }
         return habitaciones;
     }

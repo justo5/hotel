@@ -1,7 +1,7 @@
 package com.mycompany.hotel.models;
 
 import java.util.Objects;
-
+import java.math.BigDecimal;
 /**
  *
  * @author justcode
@@ -11,45 +11,55 @@ public class Habitacion {
     private int numero;
     private int camasSimples;
     private int camasDobles;
-    private float precioPorNoche;
+    private BigDecimal precioPorNoche;
 
-    public Habitacion(int numero, int camasSimples, int camasDobles, float precioPorNoche) {
-     this.numero = numero;
-     this.camasSimples = camasSimples;
-     this.camasDobles = camasDobles;
-     this.precioPorNoche = precioPorNoche;
+    public Habitacion(int numero, int camasSimples, int camasDobles, int aInt3, BigDecimal precioPorNoche) {
+        this.numero = numero;
+        this.camasSimples = camasSimples;
+        this.camasDobles = camasDobles;
+        this.precioPorNoche = precioPorNoche;
     }
 
     public Habitacion() {
-      
+        // Constructor vacío
     }
 
-    public Habitacion(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-     
+    // Setters con validación
     public void setId(int id) {
         this.id = id;
     }
 
     public void setNumero(int numero) {
+        if (numero < 0) {
+            throw new IllegalArgumentException("El número de habitación no puede ser negativo.");
+        }
         this.numero = numero;
     }
 
     public void setCamasSimples(int camasSimples) {
+        if (camasSimples < 0) {
+            throw new IllegalArgumentException("El número de camas simples no puede ser negativo.");
+        }
         this.camasSimples = camasSimples;
     }
 
     public void setCamasDobles(int camasDobles) {
+        if (camasDobles < 0) {
+            throw new IllegalArgumentException("El número de camas dobles no puede ser negativo.");
+        }
         this.camasDobles = camasDobles;
     }
 
-    public void setPrecioPorNoche(float precioPorNoche) {
+    public void setPrecioPorNoche(BigDecimal precioPorNoche) {
+        if (precioPorNoche.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("El precio por noche no puede ser negativo.");
+        }
         this.precioPorNoche = precioPorNoche;
     }
-    
-    public int getId(){
-     return id;
+
+    // Getters
+    public int getId() {
+        return id;
     }
 
     public int getNumero() {
@@ -64,51 +74,37 @@ public class Habitacion {
         return camasDobles;
     }
 
-    public float getPrecioPorNoche() {
+    public BigDecimal getPrecioPorNoche() {
         return precioPorNoche;
     }
 
+    // hashCode y equals corregidos
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + this.id;
-        hash = 89 * hash + Objects.hashCode(this.numero);
-        hash = 89 * hash + this.camasSimples;
-        hash = 89 * hash + this.camasDobles;
-        hash = 89 * hash + Float.floatToIntBits(this.precioPorNoche);
-        return hash;
+        return Objects.hash(id, numero, camasSimples, camasDobles, precioPorNoche);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Habitacion other = (Habitacion) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (this.camasSimples != other.camasSimples) {
-            return false;
-        }
-        if (this.camasDobles != other.camasDobles) {
-            return false;
-        }
-        if (Float.floatToIntBits(this.precioPorNoche) != Float.floatToIntBits(other.precioPorNoche)) {
-            return false;
-        }
-        return Objects.equals(this.numero, other.numero);
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Habitacion that = (Habitacion) obj;
+        return id == that.id &&
+               numero == that.numero &&
+               camasSimples == that.camasSimples &&
+               camasDobles == that.camasDobles &&
+               precioPorNoche.compareTo(that.precioPorNoche) == 0;
     }
-    
-    
+
+    // toString mejorado
     @Override
     public String toString() {
-        return "habitacion{" + "numero=" + numero + ", camasSimples=" + camasSimples + ", camasDobles=" + camasDobles + ", precioPorNoche=" + precioPorNoche + '}';
+        return "Habitacion{" +
+               "id=" + id +
+               ", numero=" + numero +
+               ", camasSimples=" + camasSimples +
+               ", camasDobles=" + camasDobles +
+               ", precioPorNoche=" + precioPorNoche +
+               '}';
     }
-}   
+}

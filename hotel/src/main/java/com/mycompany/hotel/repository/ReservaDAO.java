@@ -1,4 +1,4 @@
-
+/*
 package com.mycompany.hotel.repository;
 
 import com.mycompany.hotel.interfaz.Icrud;
@@ -401,5 +401,5 @@ public class ReservaDAO implements Icrud<Reserva> {
         }
         return reservasPorFecha;
     }
-*/
 }
+*/

@@ -1,17 +1,14 @@
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.hotel.controller;
 
 import com.mycompany.hotel.interfaz.Icrud;
-import java.sql.SQLException;
-import java.util.List;
 import com.mycompany.hotel.dto.HabitacionDTO;
 import com.mycompany.hotel.mapper.HabitacionMapper;
 import com.mycompany.hotel.models.Habitacion;
-import com.mycompany.hotel.repository.HabitacionDAO;
+import com.mycompany.hotel.service.HabitacionService;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,96 +16,106 @@ import com.mycompany.hotel.repository.HabitacionDAO;
  */
 public class HabitacionController implements Icrud<Habitacion> {
 
-    private HabitacionDAO habitacionDAO;
+    private HabitacionService habitacionService;
+
+    public HabitacionController() {
+        this.habitacionService = new HabitacionService(); // Inicializa el servicio
+    }
 
     // Método para obtener una habitación por su ID y devolverla como DTO
     public HabitacionDTO obtenerHabitacion(int id) {
-        Habitacion habitacion = habitacionDAO.obtenerPorId(id);
-        return HabitacionMapper.toDTO(habitacion);
+        try {
+            return habitacionService.recuperarPorId(id); // Usa el servicio para recuperar la habitación
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener la habitación: " + ex);
+            return null;
+        }
     }
 
     // Método para guardar una habitación a partir de un DTO
     public void guardarHabitacion(HabitacionDTO dto) {
-        Habitacion habitacion = HabitacionMapper.toEntity(dto);
-        habitacionDAO.guardar(habitacion);
-    }
-    
-    @Override
-    public void crear(Habitacion dato) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void actualizar(Habitacion dato, int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void borrar(Habitacion dato) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void borrar(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Habitacion recuperarPorId(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<Habitacion> recuperarTodos() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-   /* private static HabitacionDAO habitacionDAO = HabitacionDAO.getInstancia();
-    private Habitacion habitacion;
-  
-
-     @Override
-      public void crear(Habitacion dato) {
-        try{
-            habitacionDAO.crear(dato);
-            
-        }catch(Exception ex){
-            System.out.println("No pudo ser creada" + ex);
+        try {
+            habitacionService.crearHabitacion(dto); // Usa el servicio para crear la habitación
+        } catch (SQLException ex) {
+            System.out.println("Error al guardar la habitación: " + ex);
         }
-        
     }
-    public void crear(String numero, int camasSimples, int camasDobles, float precioPorNoche)throws SQLException {
-        this.habitacion = new Habitacion();
-        habitacionDAO.crear(habitacion);
+
+    @Override
+    public void crear(Habitacion dato) {
+        try {
+            HabitacionDTO dto = HabitacionMapper.toDTO(dato); // Convierte la entidad a DTO
+            habitacionService.crearHabitacion(dto); // Usa el servicio para crear la habitación
+        } catch (SQLException ex) {
+            System.out.println("No pudo ser creada: " + ex);
+        }
+    }
+
+    // Método para crear una habitación con parámetros específicos
+    public void crear(int numero, int camasSimples, int camasDobles, BigDecimal precioPorNoche) throws SQLException {
+        HabitacionDTO dto = new HabitacionDTO();
+        dto.setNumero(numero); // Convierte el número de String a int
+        dto.setCamasSimples(camasSimples);
+        dto.setCamasDobles(camasDobles);
+        dto.setPrecioPorNoche(precioPorNoche);
+        habitacionService.crearHabitacion(dto); // Usa el servicio para crear la habitación
     }
 
     @Override
     public void actualizar(Habitacion dato, int id) throws SQLException {
-     try {
-            habitacionDAO.actualizar(dato, id);
-           } catch (Exception ex) {
+        try {
+            HabitacionDTO dto = HabitacionMapper.toDTO(dato); // Convierte la entidad a DTO
+            habitacionService.actualizarHabitacion(dto, id); // Usa el servicio para actualizar la habitación
+        } catch (SQLException ex) {
             System.out.println("Error al actualizar la habitación: " + ex);
         }
     }
 
     @Override
     public void borrar(Habitacion dato) throws SQLException {
-            habitacionDAO.borrar(dato);
+        try {
+            HabitacionDTO dto = HabitacionMapper.toDTO(dato); // Convierte la entidad a DTO
+            habitacionService.borrarHabitacion(dto); // Usa el servicio para borrar la habitación
+        } catch (SQLException ex) {
+            System.out.println("Error al borrar la habitación: " + ex);
+        }
     }
 
     @Override
     public void borrar(int id) throws SQLException {
-    habitacionDAO.borrar(id);
+        try {
+            habitacionService.borrarPorId(id); // Usa el servicio para borrar la habitación por ID
+        } catch (SQLException ex) {
+            System.out.println("Error al borrar la habitación: " + ex);
+        }
     }
 
     @Override
     public Habitacion recuperarPorId(int id) throws SQLException {
-     return  habitacionDAO.recuperarPorId(id);
+        try {
+            HabitacionDTO dto = habitacionService.recuperarPorId(id); // Usa el servicio para recuperar la habitación
+            return HabitacionMapper.toEntity(dto); // Convierte el DTO a entidad
+        } catch (SQLException ex) {
+            System.out.println("Error al recuperar la habitación: " + ex);
+            return null;
+        }
     }
 
     @Override
     public List<Habitacion> recuperarTodos() throws SQLException {
-    return this.habitacionDAO.recuperarTodos();
-    }*/
- 
+        try {
+            List<HabitacionDTO> dtos = habitacionService.recuperarTodos(); // Usa el servicio para recuperar todas las habitaciones
+            List<Habitacion> habitaciones = new ArrayList<>();
+
+            // Convierte cada DTO a entidad
+            for (HabitacionDTO dto : dtos) {
+                habitaciones.add(HabitacionMapper.toEntity(dto));
+            }
+
+            return habitaciones;
+        } catch (SQLException ex) {
+            System.out.println("Error al recuperar todas las habitaciones: " + ex);
+            return null;
+        }
+    }
 }
