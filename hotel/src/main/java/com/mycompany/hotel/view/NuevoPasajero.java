@@ -6,10 +6,12 @@ package com.mycompany.hotel.view;
 
 import com.mycompany.hotel.controller.PasajeroController;
 import com.mycompany.hotel.dto.PasajeroDTO;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -17,8 +19,26 @@ import javax.swing.JOptionPane;
  */
 public class NuevoPasajero extends javax.swing.JPanel {
 
+    public NuevoPasajero(JTextField txtApellido, JTextField txtCorreo, JTextField txtDni, JTextField txtNombre, JTextField txtTelefono) {
+        this.txtApellido = txtApellido;
+        this.txtCorreo = txtCorreo;
+        this.txtDni = txtDni;
+        this.txtNombre = txtNombre;
+        this.txtTelefono = txtTelefono;
+    }
+
     private PasajeroController pasajeroController;
     private PasajeroDTO pasajeroDto;
+
+    public NuevoPasajero(int id, String nombre, String apellido, String dni, String telefono, String correo) {
+        this();
+        LblId.setText(String.valueOf(id));
+        txtNombre.setText(nombre);
+        txtApellido.setText(apellido);
+        txtDni.setText(dni);
+        txtTelefono.setText(telefono);
+        txtCorreo.setText(correo);
+    }
 
     public NuevoPasajero() {
         this.pasajeroController = new PasajeroController();
@@ -27,18 +47,30 @@ public class NuevoPasajero extends javax.swing.JPanel {
     }
 
     public void Agregar() {
-       try {
+        try {
+            Integer id;
+            id = null;
+            if(LblId.getText() != null && LblId.getText() != ""){
+                 id = Integer.parseInt(LblId.getText());
+            }
+           
             String nombre = txtNombre.getText().trim();
             String apellido = txtApellido.getText().trim();
             int dni = Integer.parseInt(txtDni.getText().trim());
             int telefono = Integer.parseInt(txtTelefono.getText().trim());
             String correo = txtCorreo.getText().trim();
-
-            PasajeroDTO pasajeroDTO = new PasajeroDTO(nombre, apellido, dni, telefono, correo);
-            pasajeroController.crear(pasajeroDTO);
-
-            JOptionPane.showMessageDialog(this, "El pasajero se guardó con éxito");
-            LimpiarCampos();  // Limpiar después de guardar
+            
+            if(id == null){
+                PasajeroDTO pasajeroDTO = new PasajeroDTO(nombre, apellido, dni, telefono, correo);
+                pasajeroController.crear(pasajeroDTO);
+                JOptionPane.showMessageDialog(this, "El pasajero se guardó con éxito");
+            }else{
+                PasajeroDTO pasajeroDTO = new PasajeroDTO(id,nombre,apellido,dni,telefono,correo);
+                pasajeroController.actualizar(pasajeroDTO, id);
+                JOptionPane.showMessageDialog(null, "El pasajero se actualizo correctamente");
+                
+            }
+           
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Error: DNI y Teléfono deben ser números.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
@@ -54,6 +86,26 @@ public class NuevoPasajero extends javax.swing.JPanel {
         txtDni.setText("");
         txtTelefono.setText("");
         txtCorreo.setText("");
+    }
+
+    public void Actualizar() {
+        try {
+
+            String nombre = txtNombre.getText().trim();
+            String apellido = txtApellido.getText().trim();
+            int dni = Integer.parseInt(txtDni.getText().trim());
+            int telefono = Integer.parseInt(txtTelefono.getText().trim());
+            String correo = txtCorreo.getText().trim();
+
+            PasajeroDTO pasajeroDTO = new PasajeroDTO(nombre, apellido, dni, telefono, correo);
+            pasajeroController.actualizarPasajero(pasajeroDTO);
+
+            JOptionPane.showMessageDialog(this, "El pasajero se actualizó con éxito");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error: DNI y Teléfono deben ser números.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar el pasajero: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -77,6 +129,7 @@ public class NuevoPasajero extends javax.swing.JPanel {
         txtNombre = new javax.swing.JTextField();
         BtnCancelar = new javax.swing.JButton();
         BtnGuardar = new javax.swing.JButton();
+        LblId = new javax.swing.JLabel();
 
         FormListener formListener = new FormListener();
 
@@ -135,6 +188,9 @@ public class NuevoPasajero extends javax.swing.JPanel {
         BtnGuardar.setText("Guardar");
         BtnGuardar.addActionListener(formListener);
         add(BtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 455, 312, 52));
+
+        LblId.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        add(LblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(845, 39, 26, 26));
     }
 
     // Code for dispatching events from components to event handlers.
@@ -151,11 +207,11 @@ public class NuevoPasajero extends javax.swing.JPanel {
             else if (evt.getSource() == txtDni) {
                 NuevoPasajero.this.txtDniActionPerformed(evt);
             }
-            else if (evt.getSource() == BtnGuardar) {
-                NuevoPasajero.this.BtnGuardarActionPerformed(evt);
-            }
             else if (evt.getSource() == BtnCancelar) {
                 NuevoPasajero.this.BtnCancelarActionPerformed(evt);
+            }
+            else if (evt.getSource() == BtnGuardar) {
+                NuevoPasajero.this.BtnGuardarActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -173,18 +229,20 @@ public class NuevoPasajero extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDniActionPerformed
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+
         this.Agregar();
         this.LimpiarCampos();
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        
+        this.setVisible(false);
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCancelar;
     private javax.swing.JButton BtnGuardar;
+    private javax.swing.JLabel LblId;
     private javax.swing.JLabel lblApellido1;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblDni1;
