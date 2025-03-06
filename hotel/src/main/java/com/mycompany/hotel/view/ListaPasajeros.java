@@ -10,6 +10,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,14 +27,14 @@ public class ListaPasajeros extends javax.swing.JPanel {
      */
     private PasajeroController pasajeroController;
     private PasajeroDTO pasajeroDto;
-    
+
     public ListaPasajeros() {
-         this.pasajeroController = new PasajeroController();
+        this.pasajeroController = new PasajeroController();
         initComponents();
         this.refrescar();
     }
 
-      public void refrescar() {
+    public void refrescar() {
         try {
             DefaultTableModel dtm = new DefaultTableModel();
             dtm.addColumn("ID");
@@ -58,6 +62,83 @@ public class ListaPasajeros extends javax.swing.JPanel {
             Logger.getLogger(ListaPasajeros.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void buscar() throws SQLException{
+    try {
+        String valor = txtBuscar.getText().trim();
+        String filtro = CboxBuscar.getSelectedItem().toString();
+
+        List<PasajeroDTO> pasajerosFiltrados = null;
+
+        // Determinar el tipo de búsqueda según el filtro seleccionado
+        if(filtro.equals("Seleccione Filtro")){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
+        }else{
+            if (filtro.equals("Nombre")) {
+                pasajerosFiltrados = pasajeroController.buscarPorNombre(valor);
+            } else if (filtro.equals("Apellido")) {
+                pasajerosFiltrados = pasajeroController.buscarPorApellido(valor);
+            } else if (filtro.equals("Dni")) {
+                pasajerosFiltrados = pasajeroController.buscarPorDni(valor);
+            } else if (filtro.equals("Correo")) {
+                pasajerosFiltrados = pasajeroController.buscarPorCorreo(valor);
+            }else if (filtro.equals("Telefono")){
+                pasajerosFiltrados = pasajeroController.buscarPorTelefono(valor);
+            }
+        }
+
+        // Crear un modelo de tabla y agregar los resultados
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("#");
+        dtm.addColumn("Nombre");
+        dtm.addColumn("Apellido");
+        dtm.addColumn("DNI");
+        dtm.addColumn("Telefono");
+        dtm.addColumn("Correo");
+
+        for (PasajeroDTO p : pasajerosFiltrados) {
+            dtm.addRow(new Object[]{
+                p.getId(),
+                p.getNombre(),
+                p.getApellido(),
+                p.getDNI(),
+                p.getTelefono(),
+                p.getEmail()
+            });
+        }
+
+        TablaPasajeros.setModel(dtm);
+    } catch (SQLException ex) {
+        Logger.getLogger(ListaPasajeros.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, "Error al buscar pasajeros: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+    
+    public void borrar(){
+           int fila = TablaPasajeros.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
+
+        } else {
+            DefaultTableModel model = (DefaultTableModel) TablaPasajeros.getModel();
+            int id = (int) model.getValueAt(fila, 0);
+            int opc = JOptionPane.showConfirmDialog(null, "Estas Seguro?");
+            if (opc == 0) {
+                try {
+                    pasajeroController.borrar(id);
+                    this.refrescar();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListaPasajeros.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+    }
+       
+        
+        
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,8 +153,10 @@ public class ListaPasajeros extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaPasajeros = new javax.swing.JTable();
         BtnEditar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        BtnBorrar = new javax.swing.JButton();
         CboxBuscar = new javax.swing.JComboBox<>();
+
+        FormListener formListener = new FormListener();
 
         setBackground(new java.awt.Color(0, 102, 102));
         setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Pasajeros"));
@@ -84,11 +167,12 @@ public class ListaPasajeros extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtBuscar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 39, 295, -1));
+        add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(507, 39, 295, -1));
 
         BtnBuscar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         BtnBuscar.setText("Buscar");
-        add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1027, 39, -1, -1));
+        BtnBuscar.addActionListener(formListener);
+        add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1053, 39, -1, -1));
 
         TablaPasajeros.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         TablaPasajeros.setModel(new javax.swing.table.DefaultTableModel(
@@ -108,24 +192,94 @@ public class ListaPasajeros extends javax.swing.JPanel {
 
         BtnEditar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         BtnEditar.setText("Editar");
+        BtnEditar.addActionListener(formListener);
         add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 546, 143, -1));
 
-        jButton1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jButton1.setText("Borrar");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(624, 546, 143, -1));
+        BtnBorrar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        BtnBorrar.setText("Borrar");
+        BtnBorrar.addActionListener(formListener);
+        add(BtnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(624, 546, 143, -1));
 
         CboxBuscar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        CboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "#", "Nombre", "Apellido", "Dni", "Telefono", "Correo", "" }));
-        add(CboxBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(832, 39, 182, -1));
+        CboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Filtro", "Nombre", "Apellido", "Dni", "Telefono", "Correo" }));
+        CboxBuscar.addActionListener(formListener);
+        add(CboxBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(806, 39, 234, -1));
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    private class FormListener implements java.awt.event.ActionListener {
+        FormListener() {}
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            if (evt.getSource() == BtnEditar) {
+                ListaPasajeros.this.BtnEditarActionPerformed(evt);
+            }
+            else if (evt.getSource() == BtnBorrar) {
+                ListaPasajeros.this.BtnBorrarActionPerformed(evt);
+            }
+            else if (evt.getSource() == CboxBuscar) {
+                ListaPasajeros.this.CboxBuscarActionPerformed(evt);
+            }
+            else if (evt.getSource() == BtnBuscar) {
+                ListaPasajeros.this.BtnBuscarActionPerformed(evt);
+            }
+        }
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBorrarActionPerformed
+        this.borrar();
+    }//GEN-LAST:event_BtnBorrarActionPerformed
+
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+        
+        int fila = TablaPasajeros.getSelectedRow();
+    
+    if (fila < 0) {
+        JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
+    } else {
+        DefaultTableModel model = (DefaultTableModel) TablaPasajeros.getModel();
+        int id = (int) model.getValueAt(fila, 0); // Suponiendo que la primera columna es el ID
+        String nombre = (String) model.getValueAt(fila, 1);
+        String apellido = (String) model.getValueAt(fila, 2);
+        String dni = model.getValueAt(fila, 3).toString();
+        String telefono = model.getValueAt(fila, 4).toString();
+        String correo = (String) model.getValueAt(fila, 5);
+
+        // Crear el panel con los datos cargados
+        NuevoPasajero panelEditar = new NuevoPasajero(id, nombre, apellido, dni, telefono, correo);
+
+        // Mostrarlo dentro de un JDialog
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Editar Pasajero");
+        dialog.setModal(true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.getContentPane().add(panelEditar);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }       
+    this.refrescar();
+    }//GEN-LAST:event_BtnEditarActionPerformed
+
+    private void CboxBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboxBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CboxBuscarActionPerformed
+
+    private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
+        try {
+            this.buscar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaPasajeros.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BtnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnBorrar;
     private javax.swing.JButton BtnBuscar;
     private javax.swing.JButton BtnEditar;
     private javax.swing.JComboBox<String> CboxBuscar;
     private javax.swing.JTable TablaPasajeros;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables

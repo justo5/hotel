@@ -25,6 +25,11 @@ public class PasajeroService {
     public PasajeroService() {
     this.pasajeroDAO = PasajeroDAO.getInstancia();
 }
+    
+    public void actualizarPasajeroSolo(PasajeroDTO dto) throws SQLException{
+        Pasajero pasajero = PasajeroMapper.toEntity(dto);
+        pasajeroDAO.actualizarPasajero(pasajero);
+    }
 
     public void crearPasajero(PasajeroDTO dto) throws SQLException {
         Pasajero pasajero = PasajeroMapper.toEntity(dto);
@@ -60,5 +65,58 @@ public class PasajeroService {
         }
 
         return pasajerosDTO; 
+    }
+    public List<PasajeroDTO> buscarPorNombre(String nombre) throws SQLException{
+        List<Pasajero> pasajeros = pasajeroDAO.buscarPorNombre(nombre);
+        List<PasajeroDTO> pasajerosDTO =new ArrayList<>();
+          for (Pasajero pasajero : pasajeros) {
+            PasajeroDTO dto = PasajeroMapper.toDTO(pasajero);
+            pasajerosDTO.add(dto);
+        }
+                
+        return pasajerosDTO;    
+    }
+     public List<PasajeroDTO> buscarPorApellido(String apellido) throws SQLException{
+        List<Pasajero> pasajeros = pasajeroDAO.buscarPorApellido(apellido);
+        List<PasajeroDTO> pasajerosDTO =new ArrayList<>();
+          for (Pasajero pasajero : pasajeros) {
+            PasajeroDTO dto = PasajeroMapper.toDTO(pasajero);
+            pasajerosDTO.add(dto);
+        }
+                
+        return pasajerosDTO;    
+    }
+      public List<PasajeroDTO> buscarPorDni(String dni) throws SQLException{
+           List<Pasajero> pasajeros = pasajeroDAO.buscarPorDni(dni);
+        List<PasajeroDTO> pasajerosDTO =new ArrayList<>();
+          for (Pasajero pasajero : pasajeros) {
+            PasajeroDTO dto = PasajeroMapper.toDTO(pasajero);
+            pasajerosDTO.add(dto);
+        }
+                
+        return pasajerosDTO;    
+           
+    }
+    
+     public List<PasajeroDTO> buscarPorCorreo(String correo) throws SQLException{
+        List<Pasajero> pasajeros = pasajeroDAO.buscarPorCorreo(correo);
+        List<PasajeroDTO> pasajerosDTO =new ArrayList<>();
+          for (Pasajero pasajero : pasajeros) {
+            PasajeroDTO dto = PasajeroMapper.toDTO(pasajero);
+            pasajerosDTO.add(dto);
+        }
+                
+        return pasajerosDTO;        
+    }
+     
+    public List<PasajeroDTO> buscarPorTelefono(String telefono) throws SQLException{
+        List<Pasajero> pasajeros = pasajeroDAO.buscarPorTelefono(telefono);
+        List<PasajeroDTO> pasajerosDTO =new ArrayList<>();
+          for (Pasajero pasajero : pasajeros) {
+            PasajeroDTO dto = PasajeroMapper.toDTO(pasajero);
+            pasajerosDTO.add(dto);
+        }
+                
+        return pasajerosDTO;        
     }
 }
