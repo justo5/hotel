@@ -5,20 +5,19 @@
 package com.mycompany.hotel.mapper;
 
 import com.mycompany.hotel.dto.PasajeroDTO;
+import com.mycompany.hotel.interfaz.IMapper;
 import com.mycompany.hotel.model.Pasajero;
 
 /**
  *
  * @author mi pc
  */
-public class PasajeroMapper {
+public class PasajeroMapper implements IMapper<Pasajero,PasajeroDTO> {
     
-    public static PasajeroDTO toDTO(Pasajero pasajero){
-        
-        return new PasajeroDTO(pasajero.getId(),pasajero.getNombre(),
-        pasajero.getApellido(),pasajero.getDNI(),pasajero.getTelefono(),pasajero.getEmail());
-    }
-     public static Pasajero toEntity(PasajeroDTO dto) {
+    
+    
+    @Override
+     public  Pasajero toEntity(PasajeroDTO dto) {
         return new Pasajero(
             dto.getId(), 
             dto.getNombre(), 
@@ -27,6 +26,14 @@ public class PasajeroMapper {
             dto.getTelefono(), 
             dto.getEmail()
         );
+    }
+
+    @Override
+    public PasajeroDTO toDTO(Pasajero entity) {
+            
+        return new PasajeroDTO(entity.getId(),entity.getNombre(),
+        entity.getApellido(),entity.getDNI(),entity.getTelefono(),entity.getEmail());
+    
     }
     
 }

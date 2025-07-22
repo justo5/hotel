@@ -28,13 +28,41 @@ public class PasajeroDAO implements Icrud<Pasajero> {
         return PasajeroDAO.instancia;
     }
 
+     public void actualizarPasajero(Pasajero dato) throws SQLException {
+        PreparedStatement stat;
+        final String UPDATE = "UPDATE pasajero SET nombre = ?, apellido = ?, DNI = ?, telefono = ?, email = ? WHERE id = ? ;";
+        try {
+            stat = cnn.getCo().prepareStatement(UPDATE);
+            stat.setString(1, dato.getNombre());
+            stat.setString(2, dato.getApellido());
+            stat.setInt(3, dato.getDNI());
+            stat.setInt(4, dato.getTelefono());
+            stat.setString(5, dato.getEmail());
+            stat.setInt(6, dato.getId());
+
+            if (stat.executeUpdate() == 0) {
+                throw new SQLException("Puede que no se haya actualizado");
+            }
+            for (int i = 0; i < pasajeros.size(); i++) {
+                if (dato == pasajeros.get(i)) {
+                    pasajeros.set(i, dato);
+                }
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } finally {
+
+            cnn.cerrarConexion();
+        }
+
+    }
     @Override
 
     public void crear(Pasajero dato) throws SQLException {
         PreparedStatement stat;
         ResultSet rs = null;
         cnn = Conexion.iniciarConnection();
-        String INSERT = "INSERT INTO pasajeros(Nombre,Apellido,Dni,Telefono,CorreoElectronico) VALUES(?,?,?,?,?);";
+        String INSERT = "INSERT INTO pasajero(nombre,apellido,DNI,telefono,email) VALUES(?,?,?,?,?);";
         try {
             stat = cnn.getCo().prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             stat.setString(1, dato.getNombre());
@@ -61,7 +89,7 @@ public class PasajeroDAO implements Icrud<Pasajero> {
     @Override
     public void actualizar(Pasajero dato, int id) throws SQLException {
         PreparedStatement stat;
-        final String UPDATE = "UPDATE pasajeros SET Nombre = ?, Apellido = ?, Dni = ?, Telefono = ?, CorreoElectronico = ? WHERE id = ? ;";
+        final String UPDATE = "UPDATE pasajero SET nombre = ?, apellido = ?, DNI = ?, telefono = ?, email = ? WHERE id = ? ;";
         try {
             stat = cnn.getCo().prepareStatement(UPDATE);
             stat.setString(1, dato.getNombre());
@@ -91,7 +119,7 @@ public class PasajeroDAO implements Icrud<Pasajero> {
     @Override
     public void borrar(Pasajero dato) throws SQLException {
         PreparedStatement stat = null;
-        String DELETE = "DELETE from pasajeros WHERE id = ? AND Nombre = ? AND Apellido = ? AND Dni = ? AND Telefono = ? AND CorreoElectronico = ? ;";
+        String DELETE = "DELETE from pasajero WHERE id = ? AND nombre = ? AND apellido = ? AND DNI = ? AND telefono = ? AND email = ? ;";
         try {
             stat = cnn.getCo().prepareStatement(DELETE);
             stat.setInt(1, dato.getId());
@@ -116,7 +144,7 @@ public class PasajeroDAO implements Icrud<Pasajero> {
     @Override
     public void borrar(int id) throws SQLException {
         PreparedStatement stat = null;
-        String DELETEFORID = "DELETE from pasajeros WHERE id = ?;";
+        String DELETEFORID = "DELETE from pasajero WHERE id = ?;";
         try {
             stat = cnn.getCo().prepareStatement(DELETEFORID);
             stat.setInt(1, id);
@@ -136,7 +164,7 @@ public class PasajeroDAO implements Icrud<Pasajero> {
     @Override
     public Pasajero recuperarPorId(int id) throws SQLException {
         cnn = Conexion.iniciarConnection();
-        String SELECTONE = "SELECT id,Nombre,Apellido,Dni,Telefono,CorreoElectronico FROM pasajeros WHERE id=?;";
+        String SELECTONE = "SELECT id,nombre,apellido,DNI,telefono,email FROM pasajero WHERE id=?;";
         PreparedStatement stat;
         ResultSet rs;
         Pasajero pasajero = null;
@@ -161,7 +189,7 @@ public class PasajeroDAO implements Icrud<Pasajero> {
 
     @Override
     public List<Pasajero> recuperarTodos() throws SQLException {
-        String SELECTALL = "SELECT id,Nombre,Apellido,Dni,Telefono,CorreoElectronico FROM pasajeros";
+        String SELECTALL = "SELECT id,nombre,apellido,DNI,telefono,email FROM pasajero";
         Statement stat = null;
         ResultSet rs = null;
         List<Pasajero> pasajeros = new ArrayList();
@@ -180,12 +208,12 @@ public class PasajeroDAO implements Icrud<Pasajero> {
         return pasajeros;
 
     }
-
-    public Pasajero buscarPorNombre(String nombre) throws SQLException {
-        String SELECTBYNOMBRE = "SELECT id,Nombre,Apellido,Dni,Telefono,CorreoElectronico FROM pasajeros WHERE Nombre LIKE ?";
+    
+    public List<Pasajero> buscarPorNombre(String nombre) throws SQLException {
+        String SELECTBYNOMBRE = "SELECT id,nombre,apellido,DNI,telefono,email FROM pasajero WHERE Nombre LIKE ?";
         PreparedStatement stat = null;
         ResultSet rs = null;
-        Pasajero pasajero = null;
+        List<Pasajero> pasajeros = new ArrayList();
         if (cnn == null) {
             throw new IllegalStateException("Database connection not initialized");
         }
@@ -196,32 +224,34 @@ public class PasajeroDAO implements Icrud<Pasajero> {
             rs = stat.executeQuery();
 
             while (rs.next()) {
-                pasajero = new Pasajero(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
+                   pasajeros.add(new Pasajero(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6)));
             }
+            
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
             cnn.cerrarConexion();
         }
 
-        return pasajero;
+        return pasajeros;
     }
 
-    public Pasajero buscarPorDni(int dni) throws SQLException {
-        String SELECTBYDNI = "SELECT id, Nombre, Apellido, Dni, Telefono, CorreoElectronico FROM pasajeros WHERE Dni = ?";
+    public List<Pasajero> buscarPorDni(String dni) throws SQLException {
+        String SELECTBYDNI = "SELECT id, nombre, apellido, DNI, telefono, email FROM pasajero WHERE DNI = ?";
         PreparedStatement stat = null;
         ResultSet rs = null;
-        Pasajero pasajero = null;
+        List<Pasajero> pasajeros = new ArrayList();
         if (cnn == null) {
             throw new IllegalStateException("Database connection not initialized");
         }
 
         try {
-            stat.setInt(1, dni);
+            stat = cnn.getCo().prepareStatement(SELECTBYDNI);
+            stat.setString(1, dni);
             rs = stat.executeQuery();
 
             while (rs.next()) {
-                pasajero = new Pasajero(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
+                pasajeros.add(new Pasajero(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6)));
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -229,6 +259,91 @@ public class PasajeroDAO implements Icrud<Pasajero> {
             cnn.cerrarConexion();
         }
 
-        return pasajero;
+        return pasajeros;
     }
+    
+    public List<Pasajero> buscarPorApellido(String apellido){
+        String SELECTBYAPELLIDO = "SELECT id,nombre,apellido,DNI,telefono,email FROM pasajero WHERE apellido LIKE ?";
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        List<Pasajero> pasajeros = new ArrayList();
+        if (cnn == null) {
+            throw new IllegalStateException("Database connection not initialized");
+        }
+
+        try {
+            stat = cnn.getCo().prepareStatement(SELECTBYAPELLIDO);
+            stat.setString(1, "%" + apellido+ "%");
+            rs = stat.executeQuery();
+
+            while (rs.next()) {
+                pasajeros.add(new Pasajero(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6)));
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } finally {
+            cnn.cerrarConexion();
+        }
+
+        return pasajeros;
+        
+    }
+    
+    public List<Pasajero> buscarPorCorreo(String Correo){
+        String SELECTBYCORREO = "SELECT id,nombre,apellido,DNI,telefono,email FROM pasajero WHERE email LIKE ?";
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        List<Pasajero> pasajeros = new ArrayList();
+        if (cnn == null) {
+            throw new IllegalStateException("Database connection not initialized");
+        }
+
+        try {
+            stat = cnn.getCo().prepareStatement(SELECTBYCORREO);
+            stat.setString(1, "%" + Correo + "%");
+            rs = stat.executeQuery();
+
+            while (rs.next()) {
+                pasajeros.add(new Pasajero(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6)));
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } finally {
+            cnn.cerrarConexion();
+        }
+
+        return pasajeros;
+        
+    }
+    
+      public List<Pasajero> buscarPorTelefono(String telefono){
+        String SELECTBYCORREO = "SELECT id,nombre,apellido,DNI,telefono,email FROM pasajero WHERE telefono = ?";
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        List<Pasajero> pasajeros = new ArrayList();
+        if (cnn == null) {
+            throw new IllegalStateException("Database connection not initialized");
+        }
+
+        try {
+            stat = cnn.getCo().prepareStatement(SELECTBYCORREO);
+            stat.setString(1, telefono);
+            rs = stat.executeQuery();
+
+            while (rs.next()) {
+                pasajeros.add(new Pasajero(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6)));
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } finally {
+            cnn.cerrarConexion();
+        }
+
+        return pasajeros;
+        
+    }
+    
+    
+    
+
 }

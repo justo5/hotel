@@ -35,10 +35,11 @@ public class Pasajero {
         this.email = email;
     }
 
-    public Pasajero(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Pasajero() {
     }
+    
 
+   
     public int getId() {
         return id;
     }
@@ -130,8 +131,9 @@ public class Pasajero {
     }
    
     
+    
     @Override
     public String toString() {
-        return "pasajero{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", DNI=" + DNI + ", telefono=" + telefono + ", email=" + email + '}';
+        return this.nombre + " " + this.apellido;
     }
 }

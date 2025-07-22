@@ -26,7 +26,9 @@ public class PasajeroController implements Icrud<PasajeroDTO> {
         this.pasajeroService = new PasajeroService();
     }
 
-    
+    public void actualizarPasajero(PasajeroDTO dato) throws SQLException{
+        pasajeroService.actualizarPasajeroSolo(dato);
+    }
 
     @Override
     public void crear(PasajeroDTO dato) throws SQLException {
@@ -62,6 +64,38 @@ public class PasajeroController implements Icrud<PasajeroDTO> {
         return pasajeros;
     }
    
+    public List<PasajeroDTO> buscarPorNombre(String nombre) throws SQLException{
+        List<PasajeroDTO> pasajeros;
+        pasajeros = pasajeroService.buscarPorNombre(nombre);
+        return pasajeros;
+    }
+    
+    public List<PasajeroDTO> buscarPorApellido(String apellido) throws SQLException{
+        List<PasajeroDTO> pasajeros;
+        pasajeros = pasajeroService.buscarPorApellido(apellido);
+        return pasajeros;
+    }
+    
+    public List<PasajeroDTO> buscarPorCorreo(String correo) throws SQLException{
+        List<PasajeroDTO> pasajeros;
+        pasajeros = pasajeroService.buscarPorCorreo(correo);
+        return pasajeros;
+    }
+    
+    public List<PasajeroDTO> buscarPorDni(String dni) throws SQLException{
+        List<PasajeroDTO> pasajeros;
+        pasajeros = pasajeroService.buscarPorDni(dni);
+        return pasajeros;
+    }
+    
+     public List<PasajeroDTO> buscarPorTelefono(String telefono) throws SQLException{
+        List<PasajeroDTO> pasajeros;
+        pasajeros = pasajeroService.buscarPorTelefono(telefono);
+        return pasajeros;
+    }
+    
+   
+    
     
     
 }

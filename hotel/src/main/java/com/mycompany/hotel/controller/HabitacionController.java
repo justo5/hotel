@@ -1,17 +1,19 @@
-<<<<<<< HEAD:hotel/src/main/java/com/mycompany/hotel/controller/HabitacionController.java
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.hotel.controller;
-=======
-package com.mycompany.hotel.controlles;
->>>>>>> 9036a6075f2c5c3e0f2c50195c62d58973e1d4bb:hotel/src/main/java/com/mycompany/hotel/controlles/HabitacionController.java
 
-import com.mycompany.hotel.DAO.HabitacionDAO;
-import com.mycompany.hotel.interfaces.Icrud;
-import com.mycompany.hotel.models.Habitacion;
-import com.mycompany.hotel.models.Pasajero;
+import com.mycompany.hotel.dto.HabitacionDTO;
+import com.mycompany.hotel.interfaz.Icrud;
+import com.mycompany.hotel.interfaz.Icrud;
+import com.mycompany.hotel.model.Habitacion;
+import com.mycompany.hotel.model.Habitacion;
+import com.mycompany.hotel.model.Pasajero;
+import com.mycompany.hotel.repository.HabitacionDAO;
+import com.mycompany.hotel.service.HabitacionService;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,54 +21,75 @@ import java.util.List;
  *
  * @author justcode
  */
-public class HabitacionController implements Icrud<Habitacion> {
+public class HabitacionController implements Icrud<HabitacionDTO> {
+    private HabitacionService habitacionService;
     
-    private static HabitacionDAO habitacionDAO = HabitacionDAO.getInstancia();
-    private Habitacion habitacion;
-    public HabitacionController(){}
-
-     @Override
-      public void crear(Habitacion dato) {
-        try{
-            habitacionDAO.crear(dato);
-            
-        }catch(Exception ex){
-            System.out.println("No pudo ser creada" + ex);
-        }
-        
+    public HabitacionController(){
+        this.habitacionService = new HabitacionService();
     }
-    public void crear(String numero, int camasSimples, int camasDobles, float precioPorNoche)throws SQLException {
-        this.habitacion = new Habitacion();
-        habitacionDAO.crear(habitacion);
+    @Override
+    public void crear(HabitacionDTO dato) throws SQLException {
+        habitacionService.crearHabitacion(dato);
+    }
+    
+
+    @Override
+    public void actualizar(HabitacionDTO dato, int id) throws SQLException {
+       habitacionService.actualizarHabitacion(dato, id);
     }
 
     @Override
-    public void actualizar(Habitacion dato, int id) throws SQLException {
-     try {
-            habitacionDAO.actualizar(dato, id);
-           } catch (Exception ex) {
-            System.out.println("Error al actualizar la habitación: " + ex);
-        }
-    }
-
-    @Override
-    public void borrar(Habitacion dato) throws SQLException {
-            habitacionDAO.borrar(dato);
+    public void borrar(HabitacionDTO dato) throws SQLException {
+       habitacionService.borrarHabitacion(dato);    
     }
 
     @Override
     public void borrar(int id) throws SQLException {
-    habitacionDAO.borrar(id);
+        habitacionService.borrarPorId(id);
     }
 
     @Override
-    public Habitacion recuperarPorId(int id) throws SQLException {
-     return  habitacionDAO.recuperarPorId(id);
+    public HabitacionDTO recuperarPorId(int id) throws SQLException {
+       HabitacionDTO habitacionDTO;
+       habitacionDTO = habitacionService.recuperarPorId(id);
+       return habitacionDTO;
     }
 
     @Override
-    public List<Habitacion> recuperarTodos() throws SQLException {
-    return this.habitacionDAO.recuperarTodos();
+    public List<HabitacionDTO> recuperarTodos() throws SQLException {
+        List<HabitacionDTO> habitacionDTO;
+        habitacionDTO = habitacionService.recuperarTodos();
+        return habitacionDTO;
     }
- 
+    
+    public List<HabitacionDTO> buscarPorNumero(String numero) throws SQLException{
+         List<HabitacionDTO> habitacionDTO;
+         habitacionDTO = habitacionService.buscarPorNumero(numero);
+         return habitacionDTO;
+    }
+    
+    public List<HabitacionDTO> buscarPorPrecio(String precio) throws SQLException{
+        List<HabitacionDTO> habitacionesDTO;
+        habitacionesDTO = habitacionService.buscarPorPrecio(precio);
+        return habitacionesDTO;
+    }
+    
+    public List<HabitacionDTO> buscarPorCapacidad(String cantidad){
+        List<HabitacionDTO> habitacionesDTO;
+        habitacionesDTO = habitacionService.buscarPorCapacidad(cantidad);
+        return habitacionesDTO;
+    }
+    
+    public List<HabitacionDTO> buscarDisponibles(Date checkin, Date checkout, int cantidad) {
+        List<HabitacionDTO> habitacionesDTO;
+        habitacionesDTO = habitacionService.buscarDisponibles(checkin, checkout, cantidad);
+        return habitacionesDTO;
+    }
+   
+    public int calcularCapacidad(HabitacionDTO h) {
+        int dobles = h.getCamasDobles();
+        int simples = h.getCamasSimples();
+        return (dobles * 2) + simples;
+    }
+
 }

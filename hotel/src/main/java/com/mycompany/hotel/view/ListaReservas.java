@@ -4,6 +4,21 @@
  */
 package com.mycompany.hotel.view;
 
+import com.mycompany.hotel.controller.HabitacionController;
+import com.mycompany.hotel.controller.PasajeroController;
+import com.mycompany.hotel.controller.ReservaController;
+import com.mycompany.hotel.dto.HabitacionDTO;
+import com.mycompany.hotel.dto.PasajeroDTO;
+import com.mycompany.hotel.dto.ReservaDTO;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author mi pc
@@ -13,8 +28,23 @@ public class ListaReservas extends javax.swing.JPanel {
     /**
      * Creates new form ListaReservas
      */
+    
+    private ReservaController reservaController;
+    private PasajeroController pasajeroController;
+    private HabitacionController habitacionController;
+    private ReservaDTO reservaDTO;
+    private PasajeroDTO pasajeroDTO;
+    private HabitacionDTO habitacionDTO;
+    
+    
     public ListaReservas() {
+        this.reservaController = new ReservaController();
+        this.pasajeroController = new PasajeroController();
+        this.habitacionController = new HabitacionController();
+        this.pasajeroDTO = new PasajeroDTO();
+        this.habitacionDTO = new HabitacionDTO();
         initComponents();
+        refrescar();
     }
 
     /**
@@ -53,13 +83,13 @@ public class ListaReservas extends javax.swing.JPanel {
 
         TablaReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "#", "Fecha ", "Habitacion", "Checkin", "Checkout", "Seña", "Pasajero"
+                "#", "Habitacion", "Checkin", "Checkout", "Seña", "Pasajero"
             }
         ));
         jScrollPane1.setViewportView(TablaReservas);
@@ -68,14 +98,17 @@ public class ListaReservas extends javax.swing.JPanel {
 
         BtnEditar.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         BtnEditar.setText("Editar");
+        BtnEditar.addActionListener(formListener);
         add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 544, 159, -1));
 
         BtnBorrar.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         BtnBorrar.setText("Borrar");
+        BtnBorrar.addActionListener(formListener);
         add(BtnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(634, 544, 160, -1));
 
         CboxBuscar.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         CboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "#", "Fecha", "Checkin", "Checkout", "Habitacion", "Seña", "Pasajero" }));
+        CboxBuscar.addActionListener(formListener);
         add(CboxBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(832, 52, 169, -1));
     }
 
@@ -90,9 +123,102 @@ public class ListaReservas extends javax.swing.JPanel {
             else if (evt.getSource() == BtnBuscar) {
                 ListaReservas.this.BtnBuscarActionPerformed(evt);
             }
+            else if (evt.getSource() == BtnEditar) {
+                ListaReservas.this.BtnEditarActionPerformed(evt);
+            }
+            else if (evt.getSource() == BtnBorrar) {
+                ListaReservas.this.BtnBorrarActionPerformed(evt);
+            }
+            else if (evt.getSource() == CboxBuscar) {
+                ListaReservas.this.CboxBuscarActionPerformed(evt);
+            }
         }
     }// </editor-fold>//GEN-END:initComponents
 
+     public void refrescar(){
+        
+        try {
+            DefaultTableModel dtm = new DefaultTableModel();
+            dtm.addColumn("ID");
+            dtm.addColumn("ID_habitacion");
+            dtm.addColumn("Checkin");
+            dtm.addColumn("Checkout");
+            dtm.addColumn("Seña");
+            dtm.addColumn("ID_pasajero");
+            List<ReservaDTO> reservas = reservaController.recuperarTodos();
+            
+            for(ReservaDTO r: reservas){
+            
+                dtm.addRow(new Object[]{
+                r.getId(),
+                r.getId_habitacion(),
+                r.getChekin(),
+                r.getCheckout(),
+                r.getSenia(),
+                r.getId_pasajero()
+                });  
+            }
+            
+            TablaReservas.setModel(dtm);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaHabitaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+     
+     public void borrar(){
+           int fila = TablaReservas.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
+
+        } else {
+            DefaultTableModel model = (DefaultTableModel) TablaReservas.getModel();
+            int id = (int) model.getValueAt(fila, 0);
+            int opc = JOptionPane.showConfirmDialog(null, "Estas Seguro?");
+            if (opc == 0) {
+                try {
+                    reservaController.borrar(id);
+                    this.refrescar();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListaPasajeros.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+    }
+      public void actualizar() throws SQLException {
+
+        int fila = TablaReservas.getSelectedRow();
+
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
+        } else {
+            DefaultTableModel model = (DefaultTableModel) TablaReservas.getModel();
+            int id = (int) model.getValueAt(fila, 0); // Suponiendo que la primera columna es el ID
+            int id_habitacion = (int) model.getValueAt(fila, 1);
+            Date checkin = (Date) model.getValueAt(fila, 2);
+            Date checkout = (Date) model.getValueAt(fila, 3);
+            float senia = (float) model.getValueAt(fila, 4);
+            int id_pasajero = (int) model.getValueAt(fila, 5);
+            PasajeroDTO p = pasajeroController.recuperarPorId(id_pasajero);
+            HabitacionDTO h = habitacionController.recuperarPorId(id_habitacion);
+            int capacidad = habitacionController.calcularCapacidad(h);
+         
+            // Crear el panel con los datos cargados
+          
+            NuevaReserva panelEditar = new NuevaReserva(id,h,checkin,checkout,senia,p,capacidad);
+            // Mostrarlo dentro de un JDialog
+            JDialog dialog = new JDialog();
+            dialog.setTitle("Editar Reserva");
+            dialog.setModal(true);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.getContentPane().add(panelEditar);
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }
+    } 
     private void TxtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtBuscarActionPerformed
@@ -100,6 +226,23 @@ public class ListaReservas extends javax.swing.JPanel {
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnBuscarActionPerformed
+
+    private void BtnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBorrarActionPerformed
+       this.borrar();
+    }//GEN-LAST:event_BtnBorrarActionPerformed
+
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+        try {
+            this.actualizar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaReservas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.refrescar();
+    }//GEN-LAST:event_BtnEditarActionPerformed
+
+    private void CboxBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboxBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CboxBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
