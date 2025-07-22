@@ -4,6 +4,11 @@
  */
 package com.mycompany.hotel.view;
 
+import java.io.File;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+
 /**
  *
  * @author mi pc
@@ -13,9 +18,15 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+                          
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
+       
+    }
+    
+    private Icon getIcono(String ruta){
+        return new ImageIcon(new ImageIcon(getClass().getResource(ruta)).getImage().getScaledInstance(30, 30,0));
     }
 
     /**
@@ -28,7 +39,7 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelPrincipal = new javax.swing.JPanel();
-        LblTituloApp = new javax.swing.JLabel();
+        LblIcon = new javax.swing.JLabel();
         jMenuPrincipal = new javax.swing.JMenuBar();
         jMenuOpReservas = new javax.swing.JMenu();
         OpListaReserva = new javax.swing.JMenuItem();
@@ -47,45 +58,56 @@ public class Principal extends javax.swing.JFrame {
         setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         setResizable(false);
 
-        jPanelPrincipal.setBackground(new java.awt.Color(0, 102, 102));
+        jPanelPrincipal.setBackground(new java.awt.Color(0, 0, 0));
         jPanelPrincipal.setMinimumSize(new java.awt.Dimension(1200, 600));
         jPanelPrincipal.setPreferredSize(new java.awt.Dimension(1200, 600));
         jPanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LblTituloApp.setFont(new java.awt.Font("MS UI Gothic", 0, 48)); // NOI18N
-        LblTituloApp.setText("Gestion Hotelera");
-        jPanelPrincipal.add(LblTituloApp, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 247, -1, 78));
+        LblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Diseño2.jpg"))); // NOI18N
+        jPanelPrincipal.add(LblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 65, 780, 468));
 
+        jMenuOpReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reserva (2).png"))); // NOI18N
         jMenuOpReservas.setText("Reserva");
+        jMenuOpReservas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
+        OpListaReserva.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         OpListaReserva.setText("Lista Reservas");
         OpListaReserva.addActionListener(formListener);
         jMenuOpReservas.add(OpListaReserva);
 
+        OpRealizarReserva.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         OpRealizarReserva.setText("Realizar Reserva");
         OpRealizarReserva.addActionListener(formListener);
         jMenuOpReservas.add(OpRealizarReserva);
 
         jMenuPrincipal.add(jMenuOpReservas);
 
+        jMenuOpHabitacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cama-alternativa.png"))); // NOI18N
         jMenuOpHabitacion.setText("Habitacion");
+        jMenuOpHabitacion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
+        OpListaHabitacion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         OpListaHabitacion.setText("Lista Habitaciones");
         OpListaHabitacion.addActionListener(formListener);
         jMenuOpHabitacion.add(OpListaHabitacion);
 
+        OpCargarHabitacion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         OpCargarHabitacion.setText("Cargar Habitacion");
         OpCargarHabitacion.addActionListener(formListener);
         jMenuOpHabitacion.add(OpCargarHabitacion);
 
         jMenuPrincipal.add(jMenuOpHabitacion);
 
+        jMenuOpPasajero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usuarios-alt (1).png"))); // NOI18N
         jMenuOpPasajero.setText("Pasajero");
+        jMenuOpPasajero.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
+        OpListaPasajero.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         OpListaPasajero.setText("Lista Pasajeros");
         OpListaPasajero.addActionListener(formListener);
         jMenuOpPasajero.add(OpListaPasajero);
 
+        OpCargarPasajero.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         OpCargarPasajero.setText("Cargar Pasajero");
         OpCargarPasajero.addActionListener(formListener);
         jMenuOpPasajero.add(OpCargarPasajero);
@@ -102,7 +124,7 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+            .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -202,7 +224,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LblTituloApp;
+    private javax.swing.JLabel LblIcon;
     private javax.swing.JMenuItem OpCargarHabitacion;
     private javax.swing.JMenuItem OpCargarPasajero;
     private javax.swing.JMenuItem OpListaHabitacion;

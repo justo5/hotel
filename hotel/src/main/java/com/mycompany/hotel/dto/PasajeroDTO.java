@@ -4,17 +4,23 @@
  */
 package com.mycompany.hotel.dto;
 
+import java.util.Objects;
+
 /**
  *
  * @author mi pc
  */
 public class PasajeroDTO {
+
     private int id;
     private String nombre;
     private String apellido;
     private int DNI;
     private int telefono;
     private String email;
+
+    public PasajeroDTO() {
+    }
 
     public PasajeroDTO(String nombre, String apellido, int DNI, int telefono, String email) {
         this.nombre = nombre;
@@ -80,6 +86,26 @@ public class PasajeroDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return this.nombre + " " + this.apellido;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PasajeroDTO that = (PasajeroDTO) o;
+        return this.getId() == that.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

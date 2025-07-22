@@ -4,6 +4,7 @@
  */
 package com.mycompany.hotel.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -12,14 +13,14 @@ import java.util.Objects;
  */
 public class Reserva {
     private int id; 
-    private String chekin;
-    private String checkout; 
+    private Date chekin;
+    private Date checkout; 
     private Pasajero oPasajero;
     private Habitacion oHabitacion;
     private float senia;
     
       
-    public Reserva(int id,String chekin, String checkout, Pasajero oPasajero, Habitacion oHabitacion, float senia) {
+    public Reserva(int id,Date chekin, Date checkout, Pasajero oPasajero, Habitacion oHabitacion, float senia) {
         this.id = id;
         this.chekin = chekin;
         this.checkout = checkout;
@@ -28,7 +29,7 @@ public class Reserva {
         this.senia = senia;
     }
         
-     public Reserva(String chekin, String checkout, Pasajero oPasajero, Habitacion oHabitacion, float senia) {
+     public Reserva(Date chekin, Date checkout, Pasajero oPasajero, Habitacion oHabitacion, float senia) {
         this.chekin = chekin;
         this.checkout = checkout;
         this.oPasajero = oPasajero;
@@ -36,15 +37,19 @@ public class Reserva {
         this.senia = senia;
     }
 
+    public Reserva() {
+
+    }
+
     public int getId() {
         return id;
     }
 
-    public String getChekin() {
+    public Date getChekin() {
         return chekin;
     }
 
-    public String getCheckout() {
+    public Date getCheckout() {
         return checkout;
     }
 
@@ -64,11 +69,11 @@ public class Reserva {
         this.id = id;
     }
 
-    public void setChekin(String chekin) {
+    public void setChekin(Date chekin) {
         this.chekin = chekin;
     }
 
-    public void setCheckout(String checkout) {
+    public void setCheckout(Date checkout) {
         this.checkout = checkout;
     }
 
@@ -131,11 +136,5 @@ public class Reserva {
         return "Reserva{" + "id=" + id + ", chekin=" + chekin + ", checkout=" + checkout + ", oPasajero=" + oPasajero + ", oHabitacion=" + oHabitacion + ", senia=" + senia + '}';
     }
 
-    public int getPasajero() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    public int getHabitacion() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

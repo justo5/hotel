@@ -62,60 +62,58 @@ public class ListaPasajeros extends javax.swing.JPanel {
             Logger.getLogger(ListaPasajeros.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void buscar() throws SQLException{
-    try {
-        String valor = txtBuscar.getText().trim();
-        String filtro = CboxBuscar.getSelectedItem().toString();
 
-        List<PasajeroDTO> pasajerosFiltrados = null;
+    public void buscar() throws SQLException {
+        try {
+            String valor = txtBuscar.getText().trim();
+            String filtro = CboxBuscar.getSelectedItem().toString();
 
-        // Determinar el tipo de búsqueda según el filtro seleccionado
-        if(filtro.equals("Seleccione Filtro")){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
-        }else{
-            if (filtro.equals("Nombre")) {
-                pasajerosFiltrados = pasajeroController.buscarPorNombre(valor);
-            } else if (filtro.equals("Apellido")) {
-                pasajerosFiltrados = pasajeroController.buscarPorApellido(valor);
-            } else if (filtro.equals("Dni")) {
-                pasajerosFiltrados = pasajeroController.buscarPorDni(valor);
-            } else if (filtro.equals("Correo")) {
-                pasajerosFiltrados = pasajeroController.buscarPorCorreo(valor);
-            }else if (filtro.equals("Telefono")){
-                pasajerosFiltrados = pasajeroController.buscarPorTelefono(valor);
+            List<PasajeroDTO> pasajerosFiltrados = null;
+
+            if (filtro.equals("Seleccione Filtro")) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
+            } else {
+                if (filtro.equals("Nombre")) {
+                    pasajerosFiltrados = pasajeroController.buscarPorNombre(valor);
+                } else if (filtro.equals("Apellido")) {
+                    pasajerosFiltrados = pasajeroController.buscarPorApellido(valor);
+                } else if (filtro.equals("Dni")) {
+                    pasajerosFiltrados = pasajeroController.buscarPorDni(valor);
+                } else if (filtro.equals("Correo")) {
+                    pasajerosFiltrados = pasajeroController.buscarPorCorreo(valor);
+                } else if (filtro.equals("Telefono")) {
+                    pasajerosFiltrados = pasajeroController.buscarPorTelefono(valor);
+                }
             }
+
+            DefaultTableModel dtm = new DefaultTableModel();
+            dtm.addColumn("#");
+            dtm.addColumn("Nombre");
+            dtm.addColumn("Apellido");
+            dtm.addColumn("DNI");
+            dtm.addColumn("Telefono");
+            dtm.addColumn("Correo");
+
+            for (PasajeroDTO p : pasajerosFiltrados) {
+                dtm.addRow(new Object[]{
+                    p.getId(),
+                    p.getNombre(),
+                    p.getApellido(),
+                    p.getDNI(),
+                    p.getTelefono(),
+                    p.getEmail()
+                });
+            }
+
+            TablaPasajeros.setModel(dtm);
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaPasajeros.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al buscar pasajeros: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        // Crear un modelo de tabla y agregar los resultados
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("#");
-        dtm.addColumn("Nombre");
-        dtm.addColumn("Apellido");
-        dtm.addColumn("DNI");
-        dtm.addColumn("Telefono");
-        dtm.addColumn("Correo");
-
-        for (PasajeroDTO p : pasajerosFiltrados) {
-            dtm.addRow(new Object[]{
-                p.getId(),
-                p.getNombre(),
-                p.getApellido(),
-                p.getDNI(),
-                p.getTelefono(),
-                p.getEmail()
-            });
-        }
-
-        TablaPasajeros.setModel(dtm);
-    } catch (SQLException ex) {
-        Logger.getLogger(ListaPasajeros.class.getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(this, "Error al buscar pasajeros: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
-    
-    public void borrar(){
-           int fila = TablaPasajeros.getSelectedRow();
+
+    public void borrar() {
+        int fila = TablaPasajeros.getSelectedRow();
         if (fila < 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
 
@@ -134,10 +132,36 @@ public class ListaPasajeros extends javax.swing.JPanel {
             }
         }
     }
-       
-        
-        
-    
+
+    public void actualizar() {
+
+        int fila = TablaPasajeros.getSelectedRow();
+
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
+        } else {
+            DefaultTableModel model = (DefaultTableModel) TablaPasajeros.getModel();
+            int id = (int) model.getValueAt(fila, 0); // Suponiendo que la primera columna es el ID
+            String nombre = (String) model.getValueAt(fila, 1);
+            String apellido = (String) model.getValueAt(fila, 2);
+            String dni = model.getValueAt(fila, 3).toString();
+            String telefono = model.getValueAt(fila, 4).toString();
+            String correo = (String) model.getValueAt(fila, 5);
+
+            // Crear el panel con los datos cargados
+            NuevoPasajero panelEditar = new NuevoPasajero(id, nombre, apellido, dni, telefono, correo);
+
+            // Mostrarlo dentro de un JDialog
+            JDialog dialog = new JDialog();
+            dialog.setTitle("Editar Pasajero");
+            dialog.setModal(true);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.getContentPane().add(panelEditar);
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -211,7 +235,10 @@ public class ListaPasajeros extends javax.swing.JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == BtnEditar) {
+            if (evt.getSource() == BtnBuscar) {
+                ListaPasajeros.this.BtnBuscarActionPerformed(evt);
+            }
+            else if (evt.getSource() == BtnEditar) {
                 ListaPasajeros.this.BtnEditarActionPerformed(evt);
             }
             else if (evt.getSource() == BtnBorrar) {
@@ -219,9 +246,6 @@ public class ListaPasajeros extends javax.swing.JPanel {
             }
             else if (evt.getSource() == CboxBuscar) {
                 ListaPasajeros.this.CboxBuscarActionPerformed(evt);
-            }
-            else if (evt.getSource() == BtnBuscar) {
-                ListaPasajeros.this.BtnBuscarActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -231,34 +255,9 @@ public class ListaPasajeros extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnBorrarActionPerformed
 
     private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
-        
-        int fila = TablaPasajeros.getSelectedRow();
-    
-    if (fila < 0) {
-        JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
-    } else {
-        DefaultTableModel model = (DefaultTableModel) TablaPasajeros.getModel();
-        int id = (int) model.getValueAt(fila, 0); // Suponiendo que la primera columna es el ID
-        String nombre = (String) model.getValueAt(fila, 1);
-        String apellido = (String) model.getValueAt(fila, 2);
-        String dni = model.getValueAt(fila, 3).toString();
-        String telefono = model.getValueAt(fila, 4).toString();
-        String correo = (String) model.getValueAt(fila, 5);
 
-        // Crear el panel con los datos cargados
-        NuevoPasajero panelEditar = new NuevoPasajero(id, nombre, apellido, dni, telefono, correo);
-
-        // Mostrarlo dentro de un JDialog
-        JDialog dialog = new JDialog();
-        dialog.setTitle("Editar Pasajero");
-        dialog.setModal(true);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.getContentPane().add(panelEditar);
-        dialog.pack();
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
-    }       
-    this.refrescar();
+        this.actualizar();
+        this.refrescar();
     }//GEN-LAST:event_BtnEditarActionPerformed
 
     private void CboxBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboxBuscarActionPerformed

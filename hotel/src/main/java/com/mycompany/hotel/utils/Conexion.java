@@ -8,9 +8,7 @@ import java.util.logging.Logger;
 
 public class Conexion {
 
-    public static Connection getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+ 
     private Connection cnn;
     private static Conexion instancia  = null;
   
@@ -19,7 +17,7 @@ public class Conexion {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             
-            cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "root", "root");
+            cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "root", "");
 
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
