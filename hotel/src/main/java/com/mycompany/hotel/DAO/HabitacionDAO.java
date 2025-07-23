@@ -10,6 +10,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que maneja la persistencia de objetos Habitación en la base de datos.
+ * Implementa las operaciones CRUD.
+ * Utiliza patrón Singleton para garantizar una única instancia.
+ * @author mauro
+ */
+
 public abstract class HabitacionDAO implements Icrud<Habitacion> {
 
     private static HabitacionDAO instancia;
@@ -18,7 +25,12 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
 
     private HabitacionDAO() {
     }
-
+    
+    
+    /**
+     * Devuelve la instancia única de HabitacionDAO (Singleton).
+     * @return : Retorna la instancia de habitación.
+     */
     public static HabitacionDAO getInstancia() {
         if (HabitacionDAO.instancia == null) {
             HabitacionDAO.instancia = new HabitacionDAO() {
@@ -45,7 +57,13 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
         }
         return HabitacionDAO.instancia;
     }
-
+    
+    
+    /**
+     *  Inserta una nueva habitación en la base de datos.
+     * @param dato : Objeto Habitacion con los datos a insertar.
+     * @throws SQLException : Si ocurre un error al ejecutar la operación en la base de datos.
+     */
     @Override
     public void crear(Habitacion dato) throws SQLException {
         PreparedStatement stat;
@@ -79,7 +97,14 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
             cnn.cerrarConexion();
         }
     }
-
+    
+    
+    /**
+     *Recupera una habitación por su identificador único.
+     * @param id : Identificador de la habitación a recuperar.
+     * @return : Retorna Objeto Habitación si se encuentra, o null si no existe.
+     * @throws SQLException : si ocurre un error al ejecutar la consulta.
+     */
     @Override
     public Habitacion recuperarPorId(int id) throws SQLException {
         String SELECTONE = "SELECT numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones WHERE id = ?;";
@@ -108,7 +133,13 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
 
         return hab;
     }
-
+    
+    
+    /**
+     * Recupera todas las habitaciones almacenadas en la base de datos.
+     * @return : Retorna Lista con todas las habitaciones.
+     * @throws SQLException : Si ocurre un error al ejecutar la consulta.
+     */
     @Override
     public List<Habitacion> recuperarTodos() throws SQLException {
         String SELECTALL = "SELECT id, numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones;";
@@ -134,7 +165,14 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
 
         return habitaciones;
     }
-
+    
+    
+    /**
+     * Recuperar habitación especifica por número.
+     * @param numero : Número de la habitación a recuperar.
+     * @return : Retorna la habitación buscada, onull si no existe.
+     * @throws SQLException : Si ocurre un error al ejecutar la consulta.
+     */
     public Habitacion recuperarPorNumero(String numero) throws SQLException {
         String SELECTONE = "SELECT id, numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones WHERE numero = ?;";
         Habitacion hab = null;
@@ -162,7 +200,14 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
 
         return hab;
     }
-
+    
+    
+    /**
+     * Recuperar habitación por capacidad.
+     * @param capacidad :  Número de personas que la habitación puede alojar.
+     * @return : Retorna lista de habitaciones que cumplen con la capacidad dada.
+     * @throws SQLException : Si ocurre un error en la consulta a la base de datos.
+     */
     public List<Habitacion> recuperarPorCapacidad(int capacidad) throws SQLException {
         String SELECTBYCAPACIDAD = "SELECT id, numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones WHERE capacidad = ?;";
         List<Habitacion> habitaciones = new ArrayList<>();
@@ -191,7 +236,14 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
 
         return habitaciones;
     }
-
+    
+    
+    /** 
+     * Recupera una lista de habitaciones que tienen el estado especificado.
+     * @param estado : Estado de la habitación (por ejemplo, "disponible", "ocupada").
+     * @return : Retorna lista de habitaciones que coinciden con el estado dado.
+     * @throws SQLException : Si ocurre un error en la consulta a la base de datos.
+     */
     public List<Habitacion> recuperarPorEstado(String estado) throws SQLException {
         String SELECTBYESTADO = "SELECT id, numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones WHERE estado = ?;";
         List<Habitacion> habitaciones = new ArrayList<>();
@@ -220,7 +272,14 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
 
         return habitaciones;
     }
-
+    
+    
+    /**
+     * Recupera una lista de habitaciones que tienen el precio por noche especificado.
+     * @param precio : Precio por noche que debe tener la habitación.
+     * @return : Retorna lista de habitaciones cuyo precio coincide con el parámetro dado.
+     * @throws SQLException : Si ocurre un error en la consulta a la base de datos.
+     */
     public List<Habitacion> recuperarPorPrecio(double precio) throws SQLException {
         String SELECTBYPRECIO = "SELECT id, numero, camasSimples, camasDobles, precioPorNoche FROM habitaciones WHERE precioPorNoche = ?;";
         List<Habitacion> habitaciones = new ArrayList<>();
@@ -249,7 +308,13 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
 
         return habitaciones;
     }
-
+    
+    /**
+     * Actualiza los datos de una habitación específica en la base de datos.
+     * @param dato : Objeto Habitacion con los datos nuevos.
+     * @param id : Identificador de la habitación que se desea actualizar.
+     * @throws SQLException : Si ocurre un error al actualizar la información en la base de datos.
+     */
     @Override
     public void actualizar(Habitacion dato, int id) throws SQLException {
         String UPDATE = "UPDATE habitaciones SET numero = ?, camasSimples = ?, camasDobles = ?, precioPorNoche = ? WHERE id = ?;";
@@ -273,7 +338,13 @@ public abstract class HabitacionDAO implements Icrud<Habitacion> {
             cnn.cerrarConexion();
         }
     }
-
+    
+    
+    /**
+     * Elimina una habitación de la base de datos utilizando el objeto Habitacion.
+     * @param dato : Objeto Habitacion que se desea eliminar.
+     * @throws SQLException : Si ocurre un error al intentar borrar la habitación.
+     */
     @Override
     public void borrar(Habitacion dato) throws SQLException {
         PreparedStatement stat;
