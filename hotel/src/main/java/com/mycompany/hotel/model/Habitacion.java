@@ -5,6 +5,7 @@
 package com.mycompany.hotel.model;
 
 import java.util.Objects;
+import java.math.BigDecimal;
 
 /**
  *
@@ -12,13 +13,13 @@ import java.util.Objects;
  */
 public class Habitacion {
     private int id;
-    private int numero;
+    private String numero;
     private int camasSimples;
     private int camasDobles;
-    private float precioPorNoche;
+    private BigDecimal precioPorNoche;
 
 
-    public Habitacion(int id, int numero, int camasSimples, int camasDobles, float precioPorNoche) {
+    public Habitacion(int id, String numero, int camasSimples, int camasDobles, BigDecimal precioPorNoche) {
         this.id = id;
         this.numero = numero;
         this.camasSimples = camasSimples;
@@ -27,7 +28,7 @@ public class Habitacion {
     }
 
  
-    public Habitacion(int numero, int camasSimples, int camasDobles, float precioPorNoche) {
+    public Habitacion(String numero, int camasSimples, int camasDobles, BigDecimal precioPorNoche) {
 
      this.numero = numero;
      this.camasSimples = camasSimples;
@@ -45,7 +46,7 @@ public class Habitacion {
         this.id = id;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -57,7 +58,7 @@ public class Habitacion {
         this.camasDobles = camasDobles;
     }
 
-    public void setPrecioPorNoche(float precioPorNoche) {
+    public void setPrecioPorNoche(BigDecimal precioPorNoche) {
         this.precioPorNoche = precioPorNoche;
     }
     
@@ -65,7 +66,7 @@ public class Habitacion {
      return id;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
@@ -77,20 +78,22 @@ public class Habitacion {
         return camasDobles;
     }
 
-    public float getPrecioPorNoche() {
+    public BigDecimal getPrecioPorNoche() {
         return precioPorNoche;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + this.id;
-        hash = 89 * hash + Objects.hashCode(this.numero);
-        hash = 89 * hash + this.camasSimples;
-        hash = 89 * hash + this.camasDobles;
-        hash = 89 * hash + Float.floatToIntBits(this.precioPorNoche);
+        int hash = 7;
+        hash = 29 * hash + this.id;
+        hash = 29 * hash + Objects.hashCode(this.numero);
+        hash = 29 * hash + this.camasSimples;
+        hash = 29 * hash + this.camasDobles;
+        hash = 29 * hash + Objects.hashCode(this.precioPorNoche);
         return hash;
     }
+
+   
 
     @Override
     public boolean equals(Object obj) {
@@ -113,11 +116,13 @@ public class Habitacion {
         if (this.camasDobles != other.camasDobles) {
             return false;
         }
-        if (Float.floatToIntBits(this.precioPorNoche) != Float.floatToIntBits(other.precioPorNoche)) {
+        if (!Objects.equals(this.numero, other.numero)) {
             return false;
         }
-        return Objects.equals(this.numero, other.numero);
+        return Objects.equals(this.precioPorNoche, other.precioPorNoche);
     }
+
+    
     
     
     @Override

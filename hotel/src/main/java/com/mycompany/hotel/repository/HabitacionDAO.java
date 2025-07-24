@@ -7,6 +7,7 @@ import java.sql.Connection;
 import com.mycompany.hotel.interfaz.Icrud;
 import com.mycompany.hotel.utils.Conexion;
 import com.mycompany.hotel.model.Habitacion;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,7 +44,7 @@ public class HabitacionDAO implements Icrud<Habitacion> {
             stat.setString(1, dato.getNumero());
             stat.setInt(2, dato.getCamasSimples());
             stat.setInt(3, dato.getCamasDobles());
-            stat.setFloat(4, dato.getPrecioPorNoche());
+            stat.setBigDecimal(4, dato.getPrecioPorNoche());
 
             rs = stat.getGeneratedKeys();
             if (rs.next()) {
@@ -69,7 +70,7 @@ public class HabitacionDAO implements Icrud<Habitacion> {
             stat.setString(1, dato.getNumero());
             stat.setInt(2, dato.getCamasSimples());
             stat.setInt(3, dato.getCamasDobles());
-            stat.setFloat(4, dato.getPrecioPorNoche());
+            stat.setBigDecimal(4, dato.getPrecioPorNoche());
             stat.setInt(5, id);
             if (stat.executeUpdate() == 0) {
                 throw new SQLException("Puede que no se haya actualizado");
@@ -98,7 +99,7 @@ public class HabitacionDAO implements Icrud<Habitacion> {
             stat.setString(2, dato.getNumero());
             stat.setInt(3, dato.getCamasSimples());
             stat.setInt(4, dato.getCamasDobles());
-            stat.setFloat(5, dato.getPrecioPorNoche());
+            stat.setBigDecimal(4, dato.getPrecioPorNoche());
 
             if (stat.executeUpdate() == 0) {
                 throw new SQLException("Puede que no se haya borrado");
@@ -143,7 +144,7 @@ public class HabitacionDAO implements Icrud<Habitacion> {
             stat.setInt(1, id);
             rs = stat.executeQuery();
             while (rs.next()) {
-                habitacion = new Habitacion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getFloat(5));
+                habitacion = new Habitacion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBigDecimal(5));
             }
             return habitacion;
         } catch (SQLException ex) {
@@ -166,7 +167,7 @@ public class HabitacionDAO implements Icrud<Habitacion> {
             rs = stat.executeQuery(SELECT);
 
             while (rs.next()) {
-                habitaciones.add(new Habitacion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getFloat(5)));
+                habitaciones.add(new Habitacion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBigDecimal(5)));
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(HabitacionDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -192,7 +193,7 @@ public class HabitacionDAO implements Icrud<Habitacion> {
             rs = stat.executeQuery();
 
             while (rs.next()) {
-                   habitaciones.add(new Habitacion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getFloat(5)));
+                   habitaciones.add(new Habitacion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBigDecimal(5)));
             }
             
         } catch (SQLException ex) {
@@ -219,7 +220,7 @@ public class HabitacionDAO implements Icrud<Habitacion> {
             rs = stat.executeQuery();
 
             while (rs.next()) {
-                   habitaciones.add(new Habitacion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getFloat(5)));
+                   habitaciones.add(new Habitacion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBigDecimal(5)));
             }
             
         } catch (SQLException ex) {
@@ -246,7 +247,7 @@ public class HabitacionDAO implements Icrud<Habitacion> {
             rs = stat.executeQuery();
 
             while (rs.next()) {
-                   habitaciones.add(new Habitacion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getFloat(5)));
+                   habitaciones.add(new Habitacion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBigDecimal(5)));
             }
             
         } catch (SQLException ex) {
@@ -280,7 +281,7 @@ public class HabitacionDAO implements Icrud<Habitacion> {
                 rs.getString("numero"),
                 rs.getInt("camasSimples"),
                 rs.getInt("camasDobles"),
-                rs.getFloat("precioPorNoche")
+                rs.getBigDecimal("precioPorNoche")
             ));
         }
     } catch (SQLException ex) {
