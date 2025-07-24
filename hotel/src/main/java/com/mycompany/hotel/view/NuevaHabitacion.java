@@ -4,6 +4,16 @@
  */
 package com.mycompany.hotel.view;
 
+import com.mycompany.hotel.controller.HabitacionController;
+import com.mycompany.hotel.dto.HabitacionDTO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 /**
  *
  * @author mi pc
@@ -13,10 +23,74 @@ public class NuevaHabitacion extends javax.swing.JPanel {
     /**
      * Creates new form NuevaHabitacion
      */
-    public NuevaHabitacion() {
+    private HabitacionController habitacionController;
+    private HabitacionDTO habitacionDTO;
+    
+   
+    
+    public NuevaHabitacion(JComboBox<String> CboxDoble, JComboBox<String> CboxSimple, JLabel LblId, JTextField TxtPrecio, JTextField txtNumero) {
+        this.CboxDoble = CboxDoble;
+        this.CboxSimple = CboxSimple;
+        this.LblId = LblId;
+        this.TxtPrecio = TxtPrecio;
+        this.txtNumero = txtNumero;
+    }
+   
+    public NuevaHabitacion(int id,String numero,String camaSimple,String camaDoble,String precio){
+        this.habitacionController = new HabitacionController();
+        initComponents();
+        this.LblId.setText(String.valueOf(id));
+        this.txtNumero.setText(numero);
+        this.CboxSimple.setSelectedItem(String.valueOf(camaSimple));
+        this.CboxDoble.setSelectedItem(String.valueOf(camaDoble));
+        this.TxtPrecio.setText(String.valueOf(precio));
+    }
+    
+     public NuevaHabitacion() {
+        this.habitacionController = new HabitacionController();
         initComponents();
     }
-
+    
+    public void Guardar() throws SQLException{
+      Integer id;
+        id = null;
+    
+        try{
+            if(LblId.getText() != null && LblId.getText() != ""){
+                 id = Integer.parseInt(LblId.getText());
+            }
+        
+            String numero = txtNumero.getText().trim();
+            String camaSimple = CboxSimple.getSelectedItem().toString();
+            int cantSimple = Integer.parseInt(camaSimple);
+            String camaDoble = CboxDoble.getSelectedItem().toString();
+            int cantDoble = Integer.parseInt(camaDoble);
+            String Txtprecio = TxtPrecio.getText().trim();
+            Float precio = Float.parseFloat(Txtprecio);
+        
+            if(id== null){
+                HabitacionDTO habitaciondto = new HabitacionDTO(numero,cantSimple,cantDoble,precio);
+                habitacionController.crear(habitaciondto);
+                JOptionPane.showMessageDialog(this, "La habitacion se guardó con éxito");
+            }else{
+                HabitacionDTO habitaciondto = new HabitacionDTO(id,numero,cantSimple,cantDoble,precio);
+                habitacionController.actualizar(habitaciondto, id);
+                JOptionPane.showMessageDialog(null, "La habitacion se actualizo correctamente");
+            }
+            
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error: Precio por dia deben ser números.", "Error", JOptionPane.ERROR_MESSAGE);
+        }catch (SQLException ex) {
+            Logger.getLogger(NuevaHabitacion.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+    
+    public void LimpiarCampos(){
+        txtNumero.setText("");
+        CboxSimple.setSelectedIndex(0);
+        CboxDoble.setSelectedIndex(0);
+        TxtPrecio.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,6 +110,7 @@ public class NuevaHabitacion extends javax.swing.JPanel {
         CboxDoble = new javax.swing.JComboBox<>();
         Guardar = new javax.swing.JButton();
         Cancelar = new javax.swing.JButton();
+        LblId = new javax.swing.JLabel();
 
         FormListener formListener = new FormListener();
 
@@ -77,12 +152,16 @@ public class NuevaHabitacion extends javax.swing.JPanel {
 
         Guardar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         Guardar.setText("Guardar");
+        Guardar.addActionListener(formListener);
         add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 455, 195, -1));
 
         Cancelar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         Cancelar.setText("Cancelar");
         Cancelar.setPreferredSize(new java.awt.Dimension(123, 43));
         add(Cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(624, 455, 208, -1));
+
+        LblId.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        add(LblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(793, 52, 39, 26));
     }
 
     // Code for dispatching events from components to event handlers.
@@ -93,6 +172,9 @@ public class NuevaHabitacion extends javax.swing.JPanel {
             if (evt.getSource() == CboxSimple) {
                 NuevaHabitacion.this.CboxSimpleActionPerformed(evt);
             }
+            else if (evt.getSource() == Guardar) {
+                NuevaHabitacion.this.GuardarActionPerformed(evt);
+            }
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -100,12 +182,22 @@ public class NuevaHabitacion extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_CboxSimpleActionPerformed
 
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+        try {
+            this.Guardar();
+            this.LimpiarCampos();
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevaHabitacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_GuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
     private javax.swing.JComboBox<String> CboxDoble;
     private javax.swing.JComboBox<String> CboxSimple;
     private javax.swing.JButton Guardar;
+    private javax.swing.JLabel LblId;
     private javax.swing.JLabel LblNumero;
     private javax.swing.JLabel LblPrecio;
     private javax.swing.JTextField TxtPrecio;

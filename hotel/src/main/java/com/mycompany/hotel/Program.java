@@ -4,6 +4,11 @@
 
 package com.mycompany.hotel;
 
+import com.mycompany.hotel.view.Principal;
+import java.io.File;
+import java.net.URL;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author justcode
@@ -11,6 +16,14 @@ package com.mycompany.hotel;
 public class Program {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
+      javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                // Crear y mostrar la ventana principal
+                new Principal().setVisible(true);
+           
+
+
+
+            }
+        });    }
 }

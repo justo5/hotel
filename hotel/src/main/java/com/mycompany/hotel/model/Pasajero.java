@@ -35,6 +35,10 @@ public class Pasajero {
         this.email = email;
     }
 
+    public Pasajero() {
+    }
+    
+
    
     public int getId() {
         return id;
@@ -127,8 +131,9 @@ public class Pasajero {
     }
    
     
+    
     @Override
     public String toString() {
-        return "pasajero{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", DNI=" + DNI + ", telefono=" + telefono + ", email=" + email + '}';
+        return this.nombre + " " + this.apellido;
     }
 }

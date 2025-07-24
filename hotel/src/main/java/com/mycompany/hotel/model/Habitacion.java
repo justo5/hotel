@@ -17,7 +17,18 @@ public class Habitacion {
     private int camasDobles;
     private float precioPorNoche;
 
+
+    public Habitacion(int id, int numero, int camasSimples, int camasDobles, float precioPorNoche) {
+        this.id = id;
+        this.numero = numero;
+        this.camasSimples = camasSimples;
+        this.camasDobles = camasDobles;
+        this.precioPorNoche = precioPorNoche;
+    }
+
+ 
     public Habitacion(int numero, int camasSimples, int camasDobles, float precioPorNoche) {
+
      this.numero = numero;
      this.camasSimples = camasSimples;
      this.camasDobles = camasDobles;
@@ -28,9 +39,7 @@ public class Habitacion {
       
     }
 
-    public Habitacion(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  
      
     public void setId(int id) {
         this.id = id;

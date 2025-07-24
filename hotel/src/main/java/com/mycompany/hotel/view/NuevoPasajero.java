@@ -19,6 +19,9 @@ import javax.swing.JTextField;
  */
 public class NuevoPasajero extends javax.swing.JPanel {
 
+    private PasajeroController pasajeroController;
+    private PasajeroDTO pasajeroDto;
+
     public NuevoPasajero(JTextField txtApellido, JTextField txtCorreo, JTextField txtDni, JTextField txtNombre, JTextField txtTelefono) {
         this.txtApellido = txtApellido;
         this.txtCorreo = txtCorreo;
@@ -26,9 +29,6 @@ public class NuevoPasajero extends javax.swing.JPanel {
         this.txtNombre = txtNombre;
         this.txtTelefono = txtTelefono;
     }
-
-    private PasajeroController pasajeroController;
-    private PasajeroDTO pasajeroDto;
 
     public NuevoPasajero(int id, String nombre, String apellido, String dni, String telefono, String correo) {
         this();
@@ -46,31 +46,31 @@ public class NuevoPasajero extends javax.swing.JPanel {
 
     }
 
-    public void Agregar() {
+    public void Guardar() {
         try {
             Integer id;
             id = null;
-            if(LblId.getText() != null && LblId.getText() != ""){
-                 id = Integer.parseInt(LblId.getText());
+            if (LblId.getText() != null && LblId.getText() != "") {
+                id = Integer.parseInt(LblId.getText());
             }
-           
+
             String nombre = txtNombre.getText().trim();
             String apellido = txtApellido.getText().trim();
             int dni = Integer.parseInt(txtDni.getText().trim());
             int telefono = Integer.parseInt(txtTelefono.getText().trim());
             String correo = txtCorreo.getText().trim();
-            
-            if(id == null){
+
+            if (id == null) {
                 PasajeroDTO pasajeroDTO = new PasajeroDTO(nombre, apellido, dni, telefono, correo);
                 pasajeroController.crear(pasajeroDTO);
                 JOptionPane.showMessageDialog(this, "El pasajero se guardó con éxito");
-            }else{
-                PasajeroDTO pasajeroDTO = new PasajeroDTO(id,nombre,apellido,dni,telefono,correo);
+            } else {
+                PasajeroDTO pasajeroDTO = new PasajeroDTO(id, nombre, apellido, dni, telefono, correo);
                 pasajeroController.actualizar(pasajeroDTO, id);
                 JOptionPane.showMessageDialog(null, "El pasajero se actualizo correctamente");
-                
+
             }
-           
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Error: DNI y Teléfono deben ser números.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
@@ -88,25 +88,7 @@ public class NuevoPasajero extends javax.swing.JPanel {
         txtCorreo.setText("");
     }
 
-    public void Actualizar() {
-        try {
-
-            String nombre = txtNombre.getText().trim();
-            String apellido = txtApellido.getText().trim();
-            int dni = Integer.parseInt(txtDni.getText().trim());
-            int telefono = Integer.parseInt(txtTelefono.getText().trim());
-            String correo = txtCorreo.getText().trim();
-
-            PasajeroDTO pasajeroDTO = new PasajeroDTO(nombre, apellido, dni, telefono, correo);
-            pasajeroController.actualizarPasajero(pasajeroDTO);
-
-            JOptionPane.showMessageDialog(this, "El pasajero se actualizó con éxito");
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Error: DNI y Teléfono deben ser números.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al actualizar el pasajero: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -230,12 +212,12 @@ public class NuevoPasajero extends javax.swing.JPanel {
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
 
-        this.Agregar();
+        this.Guardar();
         this.LimpiarCampos();
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        this.setVisible(false);
+
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
 
