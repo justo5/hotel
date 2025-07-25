@@ -62,6 +62,30 @@ public class ReservaController implements Icrud<ReservaDTO> {
         return reservasDTO;
     }
     
+    public List<ReservaDTO> buscarPasajero(String terminoBusqueda) throws SQLException {
+        List<ReservaDTO> reservasDTO;
+        reservasDTO = reservaService.buscarPasajero(terminoBusqueda);
+        return reservasDTO;
+    }
+     public List<ReservaDTO> buscarPorCheckin(String valor) throws SQLException {
+         List<ReservaDTO> reservasDTO;
+        reservasDTO = reservaService.buscarPorCheckin(valor);
+        return reservasDTO;
+     }
+     
+      public List<ReservaDTO> buscarPorCheckout(String valor) throws SQLException {
+           List<ReservaDTO> reservasDTO;
+        reservasDTO = reservaService.buscarPorCheckout(valor);
+        return reservasDTO;
+      }
+      
+      public List<ReservaDTO> buscarPorHabitacion(String valor) throws SQLException {
+          List<ReservaDTO> reservasDTO;
+        reservasDTO = reservaService.buscarPorHabitacion(valor);
+        return reservasDTO;
+      }
+    
+          
    
 }
 
