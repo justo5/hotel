@@ -93,6 +93,10 @@ public class PasajeroController implements Icrud<PasajeroDTO> {
         pasajeros = pasajeroService.buscarPorTelefono(telefono);
         return pasajeros;
     }
+     
+      public String obtenerNombreCompletoPorId(int id) throws SQLException {
+          return pasajeroService.obtenerNombreCompletoPorId(id);
+      }
     
    
     

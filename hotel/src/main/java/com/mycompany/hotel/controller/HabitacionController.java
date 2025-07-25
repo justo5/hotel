@@ -91,5 +91,9 @@ public class HabitacionController implements Icrud<HabitacionDTO> {
         int simples = h.getCamasSimples();
         return (dobles * 2) + simples;
     }
+    
+    public String obtenerNumeroHabitacionPorId(int idHabitacion) throws SQLException{
+        return habitacionService.obtenerNumeroHabitacionPorId(idHabitacion);
+    }
 
 }

@@ -293,4 +293,20 @@ public class HabitacionDAO implements Icrud<Habitacion> {
     return habitaciones;
 }
 
+    public String obtenerNumeroHabitacionPorId(int idHabitacion) throws SQLException {
+    cnn = Conexion.iniciarConnection();
+    String numeroHabitacion = null;
+    String sql = "SELECT numero FROM habitacion WHERE id = ?";
+
+    try (PreparedStatement stmt = cnn.getCo().prepareStatement(sql)) {
+        stmt.setInt(1, idHabitacion);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            numeroHabitacion = rs.getString("numero");
+        }
+    }
+
+    return numeroHabitacion;
+}
 }

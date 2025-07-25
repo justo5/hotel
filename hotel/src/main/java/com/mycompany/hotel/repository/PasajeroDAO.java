@@ -343,6 +343,39 @@ public class PasajeroDAO implements Icrud<Pasajero> {
         
     }
     
+   public String obtenerNombreCompletoPorId(int id) throws SQLException {
+    cnn = Conexion.iniciarConnection();
+    String SELECT = "SELECT nombre, apellido FROM pasajero WHERE id = ?;";
+    PreparedStatement stat;
+    ResultSet rs;
+    String nombreCompleto = null;
+
+    if (cnn == null) {
+        throw new IllegalStateException("Database connection not initialized");
+    }
+
+    try {
+        stat = cnn.getCo().prepareStatement(SELECT);
+        stat.setInt(1, id);
+        rs = stat.executeQuery();
+
+        if (rs.next()) {
+            String nombre = rs.getString("nombre");
+            String apellido = rs.getString("apellido");
+            nombreCompleto = nombre + " " + apellido;
+        }
+
+        return nombreCompleto;
+
+    } catch (SQLException ex) {
+        java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } finally {
+        cnn.cerrarConexion();
+    }
+
+    return nombreCompleto;
+}
+    
     
     
 
