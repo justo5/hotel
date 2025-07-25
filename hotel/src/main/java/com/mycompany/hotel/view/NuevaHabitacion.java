@@ -6,6 +6,7 @@ package com.mycompany.hotel.view;
 
 import com.mycompany.hotel.controller.HabitacionController;
 import com.mycompany.hotel.dto.HabitacionDTO;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
 
 /**
  *
@@ -66,7 +68,7 @@ public class NuevaHabitacion extends javax.swing.JPanel {
             String camaDoble = CboxDoble.getSelectedItem().toString();
             int cantDoble = Integer.parseInt(camaDoble);
             String Txtprecio = TxtPrecio.getText().trim();
-            Float precio = Float.parseFloat(Txtprecio);
+            BigDecimal precio = new BigDecimal(Txtprecio);
         
             if(id== null){
                 HabitacionDTO habitaciondto = new HabitacionDTO(numero,cantSimple,cantDoble,precio);

@@ -140,22 +140,24 @@ public class ListaReservas extends javax.swing.JPanel {
         try {
             DefaultTableModel dtm = new DefaultTableModel();
             dtm.addColumn("ID");
-            dtm.addColumn("ID_habitacion");
+            dtm.addColumn("Numero habitacion");
             dtm.addColumn("Checkin");
             dtm.addColumn("Checkout");
             dtm.addColumn("Seña");
-            dtm.addColumn("ID_pasajero");
+            dtm.addColumn("Pasajero");
             List<ReservaDTO> reservas = reservaController.recuperarTodos();
             
             for(ReservaDTO r: reservas){
-            
+                
+                String nroHabitacion = habitacionController.obtenerNumeroHabitacionPorId(r.getId_habitacion());
+                String nombrePasajero = pasajeroController.obtenerNombreCompletoPorId(r.getId_pasajero());
                 dtm.addRow(new Object[]{
                 r.getId(),
-                r.getId_habitacion(),
+                nroHabitacion,
                 r.getChekin(),
                 r.getCheckout(),
                 r.getSenia(),
-                r.getId_pasajero()
+                nombrePasajero
                 });  
             }
             

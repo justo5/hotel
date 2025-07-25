@@ -122,4 +122,7 @@ public class PasajeroService {
                 
         return pasajerosDTO;        
     }
+     public String obtenerNombreCompletoPorId(int id) throws SQLException {
+         return pasajeroDAO.obtenerNombreCompletoPorId(id);
+     }
 }

@@ -92,7 +92,7 @@ public class HabitacionDTO {
 
     @Override
     public String toString() {
-        return "Hab. " + numero + " - $" + precioPorNoche;
+        return "Hab. " + numero + " - $" + precioPorNoche + "/Noche";
     }
 
     @Override
