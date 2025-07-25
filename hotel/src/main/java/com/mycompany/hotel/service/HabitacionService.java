@@ -112,5 +112,9 @@ public class HabitacionService {
        }
        return habitacionesDTO;
     }
+    
+     public String obtenerNumeroHabitacionPorId(int idHabitacion) throws SQLException{
+         return habitacionDAO.obtenerNumeroHabitacionPorId(idHabitacion);
+     }
 
 }
