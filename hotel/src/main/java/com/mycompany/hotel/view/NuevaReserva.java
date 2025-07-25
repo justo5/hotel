@@ -40,21 +40,37 @@ public class NuevaReserva extends javax.swing.JPanel {
         this.habitacionController = new HabitacionController();
         this.pasajeroController = new PasajeroController();
 
-       
     }
-    public NuevaReserva(int id,HabitacionDTO h, Date checkin, Date checkout,float senia,PasajeroDTO p, int capacidad){
+
+    public NuevaReserva(int id, HabitacionDTO h, Date checkin, Date checkout, float senia, PasajeroDTO p, int capacidad) throws SQLException {
         this.reservaController = new ReservaController();
         this.habitacionController = new HabitacionController();
         this.pasajeroController = new PasajeroController();
         initComponents();
+
+        // Cargo combos antes
+        List<HabitacionDTO> listaHabitaciones = habitacionController.recuperarTodos();
+        CboxHabitaciones.removeAllItems();
+        for (HabitacionDTO hab : listaHabitaciones) {
+            CboxHabitaciones.addItem(hab);
+        }
+
+        List<PasajeroDTO> listaPasajeros = pasajeroController.recuperarTodos();
+        CboxPasajeros.removeAllItems();
+        for (PasajeroDTO pas : listaPasajeros) {
+            CboxPasajeros.addItem(pas);
+        }
+
+        // Seteo valores
         this.LblId.setText(String.valueOf(id));
         this.FechaCheckin.setDate(checkin);
         this.FechaCheckout.setDate(checkout);
         this.TxtSeña.setText(String.valueOf(senia));
         this.TxtCantidadPersonas.setText(String.valueOf(capacidad));
+
+        // Selecciono objetos en los combos
         this.CboxHabitaciones.setSelectedItem(h);
-        this.CboxPasajeros.setSelectedItem(p.getDNI());
-        
+        this.CboxPasajeros.setSelectedItem(p);
     }
 
     public NuevaReserva(JComboBox<String> CboxCantidadPersonas, JComboBox<HabitacionDTO> CboxHabitaciones, JCalendar FechaCheckin, JCalendar FechaCheckout, JTextField TxtNombrePasajero, JTextField TxtSeña) {
@@ -147,7 +163,16 @@ public class NuevaReserva extends javax.swing.JPanel {
     }
 
     public void Guardar() {
-         // Obtener y validar fechas
+        Integer id = null;
+
+        
+            // Obtener id si existe
+            String idText = LblId.getText();
+            if (idText != null && !idText.trim().isEmpty()) {
+                id = Integer.parseInt(idText.trim());
+            }
+
+            // Obtener y validar fechas
             java.util.Date checkinUtil = FechaCheckin.getDate();
             java.util.Date checkoutUtil = FechaCheckout.getDate();
 
@@ -159,67 +184,71 @@ public class NuevaReserva extends javax.swing.JPanel {
             // Convertir a java.sql.Date
             java.sql.Date checkin = new java.sql.Date(checkinUtil.getTime());
             java.sql.Date checkout = new java.sql.Date(checkoutUtil.getTime());
-            
-        // Obtener habitación seleccionada
-        HabitacionDTO habitacionSeleccionada = (HabitacionDTO) CboxHabitaciones.getSelectedItem();
-        if (habitacionSeleccionada == null) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una habitación.");
-            return;
-        }
 
-// Obtener pasajero seleccionado
-        PasajeroDTO pasajeroSeleccionado = (PasajeroDTO) CboxPasajeros.getSelectedItem();
-        if (pasajeroSeleccionado == null) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un pasajero.");
-            return;
-        }
-
-// Obtener y validar seña
-        String seniaStr = TxtSeña.getText().trim();
-        float senia = 0;
-        try {
-            senia = Float.parseFloat(seniaStr);
-            if (senia < 0) {
-                JOptionPane.showMessageDialog(this, "La seña no puede ser negativa.");
+            // Obtener habitación seleccionada
+            HabitacionDTO habitacionSeleccionada = (HabitacionDTO) CboxHabitaciones.getSelectedItem();
+            if (habitacionSeleccionada == null) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una habitación.");
                 return;
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un valor válido para la seña.");
-            return;
-        }
 
+// Obtener pasajero seleccionado
+            PasajeroDTO pasajeroSeleccionado = (PasajeroDTO) CboxPasajeros.getSelectedItem();
+            if (pasajeroSeleccionado == null) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un pasajero.");
+                return;
+            }
 
+// Obtener y validar seña
+            String seniaStr = TxtSeña.getText().trim();
+            float senia = 0;
+            try {
+                senia = Float.parseFloat(seniaStr);
+                if (senia < 0) {
+                    JOptionPane.showMessageDialog(this, "La seña no puede ser negativa.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Ingrese un valor válido para la seña.");
+                return;
+            }
 
 // Crear ReservaDTO
-        ReservaDTO nuevaReserva = new ReservaDTO();
-        //nuevaReserva.setId(id); // Si es null, es nueva. Si no, es edición.
-        nuevaReserva.setChekin(checkin);
-        nuevaReserva.setCheckout(checkout);
-        nuevaReserva.setId_pasajero(pasajeroSeleccionado.getId());
-        nuevaReserva.setId_habitacion(habitacionSeleccionada.getId());
-        nuevaReserva.setSenia(senia);
-      
+            ReservaDTO nuevaReserva = new ReservaDTO();
+            if (id != null) {
+                nuevaReserva.setId(id);
+            }
+
+            nuevaReserva.setChekin(checkin);
+            nuevaReserva.setCheckout(checkout);
+            nuevaReserva.setId_pasajero(pasajeroSeleccionado.getId());
+            nuevaReserva.setId_habitacion(habitacionSeleccionada.getId());
+            nuevaReserva.setSenia(senia);
 
 // Guardar reserva
-        if (reservaController == null) {
-            reservaController = new ReservaController(); // Asegurar que no sea null
-        }
-        try {
+            if (reservaController == null) {
+                reservaController = new ReservaController(); // Asegurar que no sea null
+            }
+            try {
+                if (id == null) {
             reservaController.crear(nuevaReserva);
-            JOptionPane.showMessageDialog(this, "Reserva guardada correctamente.");
-           // LimpiarCampos(); // Si querés limpiar el formulario luego de guardar
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar la reserva: " + e.getMessage());
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Reserva creada correctamente.");
+        } else {
+            reservaController.actualizar(nuevaReserva, id);
+            JOptionPane.showMessageDialog(this, "Reserva actualizada correctamente.");
         }
-    }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al guardar la reserva: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+        /**
+         * This method is called from within the constructor to initialize the
+         * form. WARNING: Do NOT modify this code. The content of this method is
+         * always regenerated by the Form Editor.
+         */
+        @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
