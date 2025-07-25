@@ -10,6 +10,7 @@ import com.mycompany.hotel.controller.ReservaController;
 import com.mycompany.hotel.dto.HabitacionDTO;
 import com.mycompany.hotel.dto.PasajeroDTO;
 import com.mycompany.hotel.dto.ReservaDTO;
+import com.mycompany.hotel.view.NuevaReserva;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,15 +29,13 @@ public class ListaReservas extends javax.swing.JPanel {
     /**
      * Creates new form ListaReservas
      */
-    
     private ReservaController reservaController;
     private PasajeroController pasajeroController;
     private HabitacionController habitacionController;
     private ReservaDTO reservaDTO;
     private PasajeroDTO pasajeroDTO;
     private HabitacionDTO habitacionDTO;
-    
-    
+
     public ListaReservas() {
         this.reservaController = new ReservaController();
         this.pasajeroController = new PasajeroController();
@@ -135,42 +134,53 @@ public class ListaReservas extends javax.swing.JPanel {
         }
     }// </editor-fold>//GEN-END:initComponents
 
-     public void refrescar(){
-        
+    public void refrescar() {
+
         try {
             DefaultTableModel dtm = new DefaultTableModel();
             dtm.addColumn("ID");
-            dtm.addColumn("Numero habitacion");
+            dtm.addColumn("N° Habitación");  // visible para el usuario
             dtm.addColumn("Checkin");
             dtm.addColumn("Checkout");
             dtm.addColumn("Seña");
-            dtm.addColumn("Pasajero");
+            dtm.addColumn("Pasajero");       // visible
+            dtm.addColumn("ID_habitacion");  // oculta
+            dtm.addColumn("ID_pasajero");    // oculta
             List<ReservaDTO> reservas = reservaController.recuperarTodos();
-            
-            for(ReservaDTO r: reservas){
-                
+
+            for (ReservaDTO r : reservas) {
+
                 String nroHabitacion = habitacionController.obtenerNumeroHabitacionPorId(r.getId_habitacion());
                 String nombrePasajero = pasajeroController.obtenerNombreCompletoPorId(r.getId_pasajero());
                 dtm.addRow(new Object[]{
-                r.getId(),
-                nroHabitacion,
-                r.getChekin(),
-                r.getCheckout(),
-                r.getSenia(),
-                nombrePasajero
-                });  
+                    r.getId(),
+                    nroHabitacion,
+                    r.getChekin(),
+                    r.getCheckout(),
+                    r.getSenia(),
+                    nombrePasajero,
+                    r.getId_habitacion(),
+                    r.getId_pasajero()
+                });
             }
-            
+
             TablaReservas.setModel(dtm);
-            
+            TablaReservas.getColumnModel().getColumn(6).setMinWidth(0);
+            TablaReservas.getColumnModel().getColumn(6).setMaxWidth(0);
+            TablaReservas.getColumnModel().getColumn(6).setWidth(0);
+
+            TablaReservas.getColumnModel().getColumn(7).setMinWidth(0);
+            TablaReservas.getColumnModel().getColumn(7).setMaxWidth(0);
+            TablaReservas.getColumnModel().getColumn(7).setWidth(0);
+
         } catch (SQLException ex) {
             Logger.getLogger(ListaHabitaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-     
-     public void borrar(){
-           int fila = TablaReservas.getSelectedRow();
+
+    public void borrar() {
+        int fila = TablaReservas.getSelectedRow();
         if (fila < 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
 
@@ -189,38 +199,41 @@ public class ListaReservas extends javax.swing.JPanel {
             }
         }
     }
-      public void actualizar() throws SQLException {
 
-        int fila = TablaReservas.getSelectedRow();
+    public void actualizar() throws SQLException {
+    int fila = TablaReservas.getSelectedRow();
 
-        if (fila < 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
-        } else {
-            DefaultTableModel model = (DefaultTableModel) TablaReservas.getModel();
-            int id = (int) model.getValueAt(fila, 0); // Suponiendo que la primera columna es el ID
-            int id_habitacion = (int) model.getValueAt(fila, 1);
-            Date checkin = (Date) model.getValueAt(fila, 2);
-            Date checkout = (Date) model.getValueAt(fila, 3);
-            float senia = (float) model.getValueAt(fila, 4);
-            int id_pasajero = (int) model.getValueAt(fila, 5);
-            PasajeroDTO p = pasajeroController.recuperarPorId(id_pasajero);
-            HabitacionDTO h = habitacionController.recuperarPorId(id_habitacion);
-            int capacidad = habitacionController.calcularCapacidad(h);
-         
-            // Crear el panel con los datos cargados
-          
-            NuevaReserva panelEditar = new NuevaReserva(id,h,checkin,checkout,senia,p,capacidad);
-            // Mostrarlo dentro de un JDialog
-            JDialog dialog = new JDialog();
-            dialog.setTitle("Editar Reserva");
-            dialog.setModal(true);
-            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-            dialog.getContentPane().add(panelEditar);
-            dialog.pack();
-            dialog.setLocationRelativeTo(null);
-            dialog.setVisible(true);
-        }
-    } 
+    if (fila < 0) {
+        JOptionPane.showMessageDialog(null, "Debe seleccionar un registro");
+    } else {
+        DefaultTableModel model = (DefaultTableModel) TablaReservas.getModel();
+
+        int id = (int) model.getValueAt(fila, 0); // ID reserva
+        int id_habitacion = (int) model.getValueAt(fila, 6); // ID real de la habitación
+        int id_pasajero = (int) model.getValueAt(fila, 7); // ID real del pasajero
+
+        Date checkin = (Date) model.getValueAt(fila, 2);
+        Date checkout = (Date) model.getValueAt(fila, 3);
+        float senia = (float) model.getValueAt(fila, 4);
+
+        PasajeroDTO p = pasajeroController.recuperarPorId(id_pasajero);
+        HabitacionDTO h = habitacionController.recuperarPorId(id_habitacion);
+        int capacidad = habitacionController.calcularCapacidad(h);
+
+        NuevaReserva panelEditar = new NuevaReserva(id, h, checkin, checkout, senia, p, capacidad);
+
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Editar Reserva");
+        dialog.setModal(true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.getContentPane().add(panelEditar);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }
+
+   
+    }
     private void TxtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtBuscarActionPerformed
@@ -230,7 +243,7 @@ public class ListaReservas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void BtnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBorrarActionPerformed
-       this.borrar();
+        this.borrar();
     }//GEN-LAST:event_BtnBorrarActionPerformed
 
     private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
