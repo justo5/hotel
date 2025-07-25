@@ -68,4 +68,50 @@ public class ReservaService {
         return reservasDTO;
     }
     
+    public List<ReservaDTO> buscarPasajero(String terminoBusqueda) throws SQLException {
+        List<Reserva> reservas = reservaDAO.buscarPasajero(terminoBusqueda);
+        List<ReservaDTO> reservasDTO = new ArrayList<>();
+
+        for (Reserva reserva : reservas) {
+            ReservaDTO dto = reservaMapper.toDTO(reserva);
+            reservasDTO.add(dto);
+        }
+
+        return reservasDTO;
+    }
+    
+    public List<ReservaDTO> buscarPorCheckin(String valor) throws SQLException {
+        List<Reserva> reservas = reservaDAO.buscarPorCheckin(valor);
+        List<ReservaDTO> reservasDTO = new ArrayList<>();
+
+        for (Reserva reserva : reservas) {
+            ReservaDTO dto = reservaMapper.toDTO(reserva);
+            reservasDTO.add(dto);
+        }
+
+        return reservasDTO;
+    }
+    
+    public List<ReservaDTO> buscarPorCheckout(String valor) throws SQLException {
+        List<Reserva> reservas = reservaDAO.buscarPorCheckout(valor);
+        List<ReservaDTO> reservasDTO = new ArrayList<>();
+
+        for (Reserva reserva : reservas) {
+            ReservaDTO dto = reservaMapper.toDTO(reserva);
+            reservasDTO.add(dto);
+        }
+
+        return reservasDTO;
+    }
+    public List<ReservaDTO> buscarPorHabitacion(String valor) throws SQLException {
+        List<Reserva> reservas = reservaDAO.buscarPorHabitacion(valor);
+        List<ReservaDTO> reservasDTO = new ArrayList<>();
+
+        for (Reserva reserva : reservas) {
+            ReservaDTO dto = reservaMapper.toDTO(reserva);
+            reservasDTO.add(dto);
+        }
+
+        return reservasDTO;
+    }
 }

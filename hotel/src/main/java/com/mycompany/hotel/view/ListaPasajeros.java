@@ -63,7 +63,7 @@ public class ListaPasajeros extends javax.swing.JPanel {
         }
     }
 
-    public void buscar() throws SQLException {
+    public void buscar() throws SQLException { /// cambiar por  switch-case: los if else 
         try {
             String valor = txtBuscar.getText().trim();
             String filtro = CboxBuscar.getSelectedItem().toString();
