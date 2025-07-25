@@ -106,7 +106,7 @@ public class ListaReservas extends javax.swing.JPanel {
         add(BtnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(634, 544, 160, -1));
 
         CboxBuscar.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        CboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "#", "Fecha", "Checkin", "Checkout", "Habitacion", "Seña", "Pasajero" }));
+        CboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Filtro", "Checkin", "Checkout", "Habitacion", "Pasajero" }));
         CboxBuscar.addActionListener(formListener);
         add(CboxBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(832, 52, 169, -1));
     }
@@ -231,15 +231,85 @@ public class ListaReservas extends javax.swing.JPanel {
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
-
-   
     }
+    public void buscar() throws SQLException {
+    try {
+        String valor = TxtBuscar.getText().trim();
+        String filtro = CboxBuscar.getSelectedItem().toString();
+
+        List<ReservaDTO> reservasFiltradas = null;
+
+        switch (filtro) {
+            case "Checkin":
+                reservasFiltradas = reservaController.buscarPorCheckin(valor);
+                break;
+            case "Checkout":
+                reservasFiltradas = reservaController.buscarPorCheckout(valor);
+                break;
+            case "Habitacion":
+                reservasFiltradas = reservaController.buscarPorHabitacion(valor);
+                break;
+            case "Pasajero":
+                reservasFiltradas = reservaController.buscarPasajero(valor);
+                break;
+            case "Seleccione Filtro":
+            default:
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro válido");
+                return;
+        }
+         DefaultTableModel dtm = new DefaultTableModel();
+            dtm.addColumn("ID");
+            dtm.addColumn("N° Habitación");  // visible para el usuario
+            dtm.addColumn("Checkin");
+            dtm.addColumn("Checkout");
+            dtm.addColumn("Seña");
+            dtm.addColumn("Pasajero");       // visible
+            dtm.addColumn("ID_habitacion");  // oculta
+            dtm.addColumn("ID_pasajero");    // oculta
+            List<ReservaDTO> reservas = reservaController.recuperarTodos();
+
+            for (ReservaDTO r : reservasFiltradas) {
+
+                String nroHabitacion = habitacionController.obtenerNumeroHabitacionPorId(r.getId_habitacion());
+                String nombrePasajero = pasajeroController.obtenerNombreCompletoPorId(r.getId_pasajero());
+                dtm.addRow(new Object[]{
+                    r.getId(),
+                    nroHabitacion,
+                    r.getChekin(),
+                    r.getCheckout(),
+                    r.getSenia(),
+                    nombrePasajero,
+                    r.getId_habitacion(),
+                    r.getId_pasajero()
+                });
+            }
+
+            TablaReservas.setModel(dtm);
+            TablaReservas.getColumnModel().getColumn(6).setMinWidth(0);
+            TablaReservas.getColumnModel().getColumn(6).setMaxWidth(0);
+            TablaReservas.getColumnModel().getColumn(6).setWidth(0);
+
+            TablaReservas.getColumnModel().getColumn(7).setMinWidth(0);
+            TablaReservas.getColumnModel().getColumn(7).setMaxWidth(0);
+            TablaReservas.getColumnModel().getColumn(7).setWidth(0);
+        // Aquí podrías usar los resultados
+        // cargarTablaReservas(reservasFiltradas);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al buscar reservas");
+    }
+}
     private void TxtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtBuscarActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
-        // TODO add your handling code here:
+        try {
+            this.buscar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaReservas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void BtnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBorrarActionPerformed

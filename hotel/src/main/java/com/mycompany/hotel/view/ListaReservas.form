@@ -168,14 +168,12 @@
           <Font name="SansSerif" size="18" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="7">
-            <StringItem index="0" value="#"/>
-            <StringItem index="1" value="Fecha"/>
-            <StringItem index="2" value="Checkin"/>
-            <StringItem index="3" value="Checkout"/>
-            <StringItem index="4" value="Habitacion"/>
-            <StringItem index="5" value="Se&#xf1;a"/>
-            <StringItem index="6" value="Pasajero"/>
+          <StringArray count="5">
+            <StringItem index="0" value="Seleccione Filtro"/>
+            <StringItem index="1" value="Checkin"/>
+            <StringItem index="2" value="Checkout"/>
+            <StringItem index="3" value="Habitacion"/>
+            <StringItem index="4" value="Pasajero"/>
           </StringArray>
         </Property>
       </Properties>
