@@ -182,22 +182,27 @@ public class ListaPasajeros extends javax.swing.JPanel {
 
         FormListener formListener = new FormListener();
 
-        setBackground(new java.awt.Color(0, 102, 102));
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Pasajeros"));
+        setBackground(new java.awt.Color(51, 51, 51));
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de Pasajeros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        setForeground(new java.awt.Color(255, 255, 255));
         setToolTipText("");
         setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1200, 600));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtBuscar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        txtBuscar.setBackground(new java.awt.Color(204, 204, 204));
+        txtBuscar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(507, 39, 295, -1));
 
-        BtnBuscar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        BtnBuscar.setBackground(new java.awt.Color(51, 102, 255));
+        BtnBuscar.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
+        BtnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         BtnBuscar.setText("Buscar");
         BtnBuscar.addActionListener(formListener);
-        add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1053, 39, -1, -1));
+        add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1053, 39, 104, 39));
 
+        TablaPasajeros.setBackground(new java.awt.Color(204, 204, 204));
         TablaPasajeros.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         TablaPasajeros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -214,17 +219,23 @@ public class ListaPasajeros extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 95, 1170, 429));
 
-        BtnEditar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        BtnEditar.setBackground(new java.awt.Color(51, 102, 255));
+        BtnEditar.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
+        BtnEditar.setForeground(new java.awt.Color(255, 255, 255));
         BtnEditar.setText("Editar");
         BtnEditar.addActionListener(formListener);
-        add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 546, 143, -1));
+        add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 546, 221, 52));
 
-        BtnBorrar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        BtnBorrar.setBackground(new java.awt.Color(255, 51, 51));
+        BtnBorrar.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
+        BtnBorrar.setForeground(new java.awt.Color(255, 255, 255));
         BtnBorrar.setText("Borrar");
         BtnBorrar.addActionListener(formListener);
-        add(BtnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(624, 546, 143, -1));
+        add(BtnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(624, 546, 208, 52));
 
+        CboxBuscar.setBackground(new java.awt.Color(204, 204, 204));
         CboxBuscar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        CboxBuscar.setForeground(new java.awt.Color(0, 0, 0));
         CboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Filtro", "Nombre", "Apellido", "Dni", "Telefono", "Correo" }));
         CboxBuscar.addActionListener(formListener);
         add(CboxBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(806, 39, 234, -1));

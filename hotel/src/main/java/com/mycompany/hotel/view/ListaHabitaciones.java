@@ -176,24 +176,31 @@ public class ListaHabitaciones extends javax.swing.JPanel {
 
         FormListener formListener = new FormListener();
 
-        setBackground(new java.awt.Color(0, 102, 102));
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Habitaciones"));
+        setBackground(new java.awt.Color(51, 51, 51));
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de Habitaciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        setForeground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1200, 600));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        TxtBuscar.setBackground(new java.awt.Color(204, 204, 204));
         TxtBuscar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        add(TxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(488, 42, 304, -1));
+        add(TxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 39, 304, -1));
 
+        CboxBuscar.setBackground(new java.awt.Color(204, 204, 204));
         CboxBuscar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        CboxBuscar.setForeground(new java.awt.Color(0, 0, 0));
         CboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Filtro", "Numero", "Cantidad Pasajeros", "Precio" }));
-        add(CboxBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(793, 39, -1, -1));
+        add(CboxBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(806, 39, 234, -1));
 
-        BtnBuscar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        BtnBuscar.setBackground(new java.awt.Color(51, 102, 255));
+        BtnBuscar.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
+        BtnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         BtnBuscar.setText("Buscar");
         BtnBuscar.addActionListener(formListener);
-        add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1066, 39, -1, -1));
+        add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1055, 39, 104, 39));
 
+        TablaHabitaciones.setBackground(new java.awt.Color(204, 204, 204));
         TablaHabitaciones.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         TablaHabitaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -210,17 +217,21 @@ public class ListaHabitaciones extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 91, 1158, 442));
 
-        BtnEditar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        BtnEditar.setBackground(new java.awt.Color(51, 102, 255));
+        BtnEditar.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
+        BtnEditar.setForeground(new java.awt.Color(255, 255, 255));
         BtnEditar.setText("Editar");
         BtnEditar.setPreferredSize(new java.awt.Dimension(123, 43));
         BtnEditar.addActionListener(formListener);
-        add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 546, -1, -1));
+        add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 546, 208, 52));
 
-        BtnBorrar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        BtnBorrar.setBackground(new java.awt.Color(255, 51, 51));
+        BtnBorrar.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
+        BtnBorrar.setForeground(new java.awt.Color(255, 255, 255));
         BtnBorrar.setText("Borrar");
         BtnBorrar.setPreferredSize(new java.awt.Dimension(123, 43));
         BtnBorrar.addActionListener(formListener);
-        add(BtnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(637, 546, -1, -1));
+        add(BtnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(637, 546, 208, 52));
     }
 
     // Code for dispatching events from components to event handlers.
@@ -228,14 +239,14 @@ public class ListaHabitaciones extends javax.swing.JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == BtnBorrar) {
-                ListaHabitaciones.this.BtnBorrarActionPerformed(evt);
-            }
-            else if (evt.getSource() == BtnBuscar) {
+            if (evt.getSource() == BtnBuscar) {
                 ListaHabitaciones.this.BtnBuscarActionPerformed(evt);
             }
             else if (evt.getSource() == BtnEditar) {
                 ListaHabitaciones.this.BtnEditarActionPerformed(evt);
+            }
+            else if (evt.getSource() == BtnBorrar) {
+                ListaHabitaciones.this.BtnBorrarActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents

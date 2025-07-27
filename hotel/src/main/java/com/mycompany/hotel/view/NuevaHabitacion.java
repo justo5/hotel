@@ -111,56 +111,63 @@ public class NuevaHabitacion extends javax.swing.JPanel {
         TxtPrecio = new javax.swing.JTextField();
         CboxDoble = new javax.swing.JComboBox<>();
         Guardar = new javax.swing.JButton();
-        Cancelar = new javax.swing.JButton();
         LblId = new javax.swing.JLabel();
 
         FormListener formListener = new FormListener();
 
-        setBackground(new java.awt.Color(0, 102, 102));
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Nueva Habitacion"));
+        setBackground(new java.awt.Color(51, 51, 51));
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nueva Habitacion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        setForeground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1200, 600));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LblNumero.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        LblNumero.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        LblNumero.setForeground(new java.awt.Color(255, 255, 255));
         LblNumero.setText("Numero");
         add(LblNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 65, -1, -1));
 
-        txtNumero.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        txtNumero.setBackground(new java.awt.Color(204, 204, 204));
+        txtNumero.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 104, 520, -1));
 
-        lblCamaDoble.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        lblCamaDoble.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        lblCamaDoble.setForeground(new java.awt.Color(255, 255, 255));
         lblCamaDoble.setText("Camas Dobles");
         add(lblCamaDoble, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 260, -1, -1));
 
-        CboxSimple.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        CboxSimple.setBackground(new java.awt.Color(204, 204, 204));
+        CboxSimple.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        CboxSimple.setForeground(new java.awt.Color(0, 0, 0));
         CboxSimple.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "0", "1", "2", "3" }));
         CboxSimple.addActionListener(formListener);
         add(CboxSimple, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 182, -1, -1));
 
-        lblCamaSimple.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        lblCamaSimple.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        lblCamaSimple.setForeground(new java.awt.Color(255, 255, 255));
         lblCamaSimple.setText("Camas Simples");
         add(lblCamaSimple, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 182, -1, -1));
 
-        LblPrecio.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        LblPrecio.setText("Precio por dia");
+        LblPrecio.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        LblPrecio.setForeground(new java.awt.Color(255, 255, 255));
+        LblPrecio.setText("Precio por noche");
         add(LblPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 338, -1, -1));
 
-        TxtPrecio.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        TxtPrecio.setBackground(new java.awt.Color(204, 204, 204));
+        TxtPrecio.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         add(TxtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 377, 520, -1));
 
-        CboxDoble.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        CboxDoble.setBackground(new java.awt.Color(204, 204, 204));
+        CboxDoble.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        CboxDoble.setForeground(new java.awt.Color(0, 0, 0));
         CboxDoble.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "0", "1" }));
         add(CboxDoble, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 260, -1, -1));
 
-        Guardar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        Guardar.setBackground(new java.awt.Color(51, 102, 255));
+        Guardar.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
+        Guardar.setForeground(new java.awt.Color(255, 255, 255));
         Guardar.setText("Guardar");
         Guardar.addActionListener(formListener);
-        add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 455, 195, -1));
-
-        Cancelar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        Cancelar.setText("Cancelar");
-        Cancelar.setPreferredSize(new java.awt.Dimension(123, 43));
-        add(Cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(624, 455, 208, -1));
+        add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 468, 299, 52));
 
         LblId.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         add(LblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(793, 52, 39, 26));
@@ -195,7 +202,6 @@ public class NuevaHabitacion extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Cancelar;
     private javax.swing.JComboBox<String> CboxDoble;
     private javax.swing.JComboBox<String> CboxSimple;
     private javax.swing.JButton Guardar;
