@@ -17,7 +17,7 @@ import java.util.List;
  * @author mi pc
  */
 public class ReservaService {
-    
+
     private ReservaDAO reservaDAO;
     private ReservaMapper reservaMapper;
 
@@ -26,92 +26,95 @@ public class ReservaService {
         this.reservaMapper = new ReservaMapper(); // Instancia del mapper
     }
 
+    private List<ReservaDTO> mapearLista(List<Reserva> reservas) {
+        List<ReservaDTO> dtos = new ArrayList<>();
+        for (Reserva reserva : reservas) {
+            dtos.add(reservaMapper.toDTO(reserva));
+        }
+        return dtos;
+    }
+
     public void crearReserva(ReservaDTO dto) throws SQLException {
+        if (dto == null) {
+            throw new IllegalArgumentException("La reserva no puede ser nula.");
+        }
+        if (dto.getChekin() == null || dto.getCheckout() == null) {
+            throw new IllegalArgumentException("Las fechas de check-in y check-out son obligatorias.");
+        }
         Reserva reserva = reservaMapper.toEntity(dto);
         reservaDAO.crear(reserva);
     }
 
     public void actualizarReservaSola(ReservaDTO dto) throws SQLException {
+        if (dto == null || dto.getId() <= 0) {
+            throw new IllegalArgumentException("Datos inválidos para actualizar la reserva.");
+        }
         Reserva reserva = reservaMapper.toEntity(dto);
-        reservaDAO.actualizar(reserva, 0);
+        reservaDAO.actualizar(reserva, reserva.getId());
     }
 
     public void borrarReserva(ReservaDTO dto) throws SQLException {
-        Reserva reserva = reservaMapper.toEntity(dto);
-        reservaDAO.borrar(reserva);
+        if (dto == null || dto.getId() <= 0) {
+            throw new IllegalArgumentException("La reserva a borrar es inválida.");
+        }
+        reservaDAO.borrar(dto.getId());
     }
 
     public void borrarPorId(int id) throws SQLException {
+        if (id <= 0) {
+            throw new IllegalArgumentException("La reserva a borrar es inválida.");
+        }
         reservaDAO.borrar(id);
     }
 
     public void actualizarReserva(ReservaDTO dto, int id) throws SQLException {
+        if (dto == null || id <= 0) {
+            throw new IllegalArgumentException("Datos inválidos para actualizar la reserva.");
+        }
         Reserva reserva = reservaMapper.toEntity(dto);
         reservaDAO.actualizar(reserva, id);
     }
 
     public ReservaDTO recuperarPorId(int id) throws SQLException {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID inválido.");
+        }
         Reserva reserva = reservaDAO.recuperarPorId(id);
-        ReservaDTO dto = reservaMapper.toDTO(reserva);
-        return dto;
+        if (reserva == null) {
+            throw new IllegalArgumentException("No se encontro reserva con ese ID");
+        }
+        return reservaMapper.toDTO(reserva);
     }
 
     public List<ReservaDTO> recuperarTodos() throws SQLException {
-        List<Reserva> reservas = reservaDAO.recuperarTodos();
-        List<ReservaDTO> reservasDTO = new ArrayList<>();
-
-        for (Reserva reserva : reservas) {
-            ReservaDTO dto = reservaMapper.toDTO(reserva);
-            reservasDTO.add(dto);
-        }
-
-        return reservasDTO;
+        return mapearLista(reservaDAO.recuperarTodos());
     }
-    
-    public List<ReservaDTO> buscarPasajero(String terminoBusqueda) throws SQLException {
-        List<Reserva> reservas = reservaDAO.buscarPasajero(terminoBusqueda);
-        List<ReservaDTO> reservasDTO = new ArrayList<>();
 
-        for (Reserva reserva : reservas) {
-            ReservaDTO dto = reservaMapper.toDTO(reserva);
-            reservasDTO.add(dto);
+    public List<ReservaDTO> buscarPasajero(String termino) throws SQLException {
+        if (termino == null || termino.trim().isEmpty()) {
+            throw new IllegalArgumentException("Término de búsqueda vacío.");
         }
-
-        return reservasDTO;
+        return mapearLista(reservaDAO.buscarPasajero(termino));
     }
-    
-    public List<ReservaDTO> buscarPorCheckin(String valor) throws SQLException {
-        List<Reserva> reservas = reservaDAO.buscarPorCheckin(valor);
-        List<ReservaDTO> reservasDTO = new ArrayList<>();
 
-        for (Reserva reserva : reservas) {
-            ReservaDTO dto = reservaMapper.toDTO(reserva);
-            reservasDTO.add(dto);
+    public List<ReservaDTO> buscarPorCheckin(String termino) throws SQLException {
+        if (termino == null || termino.trim().isEmpty()) {
+            throw new IllegalArgumentException("Término de búsqueda vacío.");
         }
-
-        return reservasDTO;
+        return mapearLista(reservaDAO.buscarPorCheckin(termino));
     }
-    
-    public List<ReservaDTO> buscarPorCheckout(String valor) throws SQLException {
-        List<Reserva> reservas = reservaDAO.buscarPorCheckout(valor);
-        List<ReservaDTO> reservasDTO = new ArrayList<>();
 
-        for (Reserva reserva : reservas) {
-            ReservaDTO dto = reservaMapper.toDTO(reserva);
-            reservasDTO.add(dto);
+    public List<ReservaDTO> buscarPorCheckout(String termino) throws SQLException {
+        if (termino == null || termino.trim().isEmpty()) {
+            throw new IllegalArgumentException("Término de búsqueda vacío.");
         }
-
-        return reservasDTO;
+        return mapearLista(reservaDAO.buscarPorCheckout(termino));
     }
-    public List<ReservaDTO> buscarPorHabitacion(String valor) throws SQLException {
-        List<Reserva> reservas = reservaDAO.buscarPorHabitacion(valor);
-        List<ReservaDTO> reservasDTO = new ArrayList<>();
 
-        for (Reserva reserva : reservas) {
-            ReservaDTO dto = reservaMapper.toDTO(reserva);
-            reservasDTO.add(dto);
+    public List<ReservaDTO> buscarPorHabitacion(String termino) throws SQLException {
+        if (termino == null || termino.trim().isEmpty()) {
+            throw new IllegalArgumentException("Término de búsqueda vacío.");
         }
-
-        return reservasDTO;
+        return mapearLista(reservaDAO.buscarPorHabitacion(termino));
     }
 }
