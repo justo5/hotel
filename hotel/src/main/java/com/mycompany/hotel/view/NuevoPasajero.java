@@ -43,6 +43,7 @@ public class NuevoPasajero extends javax.swing.JPanel {
     public NuevoPasajero() {
         this.pasajeroController = new PasajeroController();
         initComponents();
+       
 
     }
 
@@ -109,67 +110,78 @@ public class NuevoPasajero extends javax.swing.JPanel {
         txtDni = new javax.swing.JTextField();
         lblNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        BtnCancelar = new javax.swing.JButton();
         BtnGuardar = new javax.swing.JButton();
         LblId = new javax.swing.JLabel();
 
         FormListener formListener = new FormListener();
 
-        setBackground(new java.awt.Color(0, 102, 102));
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Pasajero"));
+        setBackground(new java.awt.Color(51, 51, 51));
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nuevo Pasajero", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        setForeground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1200, 600));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblCorreo.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        lblCorreo.setBackground(new java.awt.Color(224, 224, 224));
+        lblCorreo.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        lblCorreo.setForeground(new java.awt.Color(255, 255, 255));
         lblCorreo.setText("Correo electronico");
-        add(lblCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 338, -1, -1));
+        add(lblCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 338, -1, -1));
 
-        txtTelefono.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        txtTelefono.setBackground(new java.awt.Color(204, 204, 204));
+        txtTelefono.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         txtTelefono.addActionListener(formListener);
-        add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(559, 273, 351, -1));
+        add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 273, 351, -1));
 
-        lblTelefono.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        lblTelefono.setBackground(new java.awt.Color(224, 224, 224));
+        lblTelefono.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        lblTelefono.setForeground(new java.awt.Color(255, 255, 255));
         lblTelefono.setText("Telefono");
-        add(lblTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(559, 234, -1, -1));
+        add(lblTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 234, -1, -1));
 
-        txtCorreo.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 377, 741, -1));
+        txtCorreo.setBackground(new java.awt.Color(204, 204, 204));
+        txtCorreo.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 377, 741, -1));
 
-        lblApellido1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        lblApellido1.setBackground(new java.awt.Color(224, 224, 224));
+        lblApellido1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        lblApellido1.setForeground(new java.awt.Color(255, 255, 255));
         lblApellido1.setText("Apellido");
-        add(lblApellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 143, -1, -1));
+        add(lblApellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 143, -1, -1));
 
-        txtApellido.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        txtApellido.setBackground(new java.awt.Color(204, 204, 204));
+        txtApellido.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         txtApellido.addActionListener(formListener);
-        add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 182, 741, -1));
+        add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 182, 741, -1));
 
-        lblDni1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        lblDni1.setBackground(new java.awt.Color(224, 224, 224));
+        lblDni1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        lblDni1.setForeground(new java.awt.Color(255, 255, 255));
         lblDni1.setText("Dni");
-        add(lblDni1, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 234, -1, -1));
+        add(lblDni1, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 234, -1, -1));
 
-        txtDni.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        txtDni.setBackground(new java.awt.Color(204, 204, 204));
+        txtDni.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         txtDni.addActionListener(formListener);
-        add(txtDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 273, 338, -1));
+        add(txtDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 273, 338, -1));
 
-        lblNombre.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        lblNombre.setBackground(new java.awt.Color(224, 224, 224));
+        lblNombre.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
         lblNombre.setText("Nombre");
-        add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 52, -1, -1));
+        add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 65, -1, -1));
 
-        txtNombre.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 91, 741, -1));
+        txtNombre.setBackground(new java.awt.Color(204, 204, 204));
+        txtNombre.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 104, 741, -1));
 
-        BtnCancelar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        BtnCancelar.setText("Cancelar");
-        BtnCancelar.setPreferredSize(new java.awt.Dimension(123, 43));
-        BtnCancelar.addActionListener(formListener);
-        add(BtnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 455, 312, 52));
-
-        BtnGuardar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        BtnGuardar.setBackground(new java.awt.Color(51, 102, 255));
+        BtnGuardar.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
+        BtnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         BtnGuardar.setText("Guardar");
         BtnGuardar.addActionListener(formListener);
-        add(BtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 455, 312, 52));
+        add(BtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 455, 312, 52));
 
         LblId.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         add(LblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(845, 39, 26, 26));
@@ -188,9 +200,6 @@ public class NuevoPasajero extends javax.swing.JPanel {
             }
             else if (evt.getSource() == txtDni) {
                 NuevoPasajero.this.txtDniActionPerformed(evt);
-            }
-            else if (evt.getSource() == BtnCancelar) {
-                NuevoPasajero.this.BtnCancelarActionPerformed(evt);
             }
             else if (evt.getSource() == BtnGuardar) {
                 NuevoPasajero.this.BtnGuardarActionPerformed(evt);
@@ -216,13 +225,8 @@ public class NuevoPasajero extends javax.swing.JPanel {
         this.LimpiarCampos();
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
-    private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-
-    }//GEN-LAST:event_BtnCancelarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnCancelar;
     private javax.swing.JButton BtnGuardar;
     private javax.swing.JLabel LblId;
     private javax.swing.JLabel lblApellido1;

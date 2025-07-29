@@ -66,7 +66,7 @@ public class NuevaReserva extends javax.swing.JPanel {
         this.FechaCheckin.setDate(checkin);
         this.FechaCheckout.setDate(checkout);
         this.TxtSeña.setText(String.valueOf(senia));
-        this.TxtCantidadPersonas.setText(String.valueOf(capacidad));
+        this.TxtDniPasajero.setText(String.valueOf(capacidad));
 
         // Selecciono objetos en los combos
         this.CboxHabitaciones.setSelectedItem(h);
@@ -253,7 +253,6 @@ public class NuevaReserva extends javax.swing.JPanel {
     private void initComponents() {
 
         LblNombrePasajero = new javax.swing.JLabel();
-        TxtDniPasajero = new javax.swing.JTextField();
         BtnNuevoPasajero = new javax.swing.JButton();
         LblCantidadPersonas = new javax.swing.JLabel();
         LblHabitacion = new javax.swing.JLabel();
@@ -264,72 +263,98 @@ public class NuevaReserva extends javax.swing.JPanel {
         LblCheckout = new javax.swing.JLabel();
         LblSeña = new javax.swing.JLabel();
         TxtSeña = new javax.swing.JTextField();
-        BtnGuardar = new javax.swing.JButton();
         LblId = new javax.swing.JLabel();
         CboxPasajeros = new javax.swing.JComboBox<>();
+        TxtDniPasajero = new javax.swing.JTextField();
+        BtnGuardar = new javax.swing.JButton();
         TxtCantidadPersonas = new javax.swing.JTextField();
 
         FormListener formListener = new FormListener();
 
-        setBackground(new java.awt.Color(0, 102, 102));
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Nueva Reserva"));
+        setBackground(new java.awt.Color(51, 51, 51));
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nueva Reserva", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        setForeground(null);
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1200, 600));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LblNombrePasajero.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        LblNombrePasajero.setBackground(new java.awt.Color(255, 255, 255));
+        LblNombrePasajero.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        LblNombrePasajero.setForeground(java.awt.Color.white);
         LblNombrePasajero.setText("DNI de Pasajero:");
         add(LblNombrePasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 39, -1, 26));
 
-        TxtDniPasajero.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        TxtDniPasajero.addActionListener(formListener);
-        add(TxtDniPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 39, 169, -1));
-
-        BtnNuevoPasajero.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        BtnNuevoPasajero.setBackground(new java.awt.Color(51, 102, 255));
+        BtnNuevoPasajero.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
+        BtnNuevoPasajero.setForeground(new java.awt.Color(255, 255, 255));
         BtnNuevoPasajero.setText("Nuevo Pasajero");
         BtnNuevoPasajero.addActionListener(formListener);
-        add(BtnNuevoPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(819, 78, -1, -1));
+        add(BtnNuevoPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(819, 78, 182, 39));
 
-        LblCantidadPersonas.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        LblCantidadPersonas.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        LblCantidadPersonas.setForeground(java.awt.Color.white);
         LblCantidadPersonas.setText("Cantidad de Personas");
-        add(LblCantidadPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 377, -1, -1));
+        add(LblCantidadPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 364, -1, -1));
 
-        LblHabitacion.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        LblHabitacion.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        LblHabitacion.setForeground(java.awt.Color.white);
         LblHabitacion.setText("Numero de Habitacion");
-        add(LblHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 377, -1, -1));
+        add(LblHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 364, -1, -1));
 
-        CboxHabitaciones.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        add(CboxHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 416, 371, -1));
+        CboxHabitaciones.setBackground(new java.awt.Color(204, 204, 204));
+        CboxHabitaciones.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        CboxHabitaciones.addActionListener(formListener);
+        add(CboxHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 390, 377, 39));
 
-        LblCheckin.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        LblCheckin.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        LblCheckin.setForeground(java.awt.Color.white);
         LblCheckin.setText("Checkin");
-        add(LblCheckin, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 130, -1, -1));
-        add(FechaCheckout, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 169, 338, 195));
-        add(FechaCheckin, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 169, 338, 195));
+        add(LblCheckin, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 130, -1, -1));
 
-        LblCheckout.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        FechaCheckout.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        add(FechaCheckout, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 156, 338, 195));
+
+        FechaCheckin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        add(FechaCheckin, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 156, 338, 195));
+
+        LblCheckout.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        LblCheckout.setForeground(java.awt.Color.white);
         LblCheckout.setText("Checkout");
         add(LblCheckout, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, -1, -1));
 
-        LblSeña.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        LblSeña.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        LblSeña.setForeground(java.awt.Color.white);
         LblSeña.setText("Seña");
-        add(LblSeña, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 481, -1, 26));
+        add(LblSeña, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 429, -1, 26));
 
-        TxtSeña.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        add(TxtSeña, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 507, 310, -1));
-
-        BtnGuardar.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        BtnGuardar.setText("Guardar");
-        BtnGuardar.addActionListener(formListener);
-        add(BtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 559, 234, 39));
+        TxtSeña.setBackground(new java.awt.Color(204, 204, 204));
+        TxtSeña.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        TxtSeña.addActionListener(formListener);
+        add(TxtSeña, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 455, 364, 39));
 
         LblId.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         add(LblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(975, 39, 26, 26));
 
+        CboxPasajeros.setBackground(new java.awt.Color(204, 204, 204));
+        CboxPasajeros.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         add(CboxPasajeros, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 78, 585, 39));
 
+        TxtDniPasajero.setBackground(new java.awt.Color(204, 204, 204));
+        TxtDniPasajero.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        TxtDniPasajero.addActionListener(formListener);
+        add(TxtDniPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 26, 364, 39));
+
+        BtnGuardar.setBackground(new java.awt.Color(51, 102, 255));
+        BtnGuardar.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
+        BtnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnGuardar.setText("Guardar");
+        BtnGuardar.addActionListener(formListener);
+        add(BtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 533, 312, 52));
+
+        TxtCantidadPersonas.setBackground(new java.awt.Color(204, 204, 204));
+        TxtCantidadPersonas.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         TxtCantidadPersonas.addActionListener(formListener);
-        add(TxtCantidadPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 416, 364, 39));
+        add(TxtCantidadPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 390, 364, 39));
     }
 
     // Code for dispatching events from components to event handlers.
@@ -337,17 +362,23 @@ public class NuevaReserva extends javax.swing.JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == TxtDniPasajero) {
-                NuevaReserva.this.TxtDniPasajeroActionPerformed(evt);
-            }
-            else if (evt.getSource() == BtnNuevoPasajero) {
+            if (evt.getSource() == BtnNuevoPasajero) {
                 NuevaReserva.this.BtnNuevoPasajeroActionPerformed(evt);
             }
-            else if (evt.getSource() == TxtCantidadPersonas) {
-                NuevaReserva.this.TxtCantidadPersonasActionPerformed(evt);
+            else if (evt.getSource() == CboxHabitaciones) {
+                NuevaReserva.this.CboxHabitacionesActionPerformed(evt);
+            }
+            else if (evt.getSource() == TxtSeña) {
+                NuevaReserva.this.TxtSeñaActionPerformed(evt);
+            }
+            else if (evt.getSource() == TxtDniPasajero) {
+                NuevaReserva.this.TxtDniPasajeroActionPerformed(evt);
             }
             else if (evt.getSource() == BtnGuardar) {
                 NuevaReserva.this.BtnGuardarActionPerformed(evt);
+            }
+            else if (evt.getSource() == TxtCantidadPersonas) {
+                NuevaReserva.this.TxtCantidadPersonasActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -368,17 +399,26 @@ public class NuevaReserva extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnNuevoPasajeroActionPerformed
 
     private void TxtDniPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtDniPasajeroActionPerformed
-        CargarPasajeros();
-
+        this.CargarPasajeros();
     }//GEN-LAST:event_TxtDniPasajeroActionPerformed
 
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+
+        this.Guardar();
+        
+    }//GEN-LAST:event_BtnGuardarActionPerformed
+
     private void TxtCantidadPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtCantidadPersonasActionPerformed
-        CargarHabitacionesDisponibles();
+       this.CargarHabitacionesDisponibles();
     }//GEN-LAST:event_TxtCantidadPersonasActionPerformed
 
-    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
-        Guardar();
-    }//GEN-LAST:event_BtnGuardarActionPerformed
+    private void TxtSeñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtSeñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtSeñaActionPerformed
+
+    private void CboxHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboxHabitacionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CboxHabitacionesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

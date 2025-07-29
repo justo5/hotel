@@ -4,12 +4,40 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuPrincipal">
       <SubComponents>
+        <Menu class="javax.swing.JMenu" name="MenuPrincipal">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/configuracion-del-hogar.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="  "/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="24" style="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuPrincipalActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="MenuPrincipalKeyPressed"/>
+          </Events>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="OpInicio">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="24" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Inicio"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OpInicioActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuOpReservas">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/reserva (2).png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Reserva"/>
+            <Property name="text" type="java.lang.String" value="  "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="0"/>
             </Property>
@@ -18,7 +46,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="OpListaReserva">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
+                  <Font name="SansSerif" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Lista Reservas"/>
               </Properties>
@@ -29,7 +57,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="OpRealizarReserva">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
+                  <Font name="SansSerif" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Realizar Reserva"/>
               </Properties>
@@ -44,7 +72,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/cama-alternativa.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Habitacion"/>
+            <Property name="text" type="java.lang.String" value="  "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="0"/>
             </Property>
@@ -53,7 +81,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="OpListaHabitacion">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
+                  <Font name="SansSerif" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Lista Habitaciones"/>
               </Properties>
@@ -64,7 +92,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="OpCargarHabitacion">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
+                  <Font name="SansSerif" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cargar Habitacion"/>
               </Properties>
@@ -79,7 +107,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/usuarios-alt (1).png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pasajero"/>
+            <Property name="text" type="java.lang.String" value="  "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="0"/>
             </Property>
@@ -88,7 +116,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="OpListaPasajero">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
+                  <Font name="SansSerif" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Lista Pasajeros"/>
               </Properties>
@@ -99,7 +127,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="OpCargarPasajero">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="24" style="0"/>
+                  <Font name="SansSerif" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cargar Pasajero"/>
               </Properties>
@@ -117,6 +145,9 @@
     <Property name="title" type="java.lang.String" value="Hotel &quot;Titos&quot;"/>
     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
       <Font name="SansSerif" size="18" style="0"/>
+    </Property>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1200, 600]"/>
     </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
@@ -140,46 +171,13 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanelPrincipal" alignment="0" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="1200" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanelPrincipal" alignment="0" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="562" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
-  <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanelPrincipal">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[1200, 600]"/>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[1200, 600]"/>
-        </Property>
-      </Properties>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="false"/>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="LblIcon">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/Dise&#xf1;o2.jpg"/>
-            </Property>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="182" y="65" width="780" height="468"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-      </SubComponents>
-    </Container>
-  </SubComponents>
 </Form>
