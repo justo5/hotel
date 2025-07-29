@@ -17,7 +17,7 @@ public class Conexion {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             
-            cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "root", "");
+            cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "root", "Root2024");
 
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
