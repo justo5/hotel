@@ -14,19 +14,62 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase DAO (Data Access Object) para gestionar las operaciones CRUD sobre la
+ * entidad {@link Reserva}.
+ * <p>
+ * Se encarga de interactuar con la base de datos para crear, leer, actualizar y
+ * eliminar reservas, así como realizar búsquedas filtradas por pasajero, fechas
+ * o habitación. Implementa la interfaz {@link Icrud}.
+ * </p>
+ *
+ * <p>
+ * Utiliza patrón Singleton para garantizar que exista una única instancia en el
+ * sistema.</p>
+ *
+ * @author rocio
+ */
 public class ReservaDAO implements Icrud<Reserva> {
 
+    /**
+     * Instancia única de ReservaDAO (Singleton).
+     */
     private static ReservaDAO instancia;
+    
+    /**
+     * Lista en memoria que contiene las reservas registradas.
+     */
     private List<Reserva> reservas = new ArrayList();
+
+    /**
+     * Conexión a la base de datos.
+     */
     private static Conexion cnn = Conexion.iniciarConnection();
+
+    /**
+     * DAO para gestionar operaciones relacionadas con Pasajero.
+     */
     private PasajeroDAO pasajeroDAO;
+
+    /**
+     * DAO para gestionar operaciones relacionadas con Habitacion.
+     */
     private HabitacionDAO habitacionDAO;
 
+    /**
+     * Constructor privado para implementar el patrón Singleton. Inicializa las
+     * dependencias {@link PasajeroDAO} y {@link HabitacionDAO}.
+     */
     private ReservaDAO() {
         this.pasajeroDAO = PasajeroDAO.getInstancia();
         this.habitacionDAO = HabitacionDAO.getInstancia();
     }
 
+    /**
+     * Obtiene la instancia única de {@link ReservaDAO}.
+     *
+     * @return la instancia única de ReservaDAO.
+     */
     public static ReservaDAO getInstancia() {
         if (ReservaDAO.instancia == null) {
             ReservaDAO.instancia = new ReservaDAO();
@@ -34,16 +77,23 @@ public class ReservaDAO implements Icrud<Reserva> {
         return ReservaDAO.instancia;
     }
 
+    /**
+     * Inserta una nueva reserva en la base de datos.
+     *
+     * @param dato la reserva a crear (no puede ser {@code null}).
+     * @throws SQLException si ocurre un error al ejecutar la inserción.
+     * @throws IllegalArgumentException si la reserva o sus objetos relacionados son nulos.
+     */
     @Override
     public void crear(Reserva dato) throws SQLException {
-       if (dato == null || dato.getoPasajero() == null || dato.getoHabitacion() == null) {
+        if (dato == null || dato.getoPasajero() == null || dato.getoHabitacion() == null) {
             throw new IllegalArgumentException("La reserva, pasajero o habitación no pueden ser nulos.");
         }
 
         String INSERT = "INSERT INTO reserva(checkin,checkout,id_pasajero,id_habitacion,senia) VALUES(?,?,?,?,?)";
 
         try (
-               PreparedStatement stat = cnn.getCo().prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
+                PreparedStatement stat = cnn.getCo().prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
             stat.setDate(1, new java.sql.Date(dato.getChekin().getTime()));
             stat.setDate(2, new java.sql.Date(dato.getCheckout().getTime()));
             stat.setInt(3, dato.getoPasajero().getId());
@@ -61,10 +111,17 @@ public class ReservaDAO implements Icrud<Reserva> {
                 }
             }
         }
-       
 
     }
 
+    /**
+     * Actualiza los datos de una reserva existente.
+     *
+     * @param dato la reserva con los nuevos valores.
+     * @param id el identificador de la reserva a actualizar.
+     * @throws SQLException si ocurre un error al ejecutar la actualización.
+     * @throws IllegalArgumentException si la reserva es nula.
+     */
     @Override
     public void actualizar(Reserva dato, int id) throws SQLException {
         if (dato == null) {
@@ -73,7 +130,7 @@ public class ReservaDAO implements Icrud<Reserva> {
 
         String UPDATE = "UPDATE reserva SET checkin = ?, checkout = ?, id_pasajero = ?, id_habitacion = ?, senia = ? WHERE id = ?";
 
-        try ( PreparedStatement stat = cnn.getCo().prepareStatement(UPDATE)) {
+        try (PreparedStatement stat = cnn.getCo().prepareStatement(UPDATE)) {
             stat.setDate(1, new java.sql.Date(dato.getChekin().getTime()));
             stat.setDate(2, new java.sql.Date(dato.getCheckout().getTime()));
             stat.setInt(3, dato.getoPasajero().getId());
@@ -87,11 +144,23 @@ public class ReservaDAO implements Icrud<Reserva> {
         }
     }
 
+    /**
+     * Elimina una reserva de la base de datos.
+     *
+     * @param dato la reserva a eliminar.
+     * @throws SQLException si ocurre un error en la eliminación.
+     */
     @Override
     public void borrar(Reserva dato) throws SQLException {
         borrar(dato.getId());
     }
 
+    /**
+     * Elimina una reserva según su ID.
+     *
+     * @param id identificador de la reserva.
+     * @throws SQLException si ocurre un error o la reserva no existe.
+     */
     @Override
     public void borrar(int id) throws SQLException {
         String DELETE = "DELETE FROM reserva WHERE id = ?";
@@ -104,6 +173,14 @@ public class ReservaDAO implements Icrud<Reserva> {
         }
     }
 
+    /**
+     * Busca una reserva por su ID.
+     *
+     * @param id identificador de la reserva.
+     * @return la reserva encontrada o {@code null} si no existe.
+     * @throws SQLException si ocurre un error en la consulta.
+     * @throws IllegalStateException si la conexión no está inicializada.
+     */
     @Override
     public Reserva recuperarPorId(int id) throws SQLException {
         String SQL = "SELECT r.id AS reserva_id, r.checkin, r.checkout, r.senia, "
@@ -129,6 +206,13 @@ public class ReservaDAO implements Icrud<Reserva> {
         return null; // Si no encuentra la reserva
     }
 
+    /**
+     * Recupera todas las reservas de la base de datos.
+     *
+     * @return lista de reservas.
+     * @throws SQLException si ocurre un error en la consulta.
+     * @throws IllegalStateException si la conexión no está inicializada.
+     */
     @Override
     public List<Reserva> recuperarTodos() throws SQLException {
         String SQL = "SELECT r.id AS reserva_id, r.checkin, r.checkout, r.senia, "
@@ -153,6 +237,14 @@ public class ReservaDAO implements Icrud<Reserva> {
         }
     }
 
+    /**
+     * Busca las reservas que coincidan con el nombre y apellido del Pasajero.
+     * 
+     * @param termino
+     * @return las reservas encontradas.
+     * @throws SQLException si ocurre un error en la consulta.
+     * @throws IllegalStateException si la conexión no está inicializada.
+     */
     public List<Reserva> buscarPasajero(String termino) throws SQLException {
         if (termino == null || termino.length() > 100) {
             throw new IllegalArgumentException("Término de búsqueda inválido.");
@@ -178,6 +270,14 @@ public class ReservaDAO implements Icrud<Reserva> {
         return reservas;
     }
 
+    /**
+     * Busca las reservas que coincidan con la fecha de Checkin.
+     * 
+     * @param termino
+     * @return las reservas encontradas.
+     * @throws SQLException si ocurre un error en la consulta.
+     * @throws IllegalStateException si la conexión no está inicializada.
+     */
     public List<Reserva> buscarPorCheckin(String termino) throws SQLException {
 
         if (termino == null || termino.length() > 100) {
@@ -205,6 +305,14 @@ public class ReservaDAO implements Icrud<Reserva> {
 
     }
 
+    /**
+     * Busca las reservas que coincidan con la fecha de Checkout.
+     * 
+     * @param termino
+     * @return las reservas encontradas.
+     * @throws SQLException si ocurre un error en la consulta.
+     * @throws IllegalStateException si la conexión no está inicializada.
+     */
     public List<Reserva> buscarPorCheckout(String termino) throws SQLException {
         if (termino == null || termino.length() > 100) {
             throw new IllegalArgumentException("Término de búsqueda inválido.");
@@ -230,6 +338,14 @@ public class ReservaDAO implements Icrud<Reserva> {
         return reservas;
     }
 
+    /**
+     *  Busca las reservas que coincidan con el numero de Habitacion.
+     * 
+     * @param termino
+     * @return las reservas encontradas.
+     * @throws SQLException si ocurre un error en la consulta.
+     * @throws IllegalStateException si la conexión no está inicializada.
+     */
     public List<Reserva> buscarPorHabitacion(String termino) throws SQLException {
 
         if (termino == null || termino.length() > 100) {
@@ -256,6 +372,13 @@ public class ReservaDAO implements Icrud<Reserva> {
         return reservas;
     }
 
+    /**
+     * Mapea un registro de {@link ResultSet} a un objeto {@link Reserva}.
+     *
+     * @param rs el resultado de la consulta SQL.
+     * @return la reserva mapeada.
+     * @throws SQLException si ocurre un error al leer los datos.
+     */
     public Reserva mapearReserva(ResultSet rs) throws SQLException {
         // Crear pasajero
         Pasajero pasajero = new Pasajero();
