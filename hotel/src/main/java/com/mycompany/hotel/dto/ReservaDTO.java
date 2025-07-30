@@ -1,14 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.hotel.dto;
 
 import java.sql.Date;
 
 /**
- *
- * @author mi pc
+ * Data Transfer Object (DTO) para la entidad {@link com.mycompany.hotel.model.Reserva}.
+ * 
+ * <p>Su propósito es trasladar información de una reserva entre las capas del sistema
+ * (controlador, servicio, repositorio) sin exponer directamente la entidad del modelo.</p>
+ * 
+ * <p>En este DTO, en lugar de objetos completos de {@code Pasajero} y {@code Habitacion},
+ * se manejan sus identificadores para simplificar la transferencia de datos.</p>
+ * 
+ * @author Rocio
  */
 public class ReservaDTO {
     

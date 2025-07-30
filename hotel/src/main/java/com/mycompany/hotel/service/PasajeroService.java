@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.hotel.service;
 
 import com.mycompany.hotel.dto.PasajeroDTO;
@@ -17,7 +14,7 @@ import java.util.List;
  * Utiliza PasajeroDAO para acceder a la base de datos y PasajeroMapper para
  * transformar entre entidades y DTOs.
  * 
- * @author mi pc
+ * @author Rocio
  */
 public class PasajeroService {
 
