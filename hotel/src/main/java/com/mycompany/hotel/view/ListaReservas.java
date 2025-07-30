@@ -119,7 +119,7 @@ public class ListaReservas extends javax.swing.JPanel {
         CboxBuscar.setBackground(new java.awt.Color(204, 204, 204));
         CboxBuscar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         CboxBuscar.setForeground(new java.awt.Color(0, 0, 0));
-        CboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Filtro", "Checkin", "Checkout", "Habitacion", "Pasajero" }));
+        CboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Filtro", "#ID", "Checkin", "Checkout", "Habitacion", "Pasajero" }));
         CboxBuscar.addActionListener(formListener);
         add(CboxBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(769, 52, -1, 39));
     }
@@ -253,6 +253,9 @@ public class ListaReservas extends javax.swing.JPanel {
         List<ReservaDTO> reservasFiltradas = null;
 
         switch (filtro) {
+            case "#ID":
+                int id = Integer.valueOf(valor);
+                ReservaDTO reservaFiltrada =  reservaController.recuperarPorId(id);
             case "Checkin":
                 reservasFiltradas = reservaController.buscarPorCheckin(valor);
                 break;

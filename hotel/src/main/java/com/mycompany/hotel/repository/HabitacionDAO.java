@@ -331,9 +331,9 @@ public class HabitacionDAO implements Icrud<Habitacion> {
      String sql = "{CALL obtenerHabitacionesDisponibles(?, ?, ?)}";
 
     try (PreparedStatement stat = cnn.getCo().prepareStatement(sql)) {
-        stat.setInt(1, cantidad);
+        stat.setDate(1,  new java.sql.Date(checkin.getTime()));
         stat.setDate(2, new java.sql.Date(checkout.getTime())); // salida
-        stat.setDate(3, new java.sql.Date(checkin.getTime()));  // entrada
+        stat.setInt(3,cantidad);  
 
         ResultSet rs = stat.executeQuery();
         while (rs.next()) {
