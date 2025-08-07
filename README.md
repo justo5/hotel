@@ -50,6 +50,8 @@ El sistema facilita un control eficiente y ordenado de las operaciones diarias d
 ### Diagrama UML
 
 ![Diagrama UML](https://via.placeholder.com/468x300?text=Diagrama+UML)
+<img width="3431" height="3237" alt="Copia de DiagramaHotel drawio" src="https://github.com/user-attachments/assets/6ad33709-3d93-402b-a531-a6da75124014" />
+
 
 ### Diagrama Entidad-Relación
 
