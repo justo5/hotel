@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author mi pc
+ * @author rocio
  */
 public class ListaPasajeros extends javax.swing.JPanel {
 
@@ -26,7 +26,7 @@ public class ListaPasajeros extends javax.swing.JPanel {
      * Creates new form ListaPasajeros
      */
     private PasajeroController pasajeroController;
-    private PasajeroDTO pasajeroDto;
+   
 
     public ListaPasajeros() {
         this.pasajeroController = new PasajeroController();
@@ -237,7 +237,6 @@ public class ListaPasajeros extends javax.swing.JPanel {
         CboxBuscar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         CboxBuscar.setForeground(new java.awt.Color(0, 0, 0));
         CboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Filtro", "Nombre", "Apellido", "Dni", "Telefono", "Correo" }));
-        CboxBuscar.addActionListener(formListener);
         add(CboxBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(806, 39, 234, -1));
     }
 
@@ -255,9 +254,6 @@ public class ListaPasajeros extends javax.swing.JPanel {
             else if (evt.getSource() == BtnBorrar) {
                 ListaPasajeros.this.BtnBorrarActionPerformed(evt);
             }
-            else if (evt.getSource() == CboxBuscar) {
-                ListaPasajeros.this.CboxBuscarActionPerformed(evt);
-            }
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -270,10 +266,6 @@ public class ListaPasajeros extends javax.swing.JPanel {
         this.actualizar();
         this.refrescar();
     }//GEN-LAST:event_BtnEditarActionPerformed
-
-    private void CboxBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboxBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CboxBuscarActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         try {

@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author mi pc
+ * @author rocio
  */
 public class ListaReservas extends javax.swing.JPanel {
 
@@ -32,16 +32,14 @@ public class ListaReservas extends javax.swing.JPanel {
     private ReservaController reservaController;
     private PasajeroController pasajeroController;
     private HabitacionController habitacionController;
-    private ReservaDTO reservaDTO;
-    private PasajeroDTO pasajeroDTO;
-    private HabitacionDTO habitacionDTO;
+   
+    
 
     public ListaReservas() {
         this.reservaController = new ReservaController();
         this.pasajeroController = new PasajeroController();
         this.habitacionController = new HabitacionController();
-        this.pasajeroDTO = new PasajeroDTO();
-        this.habitacionDTO = new HabitacionDTO();
+        
         initComponents();
         refrescar();
     }
@@ -74,7 +72,6 @@ public class ListaReservas extends javax.swing.JPanel {
 
         TxtBuscar.setBackground(new java.awt.Color(204, 204, 204));
         TxtBuscar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        TxtBuscar.addActionListener(formListener);
         add(TxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 52, 286, 39));
 
         BtnBuscar.setBackground(new java.awt.Color(51, 102, 255));
@@ -120,7 +117,6 @@ public class ListaReservas extends javax.swing.JPanel {
         CboxBuscar.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         CboxBuscar.setForeground(new java.awt.Color(0, 0, 0));
         CboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Filtro", "#ID", "Checkin", "Checkout", "Habitacion", "Pasajero" }));
-        CboxBuscar.addActionListener(formListener);
         add(CboxBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(769, 52, -1, 39));
     }
 
@@ -129,10 +125,7 @@ public class ListaReservas extends javax.swing.JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == TxtBuscar) {
-                ListaReservas.this.TxtBuscarActionPerformed(evt);
-            }
-            else if (evt.getSource() == BtnBuscar) {
+            if (evt.getSource() == BtnBuscar) {
                 ListaReservas.this.BtnBuscarActionPerformed(evt);
             }
             else if (evt.getSource() == BtnEditar) {
@@ -140,9 +133,6 @@ public class ListaReservas extends javax.swing.JPanel {
             }
             else if (evt.getSource() == BtnBorrar) {
                 ListaReservas.this.BtnBorrarActionPerformed(evt);
-            }
-            else if (evt.getSource() == CboxBuscar) {
-                ListaReservas.this.CboxBuscarActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -316,10 +306,6 @@ public class ListaReservas extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Error al buscar reservas");
     }
 }
-    private void TxtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtBuscarActionPerformed
-
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         try {
             this.buscar();
@@ -340,10 +326,6 @@ public class ListaReservas extends javax.swing.JPanel {
         }
         this.refrescar();
     }//GEN-LAST:event_BtnEditarActionPerformed
-
-    private void CboxBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboxBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CboxBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
