@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author mi pc
+ * @author rocio
  */
 public class NuevaHabitacion extends javax.swing.JPanel {
 
@@ -26,7 +26,7 @@ public class NuevaHabitacion extends javax.swing.JPanel {
      * Creates new form NuevaHabitacion
      */
     private HabitacionController habitacionController;
-    private HabitacionDTO habitacionDTO;
+  
     
    
     
@@ -139,7 +139,6 @@ public class NuevaHabitacion extends javax.swing.JPanel {
         CboxSimple.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         CboxSimple.setForeground(new java.awt.Color(0, 0, 0));
         CboxSimple.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "0", "1", "2", "3" }));
-        CboxSimple.addActionListener(formListener);
         add(CboxSimple, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 182, -1, -1));
 
         lblCamaSimple.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
@@ -178,18 +177,11 @@ public class NuevaHabitacion extends javax.swing.JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == CboxSimple) {
-                NuevaHabitacion.this.CboxSimpleActionPerformed(evt);
-            }
-            else if (evt.getSource() == Guardar) {
+            if (evt.getSource() == Guardar) {
                 NuevaHabitacion.this.GuardarActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
-
-    private void CboxSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboxSimpleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CboxSimpleActionPerformed
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         try {

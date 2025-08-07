@@ -46,23 +46,13 @@ public class ReservaDAO implements Icrud<Reserva> {
      */
     private static Conexion cnn = Conexion.iniciarConnection();
 
-    /**
-     * DAO para gestionar operaciones relacionadas con Pasajero.
-     */
-    private PasajeroDAO pasajeroDAO;
-
-    /**
-     * DAO para gestionar operaciones relacionadas con Habitacion.
-     */
-    private HabitacionDAO habitacionDAO;
+   
 
     /**
      * Constructor privado para implementar el patrón Singleton. Inicializa las
      * dependencias {@link PasajeroDAO} y {@link HabitacionDAO}.
      */
     private ReservaDAO() {
-        this.pasajeroDAO = PasajeroDAO.getInstancia();
-        this.habitacionDAO = HabitacionDAO.getInstancia();
     }
 
     /**
