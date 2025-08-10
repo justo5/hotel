@@ -270,7 +270,7 @@ public class ReservaDAO implements Icrud<Reserva> {
                 + "FROM reserva r "
                 + "JOIN pasajero p ON r.id_pasajero = p.id "
                 + "JOIN habitacion h ON r.id_habitacion = h.id "
-                + "WHERE DATE_FORMAT(r.checkin, '%Y-%m-%d') LIKE ?";
+                + "WHERE DATE_FORMAT(r.checkin, '%Y-%m-%d') = ?";
 
         try (PreparedStatement stmt = cnn.getCo().prepareStatement(sql)) {
             stmt.setString(1, "%" + termino + "%");
@@ -304,7 +304,7 @@ public class ReservaDAO implements Icrud<Reserva> {
                 + "FROM reserva r "
                 + "JOIN pasajero p ON r.id_pasajero = p.id "
                 + "JOIN habitacion h ON r.id_habitacion = h.id "
-                + "WHERE DATE_FORMAT(r.checkout, '%Y-%m-%d') LIKE ?";
+                + "WHERE DATE_FORMAT(r.checkout, '%Y-%m-%d') = ?";
 
         try (PreparedStatement stmt = cnn.getCo().prepareStatement(sql)) {
             stmt.setString(1, "%" + termino + "%");
@@ -338,7 +338,7 @@ public class ReservaDAO implements Icrud<Reserva> {
                 + "FROM reserva r "
                 + "JOIN pasajero p ON r.id_pasajero = p.id "
                 + "JOIN habitacion h ON r.id_habitacion = h.id "
-                + "WHERE h.numero LIKE ?";
+                + "WHERE h.numero = ?";
 
         try (PreparedStatement stmt = cnn.getCo().prepareStatement(sql)) {
             stmt.setString(1, "%" + termino + "%");
