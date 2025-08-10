@@ -4,15 +4,9 @@
  */
 package com.mycompany.hotel.view;
 
-import java.awt.event.ActionEvent;
-import java.io.File;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JMenuItem;
-
 /**
  *
- * @author mi pc
+ * @author rocio
  */
 public class Principal extends javax.swing.JFrame {
 
@@ -27,9 +21,7 @@ public class Principal extends javax.swing.JFrame {
        
     }
     
-    private Icon getIcono(String ruta){
-        return new ImageIcon(new ImageIcon(getClass().getResource(ruta)).getImage().getScaledInstance(30, 30,0));
-    }
+   
     
 
     /**
@@ -57,7 +49,7 @@ public class Principal extends javax.swing.JFrame {
         FormListener formListener = new FormListener();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Hotel \"Titos\"");
+        setTitle("Gestion Hotelera");
         setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setResizable(false);
@@ -65,8 +57,6 @@ public class Principal extends javax.swing.JFrame {
         MenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/configuracion-del-hogar.png"))); // NOI18N
         MenuPrincipal.setText("  ");
         MenuPrincipal.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        MenuPrincipal.addActionListener(formListener);
-        MenuPrincipal.addKeyListener(formListener);
 
         OpInicio.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         OpInicio.setText("Inicio");
@@ -141,10 +131,13 @@ public class Principal extends javax.swing.JFrame {
 
     // Code for dispatching events from components to event handlers.
 
-    private class FormListener implements java.awt.event.ActionListener, java.awt.event.KeyListener {
+    private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == OpListaReserva) {
+            if (evt.getSource() == OpInicio) {
+                Principal.this.OpInicioActionPerformed(evt);
+            }
+            else if (evt.getSource() == OpListaReserva) {
                 Principal.this.OpListaReservaActionPerformed(evt);
             }
             else if (evt.getSource() == OpRealizarReserva) {
@@ -162,24 +155,6 @@ public class Principal extends javax.swing.JFrame {
             else if (evt.getSource() == OpCargarPasajero) {
                 Principal.this.OpCargarPasajeroActionPerformed(evt);
             }
-            else if (evt.getSource() == MenuPrincipal) {
-                Principal.this.MenuPrincipalActionPerformed(evt);
-            }
-            else if (evt.getSource() == OpInicio) {
-                Principal.this.OpInicioActionPerformed(evt);
-            }
-        }
-
-        public void keyPressed(java.awt.event.KeyEvent evt) {
-            if (evt.getSource() == MenuPrincipal) {
-                Principal.this.MenuPrincipalKeyPressed(evt);
-            }
-        }
-
-        public void keyReleased(java.awt.event.KeyEvent evt) {
-        }
-
-        public void keyTyped(java.awt.event.KeyEvent evt) {
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -212,14 +187,6 @@ public class Principal extends javax.swing.JFrame {
         this.setContentPane(new ListaReservas());
         pack();
     }//GEN-LAST:event_OpListaReservaActionPerformed
-
-    private void MenuPrincipalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MenuPrincipalKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuPrincipalKeyPressed
-
-    private void MenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPrincipalActionPerformed
-      
-    }//GEN-LAST:event_MenuPrincipalActionPerformed
 
     private void OpInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpInicioActionPerformed
        this.setContentPane(new PanelPrincipal());

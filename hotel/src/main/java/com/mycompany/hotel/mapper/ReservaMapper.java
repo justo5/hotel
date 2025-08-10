@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.hotel.mapper;
 
 import com.mycompany.hotel.dto.ReservaDTO;
@@ -12,11 +9,34 @@ import com.mycompany.hotel.model.Reserva;
 import java.sql.Date;
 
 /**
+ * Clase encargada de realizar la conversión entre la entidad {@link Reserva} 
+ * y su versión {@link ReservaDTO}.
+ * <p>
+ * Implementa la interfaz {@link IMapper} definiendo los métodos para:
+ * <ul>
+ *   <li>Transformar de entidad a DTO.</li>
+ *   <li>Transformar de DTO a entidad.</li>
+ * </ul>
+ * </p>
  *
- * @author mi pc
+ * <p>Este mapper permite aislar la capa de presentación de la estructura interna
+ * de las entidades y manejar datos simplificados para transferencias.</p>
+ * 
+ * @author Rocio
  */
 public class ReservaMapper implements IMapper<Reserva,ReservaDTO> {
-
+    
+     /**
+     * Convierte una entidad {@link Reserva} en su equivalente {@link ReservaDTO}.
+     * <p>
+     * Solo se incluyen los datos necesarios para transporte, como IDs de relaciones
+     * y campos primitivos. No se cargan datos completos de {@link Pasajero} o {@link Habitacion}.
+     * </p>
+     *
+     * @param entity entidad {@link Reserva} a convertir.
+     * @return un {@link ReservaDTO} con la información de la reserva,
+     *         o {@code null} si la entidad es nula.
+     */
     @Override
     public ReservaDTO toDTO(Reserva entity) {
         if (entity == null) {
@@ -38,7 +58,18 @@ public class ReservaMapper implements IMapper<Reserva,ReservaDTO> {
 
         return dto;
     }
-
+    
+     /**
+     * Convierte un {@link ReservaDTO} en su equivalente entidad {@link Reserva}.
+     * <p>
+     * Se crean instancias mínimas de {@link Pasajero} y {@link Habitacion} con solo su ID.
+     * Esto evita cargar información extra innecesaria en esta etapa.
+     * </p>
+     *
+     * @param dto objeto {@link ReservaDTO} a convertir.
+     * @return la entidad {@link Reserva} correspondiente,
+     *         o {@code null} si el DTO es nulo.
+     */
     @Override
     public Reserva toEntity(ReservaDTO dto) {
         if (dto == null) return null;

@@ -1,15 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.hotel.model;
 
 import java.util.Date;
 import java.util.Objects;
 
 /**
+ * Representa una reserva en el sistema del hotel.
+ * <p>
+ * Una reserva está compuesta por:
+ * <ul>
+ *   <li>ID único</li>
+ *   <li>Fecha de check-in</li>
+ *   <li>Fecha de check-out</li>
+ *   <li>Pasajero asociado</li>
+ *   <li>Habitación asignada</li>
+ *   <li>Seña abonada</li>
+ * </ul>
+ * </p>
  *
- * @author justcode
+ * <p>
+ * Esta clase forma parte de la capa de modelo y se utiliza para mapear 
+ * los datos almacenados en la base de datos a objetos Java.
+ * </p>
+ * 
+ * @author Rocio
  */
 public class Reserva {
     private int id; 

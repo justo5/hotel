@@ -49,9 +49,6 @@
           <Font name="SansSerif" size="24" style="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TxtBuscarActionPerformed"/>
-      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="466" y="52" width="286" height="39"/>
@@ -210,18 +207,16 @@
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
+          <StringArray count="6">
             <StringItem index="0" value="Seleccione Filtro"/>
-            <StringItem index="1" value="Checkin"/>
-            <StringItem index="2" value="Checkout"/>
-            <StringItem index="3" value="Habitacion"/>
-            <StringItem index="4" value="Pasajero"/>
+            <StringItem index="1" value="#ID"/>
+            <StringItem index="2" value="Checkin"/>
+            <StringItem index="3" value="Checkout"/>
+            <StringItem index="4" value="Habitacion"/>
+            <StringItem index="5" value="Pasajero"/>
           </StringArray>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CboxBuscarActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

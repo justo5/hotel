@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author mi pc
+ * @author rocio
  */
 public class NuevaReserva extends javax.swing.JPanel {
 
@@ -31,7 +31,6 @@ public class NuevaReserva extends javax.swing.JPanel {
      * Creates new form NuevaReserva
      */
     private ReservaController reservaController;
-    private ReservaDTO reservaDTO;
     private PasajeroController pasajeroController;
     private HabitacionController habitacionController;
 
@@ -303,7 +302,6 @@ public class NuevaReserva extends javax.swing.JPanel {
 
         CboxHabitaciones.setBackground(new java.awt.Color(204, 204, 204));
         CboxHabitaciones.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        CboxHabitaciones.addActionListener(formListener);
         add(CboxHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 390, 377, 39));
 
         LblCheckin.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
@@ -329,7 +327,6 @@ public class NuevaReserva extends javax.swing.JPanel {
 
         TxtSeña.setBackground(new java.awt.Color(204, 204, 204));
         TxtSeña.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        TxtSeña.addActionListener(formListener);
         add(TxtSeña, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 455, 364, 39));
 
         LblId.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
@@ -364,12 +361,6 @@ public class NuevaReserva extends javax.swing.JPanel {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             if (evt.getSource() == BtnNuevoPasajero) {
                 NuevaReserva.this.BtnNuevoPasajeroActionPerformed(evt);
-            }
-            else if (evt.getSource() == CboxHabitaciones) {
-                NuevaReserva.this.CboxHabitacionesActionPerformed(evt);
-            }
-            else if (evt.getSource() == TxtSeña) {
-                NuevaReserva.this.TxtSeñaActionPerformed(evt);
             }
             else if (evt.getSource() == TxtDniPasajero) {
                 NuevaReserva.this.TxtDniPasajeroActionPerformed(evt);
@@ -411,14 +402,6 @@ public class NuevaReserva extends javax.swing.JPanel {
     private void TxtCantidadPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtCantidadPersonasActionPerformed
        this.CargarHabitacionesDisponibles();
     }//GEN-LAST:event_TxtCantidadPersonasActionPerformed
-
-    private void TxtSeñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtSeñaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtSeñaActionPerformed
-
-    private void CboxHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboxHabitacionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CboxHabitacionesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

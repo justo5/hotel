@@ -6,7 +6,6 @@ package com.mycompany.hotel.view;
 
 import com.mycompany.hotel.controller.PasajeroController;
 import com.mycompany.hotel.dto.PasajeroDTO;
-import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,12 +14,12 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author mi pc
+ * @author rocio
  */
 public class NuevoPasajero extends javax.swing.JPanel {
 
     private PasajeroController pasajeroController;
-    private PasajeroDTO pasajeroDto;
+   
 
     public NuevoPasajero(JTextField txtApellido, JTextField txtCorreo, JTextField txtDni, JTextField txtNombre, JTextField txtTelefono) {
         this.txtApellido = txtApellido;
@@ -131,7 +130,6 @@ public class NuevoPasajero extends javax.swing.JPanel {
 
         txtTelefono.setBackground(new java.awt.Color(204, 204, 204));
         txtTelefono.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        txtTelefono.addActionListener(formListener);
         add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 273, 351, -1));
 
         lblTelefono.setBackground(new java.awt.Color(224, 224, 224));
@@ -152,7 +150,6 @@ public class NuevoPasajero extends javax.swing.JPanel {
 
         txtApellido.setBackground(new java.awt.Color(204, 204, 204));
         txtApellido.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        txtApellido.addActionListener(formListener);
         add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 182, 741, -1));
 
         lblDni1.setBackground(new java.awt.Color(224, 224, 224));
@@ -163,7 +160,6 @@ public class NuevoPasajero extends javax.swing.JPanel {
 
         txtDni.setBackground(new java.awt.Color(204, 204, 204));
         txtDni.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        txtDni.addActionListener(formListener);
         add(txtDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 273, 338, -1));
 
         lblNombre.setBackground(new java.awt.Color(224, 224, 224));
@@ -192,32 +188,11 @@ public class NuevoPasajero extends javax.swing.JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == txtTelefono) {
-                NuevoPasajero.this.txtTelefonoActionPerformed(evt);
-            }
-            else if (evt.getSource() == txtApellido) {
-                NuevoPasajero.this.txtApellidoActionPerformed(evt);
-            }
-            else if (evt.getSource() == txtDni) {
-                NuevoPasajero.this.txtDniActionPerformed(evt);
-            }
-            else if (evt.getSource() == BtnGuardar) {
+            if (evt.getSource() == BtnGuardar) {
                 NuevoPasajero.this.BtnGuardarActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
-
-    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoActionPerformed
-
-    private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDniActionPerformed
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
 

@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author mi pc
+ * @author rocio
  */
 public class ListaHabitaciones extends javax.swing.JPanel {
 
@@ -24,7 +24,7 @@ public class ListaHabitaciones extends javax.swing.JPanel {
      * Creates new form ListaHabitaciones
      */
     private HabitacionController habitacionController;
-    private HabitacionDTO habitacionDTO;
+    
     
     public ListaHabitaciones() {
         this.habitacionController = new HabitacionController();
