@@ -141,34 +141,6 @@ public class PasajeroDAO implements Icrud<Pasajero> {
     }
     
     /**
-     * Elimina un pasajero específico de la base de datos y de la lista en memoria.
-     * @param dato Pasajero a eliminar.
-     * @throws SQLException si ocurre un error durante la eliminación.
-     */
-    @Override
-    public void borrar(Pasajero dato) throws SQLException {
-        String DELETE = "DELETE FROM pasajero WHERE id = ? AND nombre = ? AND apellido = ? AND DNI = ? AND telefono = ? AND email = ?";
-        try (PreparedStatement stat = cnn.getCo().prepareStatement(DELETE)) {
-            stat.setInt(1, dato.getId());
-            stat.setString(2, dato.getNombre());
-            stat.setString(3, dato.getApellido());
-            stat.setInt(4, dato.getDNI());
-            stat.setInt(5, dato.getTelefono());
-            stat.setString(6, dato.getEmail());
-
-            if (stat.executeUpdate() == 0) {
-                throw new SQLException("Puede que no se haya borrado");
-            }
-
-            pasajeros.remove(dato);
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(PasajeroDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } finally {
-            cnn.cerrarConexion();
-        }
-    }
-
-    /**
      * Elimina un pasajero de la base de datos según su ID.
      * @param id ID del pasajero a eliminar.
      * @throws SQLException si ocurre un error durante la eliminación.

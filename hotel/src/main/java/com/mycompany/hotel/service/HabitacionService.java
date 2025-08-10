@@ -57,16 +57,6 @@ public class HabitacionService {
     }
 
 /**
- * Borra una habitación en base al DTO recibido.
- * @param dto : Datos de la habitación a eliminar.
- * @throws SQLException : Utilizada si ocurre un error al consultar en la base de datos.
- */    
-    public void borrarHabitacion(HabitacionDTO dto) throws SQLException {
-        Habitacion habitacion = habitacionMapper.toEntity(dto);
-        habitacionDAO.borrar(habitacion);
-    }
-
-/**
  * Borra una habitación por su ID.
  * @param id : ID de la habitación a borrar.
  * @throws SQLException : Utilizada si ocurre un error al consultar en la base de datos.

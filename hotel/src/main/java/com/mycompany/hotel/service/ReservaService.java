@@ -86,20 +86,6 @@ public class ReservaService {
     }
 
      /**
-     * Elimina una reserva de la base de datos.
-     *
-     * @param dto objeto {@link ReservaDTO} que representa la reserva a eliminar.
-     * @throws SQLException si ocurre un error en la eliminación.
-     * @throws IllegalArgumentException si el DTO es nulo o el ID es inválido.
-     */
-    public void borrarReserva(ReservaDTO dto) throws SQLException {
-        if (dto == null || dto.getId() <= 0) {
-            throw new IllegalArgumentException("La reserva a borrar es inválida.");
-        }
-        reservaDAO.borrar(dto.getId());
-    }
-
-     /**
      * Elimina una reserva por su ID.
      *
      * @param id identificador de la reserva.
@@ -121,7 +107,7 @@ public class ReservaService {
      * @throws SQLException si ocurre un error en la actualización.
      * @throws IllegalArgumentException si los datos son inválidos.
      */
-    public void actualizarReserva(ReservaDTO dto, int id) throws SQLException {
+    public void actualizarReserva(ReservaDTO dto, int id) throws SQLException { 
         if (dto == null || id <= 0) {
             throw new IllegalArgumentException("Datos inválidos para actualizar la reserva.");
         }

@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -58,16 +57,6 @@ public class HabitacionController implements Icrud<HabitacionDTO> {
     @Override
     public void actualizar(HabitacionDTO dato, int id) throws SQLException {
        habitacionService.actualizarHabitacion(dato, id);
-    }
-
-/**
- * Borra una habitación utilizando su DTO.
- * @param dato : DTO de la habitación a eliminar.
- * @throws SQLException :  Utilizado si ocurre un error de base de datos.
- */    
-    @Override
-    public void borrar(HabitacionDTO dato) throws SQLException {
-       habitacionService.borrarHabitacion(dato);    
     }
     
 /**

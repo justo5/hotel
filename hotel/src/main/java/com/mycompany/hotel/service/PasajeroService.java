@@ -51,16 +51,6 @@ public class PasajeroService {
         pasajeroDAO.crear(pasajero);
     }
 
-    /**
-     * Borra un pasajero utilizando un DTO.
-     * 
-     * @param dto Datos del pasajero a borrar.
-     * @throws SQLException Si ocurre un error al acceder a la base de datos.
-     */
-    public void borrarPasajero(PasajeroDTO dto) throws SQLException {
-        Pasajero pasajero = pasajeroMapper.toEntity(dto);
-        pasajeroDAO.borrar(pasajero);
-    }
 
     /**
      * Borra un pasajero por su ID.

@@ -135,17 +135,6 @@ public class ReservaDAO implements Icrud<Reserva> {
     }
 
     /**
-     * Elimina una reserva de la base de datos.
-     *
-     * @param dato la reserva a eliminar.
-     * @throws SQLException si ocurre un error en la eliminación.
-     */
-    @Override
-    public void borrar(Reserva dato) throws SQLException {
-        borrar(dato.getId());
-    }
-
-    /**
      * Elimina una reserva según su ID.
      *
      * @param id identificador de la reserva.

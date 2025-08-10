@@ -79,21 +79,6 @@ public class ReservaController implements Icrud<ReservaDTO> {
         }
     }
 
-    /**
-     * Elimina una reserva usando un objeto {@link ReservaDTO}.
-     *
-     * @param dato reserva a eliminar.
-     * @throws SQLException si ocurre un error en la base de datos.
-     */
-    @Override
-    public void borrar(ReservaDTO dato) throws SQLException {
-         try {
-            reservaService.borrarReserva(dato);
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al borrar la reserva: " + e.getMessage(), e);
-            throw e;
-        }
-    }
 
     /**
      * Elimina una reserva por su ID.

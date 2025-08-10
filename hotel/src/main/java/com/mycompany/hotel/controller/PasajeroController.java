@@ -61,17 +61,6 @@ public class PasajeroController implements Icrud<PasajeroDTO> {
     }
 
     /**
-     * Elimina un pasajero del sistema.
-     * 
-     * @param dato Objeto PasajeroDTO que representa al pasajero a eliminar
-     * @throws SQLException Si ocurre un error al acceder a la base de datos
-     */
-    @Override
-    public void borrar(PasajeroDTO dato) throws SQLException {
-        pasajeroService.borrarPasajero(dato);
-    }
-
-    /**
      * Elimina un pasajero del sistema según su ID.
      * 
      * @param id ID del pasajero a eliminar

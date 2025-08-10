@@ -16,8 +16,6 @@ public interface Icrud<T> {
    
     public abstract void actualizar(T dato, int id)throws SQLException;
 
-    public abstract void borrar(T dato)throws SQLException;
-
     public abstract void borrar(int id)throws SQLException;
 
     public abstract T recuperarPorId(int id)throws SQLException;

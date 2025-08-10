@@ -114,35 +114,6 @@ public class HabitacionDAO implements Icrud<Habitacion> {
     }
 
 /**
- * Elimina una habitación específica según sus atributos.
- * @param dato : Objeto Habitacion a eliminar.
- * @throws SQLException : Utilizado por si ocurre un error en la operación de actualización.
- */    
-    @Override
-    public void borrar(Habitacion dato) throws SQLException {
-        PreparedStatement stat = null;
-        String DELETE = "DELETE from habitacion WHERE id = ? AND numero = ? AND camasSimples = ? AND camasDobles = ? AND precioPorNoche = ? ;";
-        try {
-            stat = cnn.getCo().prepareStatement(DELETE);
-            stat.setInt(1, dato.getId());
-            stat.setString(2, dato.getNumero());
-            stat.setInt(3, dato.getCamasSimples());
-            stat.setInt(4, dato.getCamasDobles());
-            stat.setBigDecimal(4, dato.getPrecioPorNoche());
-
-            if (stat.executeUpdate() == 0) {
-                throw new SQLException("Puede que no se haya borrado");
-            }
-            habitaciones.remove(dato);
-
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(HabitacionDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } finally {
-            cnn.cerrarConexion();
-        }
-    }
-    
-/**
  *  Elimina una habitación según su ID.
  * @param id : Identificador de la habitación a eliminar.
  * @throws SQLException : Utilizado por si ocurre un error en la operación de actualización.
@@ -229,7 +200,7 @@ public class HabitacionDAO implements Icrud<Habitacion> {
  * @return : Retorna una Lista de habitaciones que coinciden.
  */
     public List<Habitacion> buscarPorNumero(String numero){
-        String SELECTBYNUMERO = "SELECT id,numero,camasSimples,camasDobles,precioPorNoche FROM habitacion WHERE numero LIKE ?";
+        String SELECTBYNUMERO = "SELECT id,numero,camasSimples,camasDobles,precioPorNoche FROM habitacion WHERE numero=?";
         PreparedStatement stat = null;
         ResultSet rs = null;
         List<Habitacion> habitaciones = new ArrayList();
@@ -261,7 +232,7 @@ public class HabitacionDAO implements Icrud<Habitacion> {
  * @return : Retorna una Lista de habitaciones coincidentes.
  */
     public List<Habitacion> buscarPorPrecio(String precio){
-        String SELECTBYPRECIO = "SELECT id,numero,camasSimples,camasDobles,precioPorNoche FROM habitacion WHERE precioPorNoche LIKE ?";
+        String SELECTBYPRECIO = "SELECT id,numero,camasSimples,camasDobles,precioPorNoche FROM habitacion WHERE precioPorNoche = ?";
         PreparedStatement stat = null;
         ResultSet rs = null;
         List<Habitacion> habitaciones = new ArrayList();
