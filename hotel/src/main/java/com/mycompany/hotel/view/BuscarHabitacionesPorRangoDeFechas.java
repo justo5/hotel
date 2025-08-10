@@ -194,7 +194,7 @@ public class BuscarHabitacionesPorRangoDeFechas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-          buscarHabitacionesPorFecha();
+        buscarHabitacionesPorFecha();
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void CBoxCantidadDePersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBoxCantidadDePersonasActionPerformed
